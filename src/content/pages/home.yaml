@@ -3,7 +3,7 @@ hero:
   subheading: "It's a Good Day to have a good day"
   ctaLabel: "See Our Menu"
   ctaHref: "/menu"
-  videoUrl: ""
+  videoUrl: "/videos/landing_bg.mp4"
 
 featuredDrink:
   badge: "June Featured Drink"
