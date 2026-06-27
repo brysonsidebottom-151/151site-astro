@@ -1,4 +1,5 @@
 import { defineStackbitConfig, SiteMapEntry } from '@stackbit/types';
+import { GitContentSource } from '@stackbit/cms-git';
 
 export default defineStackbitConfig({
   stackbitVersion: '~0.6.0',
@@ -6,18 +7,29 @@ export default defineStackbitConfig({
   nodeVersion: '22',
 
   contentSources: [
-    {
-      name: 'files',
-      type: 'files',
-      rootPath: 'src/content',
+    new GitContentSource({
+      rootPath: __dirname,
+      contentDirs: ['src/content'],
+      assetsConfig: {
+        referenceType: 'static',
+        staticDir: 'public',
+        uploadDir: 'images/uploads',
+        publicPath: '/',
+      },
       models: [
         {
           name: 'pages/home',
           type: 'page',
-          filePath: 'pages/home.yaml',
+          filePath: 'src/content/pages/home.yaml',
           urlPath: '/',
           fields: [
-            { name: 'hero', type: 'model', modelName: 'HeroSection' },
+            { name: 'hero', type: 'object', fields: [
+              { name: 'heading', type: 'string' },
+              { name: 'subheading', type: 'string' },
+              { name: 'ctaLabel', type: 'string' },
+              { name: 'ctaHref', type: 'string' },
+              { name: 'videoUrl', type: 'string' },
+            ]},
             { name: 'featuredDrink', type: 'object', fields: [
               { name: 'badge', type: 'string' },
               { name: 'name', type: 'string' },
@@ -79,7 +91,7 @@ export default defineStackbitConfig({
         {
           name: 'pages/about',
           type: 'page',
-          filePath: 'pages/about.yaml',
+          filePath: 'src/content/pages/about.yaml',
           urlPath: '/about',
           fields: [
             { name: 'hero', type: 'object', fields: [
@@ -131,7 +143,7 @@ export default defineStackbitConfig({
         {
           name: 'drink',
           type: 'data',
-          filePath: 'drinks/{slug}.yaml',
+          filePath: 'src/content/drinks/{slug}.yaml',
           fields: [
             { name: 'name', type: 'string', required: true },
             { name: 'category', type: 'enum', options: { values: ['Coffee','Cold Brew','Energy','Dirty Pop','Refreshers','Smoothies','Teas','Kids','Hot Food','Treats'] } },
@@ -145,7 +157,7 @@ export default defineStackbitConfig({
         {
           name: 'location',
           type: 'data',
-          filePath: 'locations/{slug}.yaml',
+          filePath: 'src/content/locations/{slug}.yaml',
           fields: [
             { name: 'name', type: 'string', required: true },
             { name: 'address', type: 'string' },
@@ -160,7 +172,7 @@ export default defineStackbitConfig({
         {
           name: 'settings/global',
           type: 'data',
-          filePath: 'settings/global.yaml',
+          filePath: 'src/content/settings/global.yaml',
           fields: [
             { name: 'phone', type: 'string' },
             { name: 'hours', type: 'string' },
@@ -175,7 +187,7 @@ export default defineStackbitConfig({
           ],
         },
       ],
-    },
+    }),
   ],
 
   siteMap: ({ documents, utils }): SiteMapEntry[] => {
