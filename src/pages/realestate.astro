@@ -8,51 +8,138 @@ const entry = await getEntry('pages', 'realestate');
 const p = entry!.data as any;
 ---
 <Layout
-  title="Real Estate - 151 Coffee | Site Criteria & Expansion"
-  description="151 Coffee is expanding rapidly. If you have a site that fits our drive-thru criteria, we want to hear from you."
+  title="Real Estate & Site Development | 151 Coffee Drive-Thru Expansion"
+  description="151 Coffee is expanding across Texas and Kansas. Seeking drive-thru pad sites of 25,000+ sq ft with 30,000+ VPD. See our site criteria and submit your property."
+  ogImage="https://www.151coffee.com/images/store1.jpg"
 >
+  <style is:global slot="head">
+    .re-hero { margin-top: 58px; background-color: #e63946; background-image: radial-gradient(rgba(255,255,255,0.18) 2px, transparent 2.5px); background-size: 26px 26px; position: relative; padding: 6rem 0 5rem; text-align: center; }
+    .re-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 60% at 50% 0%, rgba(255,255,255,0.22) 0%, transparent 55%), radial-gradient(120% 60% at 50% 100%, rgba(255,255,255,0.14) 0%, transparent 55%), radial-gradient(60% 100% at 0% 50%, rgba(255,255,255,0.10) 0%, transparent 55%), radial-gradient(60% 100% at 100% 50%, rgba(255,255,255,0.10) 0%, transparent 55%); pointer-events: none; }
+    .re-hero-content { position: relative; z-index: 1; }
+    .re-hero .eyebrow { display: inline-block; font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.30); padding: 0.3rem 0.9rem; border-radius: 999px; }
+    .re-hero h1 { font-size: clamp(2.8rem, 6vw, 5rem); color: #fff; line-height: 1; margin-bottom: 0.75rem; }
+    .re-hero p { font-family: 'Inter', sans-serif; font-size: 1.05rem; color: rgba(255,255,255,0.82); max-width: 540px; margin: 0 auto 2rem; line-height: 1.6; }
+    .re-hero a.btn-white { display: inline-block; background: #fff; color: var(--red); padding: 0.85rem 2.2rem; border-radius: var(--radius-pill); font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; box-shadow: 0 4px 18px rgba(0,0,0,0.18); transition: transform 0.2s, box-shadow 0.2s; }
+    .re-hero a.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.25); }
+    .re-overview { background: var(--black); padding: var(--section-pad); }
+    .re-overview-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .re-overview-text h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); color: #fff; line-height: 1.1; margin-bottom: 1.25rem; }
+    .re-overview-text h2 span { color: var(--red); }
+    .re-overview-text p { font-family: 'Inter', sans-serif; font-size: 1rem; line-height: 1.75; color: rgba(255,255,255,0.62); margin-bottom: 1rem; }
+    .re-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2rem; }
+    .re-stat { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 1.25rem 1.4rem; transition: border-color 0.2s; }
+    .re-stat:hover { border-color: rgba(230,57,70,0.35); }
+    .re-stat-num { font-size: 1.9rem; font-weight: 900; color: var(--red); line-height: 1; margin-bottom: 0.3rem; }
+    .re-stat-label { font-family: 'Inter', sans-serif; font-size: 0.78rem; color: rgba(255,255,255,0.50); font-weight: 600; letter-spacing: 0.04em; }
+    .re-map-img { border-radius: var(--radius); overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); position: relative; background: #1a1a1a; min-height: 380px; display: flex; align-items: center; justify-content: center; }
+    .re-map-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .re-map-img::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); pointer-events: none; }
+    .re-criteria { background: #161616; padding: var(--section-pad); }
+    .re-criteria .section-header h1 { color: #fff; }
+    .re-criteria .section-header p { font-family: 'Inter', sans-serif; font-size: 1rem; color: rgba(255,255,255,0.55); margin-top: 0.75rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .criteria-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
+    .criteria-card { background: linear-gradient(165deg, rgba(28,22,23,0.85) 0%, rgba(18,14,15,0.70) 100%); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 2rem 1.75rem; transition: border-color 0.22s, box-shadow 0.22s; }
+    .criteria-card:hover { border-color: rgba(230,57,70,0.40); box-shadow: 0 8px 32px rgba(230,57,70,0.10); }
+    .criteria-icon { font-size: 2rem; margin-bottom: 1.1rem; display: block; }
+    .criteria-card h3 { font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; color: #fff; text-transform: none; letter-spacing: normal; margin-bottom: 0.6rem; }
+    .criteria-card p { font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.65; color: rgba(255,255,255,0.52); margin: 0; }
+    .re-ideal { background-color: #e63946; background-image: radial-gradient(rgba(255,255,255,0.18) 2px, transparent 2.5px); background-size: 26px 26px; position: relative; padding: var(--section-pad); }
+    .re-ideal::before { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 60% at 50% 0%, rgba(255,255,255,0.22) 0%, transparent 55%), radial-gradient(120% 60% at 50% 100%, rgba(255,255,255,0.14) 0%, transparent 55%), radial-gradient(60% 100% at 0% 50%, rgba(255,255,255,0.10) 0%, transparent 55%), radial-gradient(60% 100% at 100% 50%, rgba(255,255,255,0.10) 0%, transparent 55%); pointer-events: none; }
+    .re-ideal .container { position: relative; z-index: 1; }
+    .re-ideal .section-header h1 { color: #fff; }
+    .ideal-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 2.5rem; max-width: 860px; margin-left: auto; margin-right: auto; }
+    .ideal-item { display: flex; align-items: flex-start; gap: 1rem; background: rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.18); border-radius: 14px; padding: 1.25rem 1.4rem; backdrop-filter: blur(8px); }
+    .ideal-check { flex-shrink: 0; width: 22px; height: 22px; background: rgba(255,255,255,0.22); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 0.1rem; }
+    .ideal-check svg { width: 12px; height: 12px; stroke: #fff; stroke-width: 2.5; fill: none; }
+    .ideal-item p { font-family: 'Inter', sans-serif; font-size: 0.9rem; line-height: 1.55; color: rgba(255,255,255,0.88); margin: 0; }
+    .re-locations { background: var(--black); padding: var(--section-pad); }
+    .re-locations .section-header h1 { color: #fff; }
+    .re-locations .section-header p { font-family: 'Inter', sans-serif; font-size: 1rem; color: rgba(255,255,255,0.52); margin-top: 0.75rem; }
+    .re-location-tags { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 2.5rem; justify-content: center; }
+    .re-location-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10); border-radius: 999px; padding: 0.45rem 1.1rem; font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.70); transition: border-color 0.2s, color 0.2s; }
+    .re-location-tag:hover { border-color: var(--red); color: #fff; }
+    .re-location-tag.expanding { background: rgba(230,57,70,0.12); border-color: rgba(230,57,70,0.35); color: var(--red); }
+    .re-contact { background: #161616; padding: var(--section-pad); }
+    .re-contact .section-header h1 { color: #fff; }
+    .re-contact-inner { max-width: 760px; margin: 3rem auto 0; }
+    .re-contact-or { text-align: center; font-family: 'Inter', sans-serif; font-size: 0.82rem; color: rgba(255,255,255,0.35); margin: 1.5rem 0 0.5rem; }
+    .re-contact-email { display: block; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--red); text-decoration: none; transition: opacity 0.2s; }
+    .re-contact-email:hover { opacity: 0.8; }
+    @media (max-width: 900px) {
+      .re-overview-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .criteria-grid { grid-template-columns: 1fr 1fr; }
+      .ideal-list { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .criteria-grid { grid-template-columns: 1fr; }
+      .re-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+
   <Nav active="realestate" />
 
   <section class="re-hero">
-    <div class="container">
-      <span class="eyebrow" data-sb-field-path="hero.eyebrow">{p.hero?.eyebrow}</span>
-      <h1 data-sb-field-path="hero.heading">{p.hero?.heading}</h1>
-      <p data-sb-field-path="hero.body">{p.hero?.body}</p>
-      <a href={p.hero?.ctaHref} class="btn-primary" data-sb-field-path="hero.ctaLabel">{p.hero?.ctaLabel}</a>
+    <div class="re-hero-content container">
+      <span class="eyebrow" data-sb-field-path="hero.eyebrow">{p.hero?.eyebrow ?? 'Est. 2017'}</span>
+      <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Here We Grow Again.'}</h1>
+      <p data-sb-field-path="hero.body">{p.hero?.body ?? '151 Coffee is expanding rapidly across the country. If you have a site that fits our criteria, we want to hear from you.'}</p>
+      <a href={p.hero?.ctaHref ?? '#contact'} class="btn-white" data-sb-field-path="hero.ctaLabel">{p.hero?.ctaLabel ?? 'Get in Touch'}</a>
     </div>
   </section>
 
   <section class="re-overview">
     <div class="container">
-      <div class="re-overview-grid">
+      <div class="re-overview-inner">
         <div class="re-overview-text">
-          <h2 data-sb-field-path="overview.heading">{p.overview?.heading}</h2>
-          {(p.overview?.body ?? []).map((para: string, i: number) => (
+          <h2>A Brand Built<br>for <span>Fast Growth.</span></h2>
+          {(p.overview?.body ?? [
+            '151 Coffee currently operates 16 locations across the Dallas-Fort Worth metro and Kansas City metro areas, with 4 more stores opening in 2026 and many more in the pipeline.',
+            'Founded and funded by Mark Wattles - who built a 2,000-store retail chain, co-founded HomeAdvisor, and scaled Firebirds Wood Fired Grill to 45 locations - 151 Coffee is built to grow fast without losing what makes it special.',
+          ]).map((para: string, i: number) => (
             <p data-sb-field-path={`overview.body.${i}`}>{para}</p>
           ))}
           <div class="re-stats">
-            {(p.overview?.stats ?? []).map((stat: any, i: number) => (
+            {(p.overview?.stats ?? [
+              { number: '16', label: 'Open Locations' },
+              { number: '4+', label: 'Opening in 2026' },
+              { number: '500', label: 'Goal by 2028' },
+              { number: '950sf', label: 'Building Footprint' },
+            ]).map((stat: any, i: number) => (
               <div class="re-stat" data-sb-field-path={`overview.stats.${i}`}>
-                <span class="re-stat-number" data-sb-field-path="number">{stat.number}</span>
-                <span class="re-stat-label" data-sb-field-path="label">{stat.label}</span>
+                <div class="re-stat-num" data-sb-field-path="number">{stat.number}</div>
+                <div class="re-stat-label" data-sb-field-path="label">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
-        <div class="re-overview-image">
-          <img src={p.overview?.image} alt={p.overview?.imageAlt} data-sb-field-path="overview.image" />
+        <div class="re-map-img">
+          <img loading="lazy" decoding="async"
+            src={p.overview?.image ?? '/images/store1.jpg'}
+            alt={p.overview?.imageAlt ?? '151 Coffee store exterior'}
+            data-sb-field-path="overview.image"
+          />
         </div>
       </div>
     </div>
   </section>
 
-  <section class="re-criteria">
+  <section class="re-criteria" id="criteria">
     <div class="container">
-      <h2 data-sb-field-path="criteria.heading">{p.criteria?.heading}</h2>
-      <p data-sb-field-path="criteria.subheading">{p.criteria?.subheading}</p>
+      <div class="section-header">
+        <h1 data-sb-field-path="criteria.heading">{p.criteria?.heading ?? 'Property Site Criteria'}</h1>
+        <p data-sb-field-path="criteria.subheading">{p.criteria?.subheading ?? 'We need a minimum of 25-30k sq ft of usable land for our prototype 950 sq ft building plus 800 sq ft of covered exterior seating.'}</p>
+      </div>
       <div class="criteria-grid">
-        {(p.criteria?.cards ?? []).map((card: any, i: number) => (
+        {(p.criteria?.cards ?? [
+          { title: 'Building Footprint', body: '950 sq ft kitchen building with an additional 800 sq ft covered patio area. Small footprint, big output.' },
+          { title: 'Land Requirement', body: 'Minimum 25,000 sq ft of usable land. 151 Coffee can fit on pads as small as 25,000 SF - ideal for outparcels and infill sites.' },
+          { title: 'Traffic Count', body: 'Seeking sites with traffic counts greater than 30,000 vehicles per day (VPD) with good ingress and egress.' },
+          { title: 'Drive-Thru Access', body: 'Optimized for drive-thru traffic flow. Easy in, easy out - speed is central to the 151 model.' },
+          { title: 'Target Markets', body: 'Currently expanding in DFW and Kansas City metros. Actively seeking new markets with strong suburban and commuter traffic.' },
+          { title: 'Pad or Ground Lease', body: 'Open to outparcel pads, ground leases, and build-to-suit opportunities. Flexible on deal structure.' },
+        ]).map((card: any, i: number) => (
           <div class="criteria-card" data-sb-field-path={`criteria.cards.${i}`}>
+            <span class="criteria-icon"></span>
             <h3 data-sb-field-path="title">{card.title}</h3>
             <p data-sb-field-path="body">{card.body}</p>
           </div>
@@ -63,22 +150,41 @@ const p = entry!.data as any;
 
   <section class="re-ideal">
     <div class="container">
-      <h2 data-sb-field-path="idealSite.heading">{p.idealSite?.heading}</h2>
-      <ul class="ideal-list">
-        {(p.idealSite?.items ?? []).map((item: string, i: number) => (
-          <li data-sb-field-path={`idealSite.items.${i}`}>{item}</li>
+      <div class="section-header">
+        <h1 data-sb-field-path="idealSite.heading">{p.idealSite?.heading ?? 'Our Ideal Drive-Thru Site'}</h1>
+      </div>
+      <div class="ideal-list">
+        {(p.idealSite?.items ?? [
+          '950 SF kitchen building with 800 SF covered patio',
+          'Pad sites as small as 25,000 SF',
+          'Traffic count greater than 30,000 VPD',
+          'Strong ingress and egress from main road',
+          'High-visibility corner or outparcel location preferred',
+          'Suburban and commuter-heavy demographics',
+        ]).map((item: string, i: number) => (
+          <div class="ideal-item" data-sb-field-path={`idealSite.items.${i}`}>
+            <div class="ideal-check"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></div>
+            <p>{item}</p>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   </section>
 
-  <section class="re-markets">
+  <section class="re-locations">
     <div class="container">
-      <h2 data-sb-field-path="markets.heading">{p.markets?.heading}</h2>
-      <p data-sb-field-path="markets.subheading">{p.markets?.subheading}</p>
-      <div class="market-tags">
-        {(p.markets?.tags ?? []).map((tag: string, i: number) => (
-          <span class="market-tag" data-sb-field-path={`markets.tags.${i}`}>{tag}</span>
+      <div class="section-header">
+        <h1 data-sb-field-path="markets.heading">{p.markets?.heading ?? 'Current & Target Markets'}</h1>
+        <p data-sb-field-path="markets.subheading">{p.markets?.subheading ?? 'Open in DFW and Kansas City. Actively expanding to new metros.'}</p>
+      </div>
+      <div class="re-location-tags">
+        {(p.markets?.tags ?? [
+          'North Richland Hills, TX','Flower Mound, TX','Plano, TX','Roanoke, TX','Haltom City, TX',
+          'Lewisville, TX','Coppell, TX','Keller, TX','Rowlett, TX','Burleson, TX',
+          'Westworth Village, TX','The Colony, TX','Tanger Outlets, TX',
+          'Lawrence, KS','Manhattan, KS','Overland Park, KS','+ New Markets Coming',
+        ]).map((tag: string, i: number) => (
+          <span class={`re-location-tag${tag.startsWith('+') ? ' expanding' : ''}`} data-sb-field-path={`markets.tags.${i}`}>{tag}</span>
         ))}
       </div>
     </div>
@@ -86,29 +192,44 @@ const p = entry!.data as any;
 
   <section class="re-contact" id="contact">
     <div class="container">
-      <h2 data-sb-field-path="contact.heading">{p.contact?.heading}</h2>
-      <div class="contact-form-wrapper">
-        <form class="contact-form">
-          <div class="form-header">
-            <h3 data-sb-field-path="contact.formHeading">{p.contact?.formHeading}</h3>
-            <p data-sb-field-path="contact.formSubtext">{p.contact?.formSubtext}</p>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" placeholder="First" required /></div>
-            <div class="form-group"><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" placeholder="Last" required /></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="john@company.com" required /></div>
-            <div class="form-group"><label for="phone">Phone</label><input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567" /></div>
-          </div>
-          <div class="form-group full-width"><label for="property">Property Address / Market</label><input type="text" id="property" name="property" placeholder="Address or city you're submitting" /></div>
-          <div class="form-group full-width"><label for="details">Site Details</label><textarea id="details" name="details" placeholder="Tell us about your site - size, traffic count, current use, deal structure..."></textarea></div>
-          <button type="submit" class="form-submit" data-sb-field-path="contact.buttonLabel"><span>{p.contact?.buttonLabel}</span></button>
-        </form>
-        <p style="text-align:center;margin-top:1rem;">or email us directly: <a href={`mailto:${p.contact?.email}`} data-sb-field-path="contact.email">{p.contact?.email}</a></p>
+      <div class="section-header">
+        <h1 data-sb-field-path="contact.heading">{p.contact?.heading ?? 'For More Information'}</h1>
+      </div>
+      <div class="re-contact-inner">
+        <div class="contact-form-wrapper">
+          <form class="contact-form" onsubmit="handleRESubmit(event)">
+            <div class="form-header">
+              <h3 data-sb-field-path="contact.formHeading">{p.contact?.formHeading ?? 'Real Estate Inquiry'}</h3>
+              <p data-sb-field-path="contact.formSubtext">{p.contact?.formSubtext ?? 'Contact Mark Wattles directly about site opportunities across our target markets.'}</p>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label for="re-firstName">First Name</label><input type="text" id="re-firstName" placeholder="First" required /></div>
+              <div class="form-group"><label for="re-lastName">Last Name</label><input type="text" id="re-lastName" placeholder="Last" required /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label for="re-email">Email Address</label><input type="email" id="re-email" placeholder="you@company.com" required /></div>
+              <div class="form-group"><label for="re-phone">Phone Number</label><input type="tel" id="re-phone" placeholder="+1 (555) 123-4567" /></div>
+            </div>
+            <div class="form-group full-width"><label for="re-site">Property Address / Market</label><input type="text" id="re-site" placeholder="Address or city you're submitting" /></div>
+            <div class="form-group full-width"><label for="re-message">Site Details</label><textarea id="re-message" placeholder="Tell us about your site - size, traffic count, current use, deal structure..."></textarea></div>
+            <button type="submit" class="form-submit"><span data-sb-field-path="contact.buttonLabel">{p.contact?.buttonLabel ?? 'Submit Inquiry'}</span></button>
+          </form>
+        </div>
+        <div class="re-contact-or">or email us directly</div>
+        <a href={`mailto:${p.contact?.email ?? 'RealEstate@151Coffee.com'}`} class="re-contact-email" data-sb-field-path="contact.email">{p.contact?.email ?? 'RealEstate@151Coffee.com'}</a>
       </div>
     </div>
   </section>
 
   <Footer />
+
+  <script is:inline>
+    function handleRESubmit(e) {
+      e.preventDefault();
+      var btn = e.target.querySelector('.form-submit');
+      btn.textContent = 'Sent!';
+      btn.style.background = '#2a9d5c';
+      setTimeout(function() { btn.textContent = 'Submit Inquiry'; btn.style.background = ''; }, 3000);
+    }
+  </script>
 </Layout>
