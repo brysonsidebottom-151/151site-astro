@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@astrojs/netlify": "^8.0.0",
-    "@stackbit/cms-git": "^1.0.37",
-    "@stackbit/types": "^2.1.15",
+    "@stackbit/cms-git": "1.0.38",
+    "@stackbit/types": "2.1.15",
     "astro": "^7.0.3"
   }
 }
