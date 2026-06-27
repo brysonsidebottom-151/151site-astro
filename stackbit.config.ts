@@ -10,6 +10,12 @@ export default defineStackbitConfig({
     new GitContentSource({
       rootPath: process.cwd(),
       contentDirs: ['src/content'],
+      assetsConfig: {
+        referenceType: 'static',
+        staticDir: 'public',
+        uploadDir: 'images',
+        publicPath: '/',
+      },
       models: [
         {
           name: 'PageHome',
