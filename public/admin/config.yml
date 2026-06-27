@@ -1,0 +1,416 @@
+backend:
+  name: git-gateway
+  branch: master
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+site_url: https://www.151coffee.com
+display_url: https://www.151coffee.com
+
+collections:
+  - name: drinks
+    label: Drinks & Menu Items
+    folder: src/content/drinks
+    create: true
+    delete: true
+    slug: "{{fields.category | downcase | replace(' ', '')}}-{{fields.name | downcase | replace(' ', '-')}}"
+    identifier_field: name
+    summary: "{{name}} — {{category}}"
+    sortable_fields: [category, name, menuOrder]
+    fields:
+      - { name: name, label: Name, widget: string, hint: "The drink's display name" }
+      - name: category
+        label: Category
+        widget: select
+        hint: "Which menu section this drink appears in"
+        options: [Coffee, Cold Brew, Energy, Dirty Pop, Refreshers, Smoothies, Teas, Kids, Hot Food, Treats]
+      - { name: subtitle, label: Subtitle, widget: string, required: false, hint: "Flavor tagline shown under the name" }
+      - { name: description, label: Description, widget: text, required: false, hint: "Full description shown on the drink detail page" }
+      - { name: image, label: Image, widget: image, required: false, media_folder: /images/drinks, hint: "Drink photo" }
+      - name: tags
+        label: Flavor Tags
+        widget: list
+        required: false
+        hint: "Short flavor descriptors (e.g. Caramel, Vanilla Bean)"
+        field: { name: tag, label: Tag, widget: string }
+      - { name: menuOrder, label: Menu Order, widget: number, default: 99, required: false, hint: "Lower numbers appear first within a category" }
+
+  - name: locations
+    label: Locations
+    folder: src/content/locations
+    create: true
+    delete: true
+    slug: "{{name | downcase | replace(' ', '-')}}"
+    identifier_field: name
+    summary: "{{name}} — {{city}}, {{state}}"
+    sortable_fields: [displayOrder, name, state]
+    fields:
+      - { name: name, label: Location Name, widget: string }
+      - { name: address, label: Street Address, widget: string }
+      - { name: city, label: City, widget: string }
+      - { name: state, label: State, widget: string, hint: "Two-letter code, e.g. TX" }
+      - { name: zip, label: Zip Code, widget: string }
+      - { name: lat, label: Latitude, widget: number, value_type: float, hint: "Decimal, e.g. 32.858" }
+      - { name: lng, label: Longitude, widget: number, value_type: float, hint: "Decimal, e.g. -97.237" }
+      - { name: displayOrder, label: Display Order, widget: number, default: 99, hint: "Lower = shown first in locator" }
+
+  - name: pages
+    label: Page Content
+    files:
+      - name: home
+        label: Home Page
+        file: src/content/pages/home.yaml
+        fields:
+          - name: hero
+            label: Hero Section
+            widget: object
+            fields:
+              - { name: heading, label: Main Heading, widget: string }
+              - { name: subheading, label: Subheading, widget: string }
+              - { name: ctaLabel, label: Button Label, widget: string }
+              - { name: ctaHref, label: Button URL, widget: string }
+              - { name: videoUrl, label: Background Video URL, widget: string, required: false, hint: "Link to an MP4 video file (e.g. from Cloudflare R2 or S3)" }
+          - name: featuredDrink
+            label: Featured Drink
+            widget: object
+            fields:
+              - { name: badge, label: Badge Text, widget: string, hint: "e.g. June Featured Drink" }
+              - { name: name, label: Drink Name, widget: string }
+              - { name: nameBold, label: Drink Name (bold part), widget: string }
+              - { name: description, label: Description, widget: text }
+              - { name: image, label: Drink Image, widget: image }
+              - { name: imageAlt, label: Image Alt Text, widget: string }
+              - { name: ctaLabel, label: Button Label, widget: string }
+              - { name: ctaHref, label: Button URL, widget: string }
+          - name: menuSection
+            label: Menu Cards Section
+            widget: object
+            fields:
+              - { name: heading, label: Section Heading, widget: string }
+              - name: cards
+                label: Menu Cards
+                widget: list
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - { name: subtitle, label: Subtitle, widget: string }
+                  - { name: image, label: Background Image, widget: image }
+                  - { name: href, label: Link URL, widget: string }
+                  - { name: label, label: Button Label, widget: string }
+          - name: cta
+            label: CTA Banner
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: body, label: Body Text, widget: text }
+              - { name: ctaLabel, label: Button Label, widget: string }
+              - { name: ctaHref, label: Button URL, widget: string }
+          - name: reviews
+            label: Customer Reviews
+            widget: object
+            fields:
+              - { name: heading, label: Section Heading, widget: string }
+              - name: items
+                label: Reviews
+                widget: list
+                fields:
+                  - { name: quote, label: Quote, widget: text }
+                  - { name: name, label: Customer Name, widget: string }
+          - name: investment
+            label: Investment Section
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subheading, label: Subheading, widget: string }
+              - { name: body, label: Body Text, widget: text }
+              - name: stats
+                label: Stats
+                widget: list
+                fields:
+                  - { name: number, label: Number, widget: string }
+                  - { name: label, label: Label, widget: string }
+              - { name: ctaLabel, label: Button Label, widget: string }
+              - { name: ctaHref, label: Button URL, widget: string }
+          - name: faqs
+            label: FAQs
+            widget: object
+            fields:
+              - { name: heading, label: Section Heading, widget: string }
+              - name: items
+                label: FAQ Items
+                widget: list
+                fields:
+                  - { name: question, label: Question, widget: string }
+                  - { name: answer, label: Answer, widget: text }
+          - name: contact
+            label: Contact Section
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subheading, label: Subheading, widget: string }
+              - { name: formHeading, label: Form Heading, widget: string }
+
+      - name: about
+        label: About Page
+        file: src/content/pages/about.yaml
+        fields:
+          - name: hero
+            label: Hero
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subheading, label: Subheading, widget: string }
+          - name: intro
+            label: Intro Section
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: headingSpan, label: Heading (red part), widget: string }
+              - name: paragraphs
+                label: Paragraphs
+                widget: list
+                field: { name: paragraph, label: Paragraph, widget: text }
+              - { name: tagline, label: Tagline, widget: string }
+              - { name: image, label: Image, widget: image }
+              - { name: imageAlt, label: Image Alt, widget: string }
+          - name: stats
+            label: Stats Bar
+            widget: list
+            fields:
+              - { name: number, label: Number, widget: string }
+              - { name: label, label: Label, widget: string }
+          - name: history
+            label: History Section
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - name: body
+                label: Body Paragraphs
+                widget: list
+                field: { name: paragraph, label: Paragraph, widget: text }
+              - name: timeline
+                label: Timeline
+                widget: list
+                fields:
+                  - { name: year, label: Year, widget: string }
+                  - { name: text, label: Text, widget: text }
+          - name: founder
+            label: Founder Section
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: name, label: Name, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: image, label: Photo, widget: image }
+              - { name: imageAlt, label: Image Alt, widget: string }
+              - name: bio
+                label: Bio Paragraphs
+                widget: list
+                field: { name: paragraph, label: Paragraph, widget: text }
+              - name: ventures
+                label: Ventures
+                widget: list
+                fields:
+                  - { name: name, label: Company Name, widget: string }
+                  - { name: desc, label: Description, widget: text }
+          - name: cta
+            label: CTA Section
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: body, label: Body, widget: text }
+              - { name: primaryLabel, label: Primary Button, widget: string }
+              - { name: primaryHref, label: Primary Button URL, widget: string }
+              - { name: secondaryLabel, label: Secondary Button, widget: string }
+              - { name: secondaryHref, label: Secondary Button URL, widget: string }
+
+      - name: menu
+        label: Menu Page
+        file: src/content/pages/menu.yaml
+        fields:
+          - name: hero
+            label: Hero
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subheading, label: Subheading, widget: string }
+          - name: categories
+            label: Categories
+            widget: list
+            fields:
+              - { name: slug, label: Slug, widget: string, hint: "e.g. coffee, coldbrew - do not change" }
+              - { name: title, label: Title, widget: string }
+              - { name: number, label: Number, widget: string, hint: "e.g. 01, 02" }
+              - { name: description, label: Description, widget: text }
+          - { name: dirtypopExtra, label: Dirty Pop Extra Text, widget: string, required: false }
+          - name: customize
+            label: Customize Section
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - name: milks
+                label: Milk Options
+                widget: list
+                field: { name: milk, label: Milk, widget: string }
+              - name: flavors
+                label: Flavors
+                widget: list
+                field: { name: flavor, label: Flavor, widget: string }
+              - name: sfFlavors
+                label: Sugar Free Flavors
+                widget: list
+                field: { name: flavor, label: Flavor, widget: string }
+
+      - name: careers
+        label: Careers Page
+        file: src/content/pages/careers.yaml
+        fields:
+          - name: agegate
+            label: Age Gate
+            widget: object
+            fields:
+              - { name: eyebrow, label: Eyebrow, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - { name: body, label: Body, widget: text }
+              - { name: yesLabel, label: Yes Button, widget: string }
+              - { name: noLabel, label: No Button, widget: string }
+          - { name: workstreamHref, label: Apply Link URL, widget: string }
+          - name: under18
+            label: Under 18 Message
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - name: body
+                label: Paragraphs
+                widget: list
+                field: { name: paragraph, label: Paragraph, widget: text }
+              - { name: linkText, label: Back Link Text, widget: string }
+
+      - name: realestate
+        label: Real Estate Page
+        file: src/content/pages/realestate.yaml
+        fields:
+          - name: hero
+            label: Hero
+            widget: object
+            fields:
+              - { name: eyebrow, label: Eyebrow, widget: string }
+              - { name: heading, label: Heading, widget: string }
+              - { name: body, label: Body, widget: text }
+              - { name: ctaLabel, label: Button Label, widget: string }
+              - { name: ctaHref, label: Button URL, widget: string }
+          - name: overview
+            label: Overview
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - name: body
+                label: Paragraphs
+                widget: list
+                field: { name: paragraph, label: Paragraph, widget: text }
+              - name: stats
+                label: Stats
+                widget: list
+                fields:
+                  - { name: number, label: Number, widget: string }
+                  - { name: label, label: Label, widget: string }
+              - { name: image, label: Image, widget: image }
+              - { name: imageAlt, label: Image Alt, widget: string }
+          - name: criteria
+            label: Site Criteria
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subheading, label: Subheading, widget: text }
+              - name: cards
+                label: Criteria Cards
+                widget: list
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - { name: body, label: Body, widget: text }
+          - name: idealSite
+            label: Ideal Site Checklist
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - name: items
+                label: Checklist Items
+                widget: list
+                field: { name: item, label: Item, widget: string }
+          - name: markets
+            label: Markets
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subheading, label: Subheading, widget: string }
+              - name: tags
+                label: Market Tags
+                widget: list
+                field: { name: tag, label: Tag, widget: string }
+          - name: contact
+            label: Contact
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: formHeading, label: Form Heading, widget: string }
+              - { name: formSubtext, label: Form Subtext, widget: string }
+              - { name: email, label: Email Address, widget: string }
+              - { name: buttonLabel, label: Submit Button Label, widget: string }
+
+      - name: merch
+        label: Merch Page
+        file: src/content/pages/merch.yaml
+        fields:
+          - name: hero
+            label: Hero
+            widget: object
+            fields:
+              - { name: heading, label: Heading, widget: string }
+              - { name: subheading, label: Subheading, widget: string }
+          - name: items
+            label: Merch Items
+            widget: list
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: price, label: Price, widget: string, hint: "e.g. $24" }
+              - name: category
+                label: Category
+                widget: select
+                options: [Apparel, Drinkware, Accessories, Coffee & Treats]
+              - { name: image, label: Image, widget: image, required: false }
+
+  - name: settings
+    label: Site Settings
+    files:
+      - name: global
+        label: Global Settings
+        file: src/content/settings/global.yaml
+        fields:
+          - { name: phone, label: Phone Number, widget: string, hint: "Shown in footer and locator" }
+          - { name: hours, label: Hours, widget: string, hint: "e.g. Open daily 6 AM - 8 PM" }
+          - { name: email, label: Contact Email, widget: string }
+          - { name: realEstateEmail, label: Real Estate Email, widget: string }
+          - name: social
+            label: Social Links
+            widget: object
+            fields:
+              - { name: instagram, label: Instagram URL, widget: string, required: false }
+              - { name: facebook, label: Facebook URL, widget: string, required: false }
+              - { name: tiktok, label: TikTok URL, widget: string, required: false }
+              - { name: linkedin, label: LinkedIn URL, widget: string, required: false }
+          - name: customize
+            label: Drink Customization Options
+            widget: object
+            fields:
+              - name: milks
+                label: Milk Options
+                widget: list
+                field: { name: milk, label: Milk, widget: string }
+              - name: flavors
+                label: Flavors
+                widget: list
+                field: { name: flavor, label: Flavor, widget: string }
+              - name: sfFlavors
+                label: Sugar Free Flavors
+                widget: list
+                field: { name: flavor, label: Flavor, widget: string }

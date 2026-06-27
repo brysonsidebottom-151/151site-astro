@@ -1,0 +1,8 @@
+name: "Chai Latte"
+category: "Coffee"
+subtitle: "Spiced Chai & Milk"
+description: "A warming blend of spiced chai and steamed milk. Notes of cinnamon, ginger, and cardamom make this one you'll reach for on repeat."
+image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+tags:
+  - "Cinnamon"
+menuOrder: 99

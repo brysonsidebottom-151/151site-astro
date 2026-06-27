@@ -1,0 +1,8 @@
+name: "Snickerdoodle"
+category: "Treats"
+subtitle: "Cinnamon Sugar Classic"
+description: "Soft and perfectly spiced with cinnamon sugar - the snickerdoodle is the cookie that always disappears first. You already know."
+image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+tags:
+  - "Cinnamon"
+menuOrder: 99

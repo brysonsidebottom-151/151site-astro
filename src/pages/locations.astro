@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+const [locationsEntries, settingsEntry] = await Promise.all([
+  getCollection('locations'),
+  getEntry('settings', 'global'),
+]);
+
+const s = settingsEntry?.data as any ?? {};
+const locations = locationsEntries
+  .map(e => e.data)
+  .sort((a: any, b: any) => (a.displayOrder ?? 99) - (b.displayOrder ?? 99));
+
+const storesJson = JSON.stringify(locations.map((l: any) => ({
+  name: l.name, address: l.address, city: l.city, state: l.state, zip: l.zip, lat: l.lat, lng: l.lng,
+})));
+---
+<Layout
+  title="151 Coffee Locations | Find a Drive-Thru Near You"
+  description="Find your nearest 151 Coffee drive-thru. 15+ locations across Texas and Kansas with more opening soon."
+  ogImage="https://www.151coffee.com/images/store1.jpg"
+>
+  <fragment slot="head">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  </fragment>
+
+  <Nav active="locations" />
+
+  <section class="page-hero" style="background-image:url('/images/store1.jpg');">
+    <div class="page-hero-overlay"></div>
+    <div class="container">
+      <div class="page-hero-content">
+        <h1>Find Your 151</h1>
+        <p>Texas & Kansas - more coming soon.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="locations-section">
+    <div class="container">
+      <div class="locator">
+        <div class="locator__panel">
+          <div class="locator__search">
+            <input type="text" id="locator-search" aria-label="Search locations" placeholder="Search by city, state, or zip..." />
+          </div>
+          <div class="locator__list" id="locator-list"></div>
+        </div>
+        <div class="locator__map" id="locator-map"></div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" is:inline></script>
+  <script define:vars={{ storesJson, hours: s.hours, phone: s.phone }} is:inline>
+    window.COFFEE151_STORES = JSON.parse(storesJson);
+    window.COFFEE151_LOCATOR = { hours, phone };
+  </script>
+  <script src="/js/locator.js" is:inline></script>
+</Layout>

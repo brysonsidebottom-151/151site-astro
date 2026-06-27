@@ -1,0 +1,122 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { getEntry, getCollection } from 'astro:content';
+
+const [menuEntry, drinksEntries] = await Promise.all([
+  getEntry('pages', 'menu'),
+  getCollection('drinks'),
+]);
+
+const p = menuEntry!.data as any;
+const allDrinks = drinksEntries
+  .map(e => ({ slug: e.id, ...e.data }))
+  .sort((a: any, b: any) => (a.menuOrder ?? 99) - (b.menuOrder ?? 99));
+
+const CATEGORY_SLUG: Record<string, string> = {
+  'Coffee': 'coffee', 'Cold Brew': 'coldbrew', 'Energy': 'energy',
+  'Dirty Pop': 'dirtypop', 'Refreshers': 'refreshers', 'Smoothies': 'smoothies',
+  'Teas': 'teas', 'Kids': 'kids', 'Hot Food': 'hotfood', 'Treats': 'treats',
+};
+
+function drinksByCategory(slug: string) {
+  return allDrinks.filter((d: any) => {
+    const cs = CATEGORY_SLUG[d.category] ?? d.category?.toLowerCase();
+    return cs === slug;
+  });
+}
+---
+<Layout
+  title="151 Coffee Menu | Espresso, Cold Brew & Energy Drinks"
+  description="Explore the full 151 Coffee menu. Coffee, cold brew, energy drinks, dirty pops, refreshers, smoothies, teas, hot food, and treats with over 43,000 flavor combinations."
+>
+  <fragment slot="head">
+    <link rel="stylesheet" href="/menu.css" />
+  </fragment>
+
+  <Nav active="menu" />
+
+  <section class="menu-hero">
+    <video autoplay muted loop playsinline class="hero-video" aria-hidden="true"></video>
+    <div class="menu-hero-content">
+      <h1 data-sb-field-path="hero.heading">{p.hero?.heading}</h1>
+      <p data-sb-field-path="hero.subheading">{p.hero?.subheading}</p>
+    </div>
+  </section>
+
+  <section class="menu-nav-section">
+    <div class="menu-category-nav">
+      {(p.categories ?? []).map((cat: any) => (
+        <button class="filter-pill" data-category={cat.slug} data-sb-field-path={`categories`}>{cat.title}</button>
+      ))}
+    </div>
+  </section>
+
+  <section class="menu-section">
+    <div class="menu-timeline">
+      {(p.categories ?? []).map((cat: any) => {
+        const drinks = drinksByCategory(cat.slug);
+        return (
+          <div class={`category-block category-${cat.slug}`} data-category={cat.slug}>
+            <div class="title-card">
+              <div class="title-card-inner">
+                <span class="cat-number">{cat.number}</span>
+                <h2 data-sb-field-path={`categories`}>{cat.title}</h2>
+                <p data-sb-field-path={`categories`}>{cat.description}</p>
+              </div>
+            </div>
+            {drinks.map((drink: any) => (
+              <a href={`/drinks/${drink.slug}`} class="drink-card" data-sb-field-path={`drinks/${drink.slug}`}>
+                <div class="drink-card-img-wrap">
+                  {drink.image && <img src={drink.image} alt={drink.name} loading="lazy" />}
+                </div>
+                <div class="drink-card-info">
+                  <h3>{drink.name}</h3>
+                  {drink.subtitle && <p class="drink-subtitle">{drink.subtitle}</p>}
+                  {drink.tags?.length > 0 && (
+                    <div class="drink-tags">
+                      {drink.tags.map((tag: string) => <span class="drink-tag">{tag}</span>)}
+                    </div>
+                  )}
+                </div>
+              </a>
+            ))}
+            {cat.slug === 'dirtypop' && p.dirtypopExtra && (
+              <p class="dirtypop-extra" data-sb-field-path="dirtypopExtra">{p.dirtypopExtra}</p>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  </section>
+
+  <section class="customize-section">
+    <div class="container">
+      <h2 data-sb-field-path="customize.heading">{p.customize?.heading}</h2>
+      <div class="customize-grid">
+        <div class="customize-col">
+          <h3>Milk Options</h3>
+          <div class="customize-tags">
+            {(p.customize?.milks ?? []).map((m: string) => <span class="customize-tag">{m}</span>)}
+          </div>
+        </div>
+        <div class="customize-col">
+          <h3>Flavors</h3>
+          <div class="customize-tags">
+            {(p.customize?.flavors ?? []).map((f: string) => <span class="customize-tag">{f}</span>)}
+          </div>
+        </div>
+        <div class="customize-col">
+          <h3>Sugar Free Flavors</h3>
+          <div class="customize-tags">
+            {(p.customize?.sfFlavors ?? []).map((f: string) => <span class="customize-tag sf">{f}</span>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+  <script src="/js/script.js" is:inline></script>
+</Layout>

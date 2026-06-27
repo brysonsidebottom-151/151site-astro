@@ -1,0 +1,83 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const drinks = await getCollection('drinks');
+  return drinks.map(drink => ({ params: { slug: drink.id } }));
+}
+
+const { slug } = Astro.params;
+const drinkEntry = await getCollection('drinks').then(d => d.find(e => e.id === slug));
+const menuEntry = await getEntry('pages', 'menu');
+
+if (!drinkEntry) return Astro.redirect('/menu');
+const drink = drinkEntry.data;
+const p = menuEntry!.data as any;
+---
+<Layout
+  title={`${drink.name} | 151 Coffee Menu`}
+  description={drink.description || `${drink.name} - ${drink.subtitle} at 151 Coffee.`}
+>
+  <fragment slot="head">
+    <link rel="stylesheet" href="/drink.css" />
+  </fragment>
+
+  <Nav active="menu" />
+
+  <section class="drink-detail">
+    <div class="container">
+      <a href="/menu" class="back-link">&larr; Back to Menu</a>
+      <div class="drink-detail-grid">
+        <div class="drink-detail-image">
+          {drink.image && <img src={drink.image} alt={drink.name} />}
+        </div>
+        <div class="drink-detail-info">
+          <span class="drink-category-pill">{drink.category}</span>
+          <h1>{drink.name}</h1>
+          {drink.subtitle && <p class="drink-detail-subtitle">{drink.subtitle}</p>}
+          {drink.description && <p class="drink-detail-desc">{drink.description}</p>}
+          {drink.tags && drink.tags.length > 0 && (
+            <div class="drink-detail-tags">
+              <span class="tags-label">Flavors</span>
+              <div class="drink-tags">
+                {drink.tags.map((tag: string) => <span class="drink-tag">{tag}</span>)}
+              </div>
+            </div>
+          )}
+          <a href="/menu" class="btn-primary" style="margin-top:2rem;display:inline-block;">View Full Menu</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="customize-section">
+    <div class="container">
+      <h2>{p.customize?.heading}</h2>
+      <div class="customize-grid">
+        <div class="customize-col">
+          <h3>Milk Options</h3>
+          <div class="customize-tags">
+            {(p.customize?.milks ?? []).map((m: string) => <span class="customize-tag">{m}</span>)}
+          </div>
+        </div>
+        <div class="customize-col">
+          <h3>Flavors</h3>
+          <div class="customize-tags">
+            {(p.customize?.flavors ?? []).map((f: string) => <span class="customize-tag">{f}</span>)}
+          </div>
+        </div>
+        <div class="customize-col">
+          <h3>Sugar Free</h3>
+          <div class="customize-tags">
+            {(p.customize?.sfFlavors ?? []).map((f: string) => <span class="customize-tag sf">{f}</span>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

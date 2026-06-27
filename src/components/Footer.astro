@@ -1,0 +1,61 @@
+---
+import { getEntry } from 'astro:content';
+const g = await getEntry('settings', 'global');
+const s = g?.data ?? {};
+---
+<footer>
+  <div class="container">
+    <div class="footer-content" style="padding:2rem;border:2px solid var(--red);border-radius:24px;">
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/careers">Careers</a></li>
+          <li><a href="/#contact">Partnerships</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-social-section">
+        <h4>Social</h4>
+        <ul>
+          <li><a href={s.social?.tiktok ?? '#'} target="_blank" rel="noopener noreferrer">TikTok</a></li>
+          <li><a href={s.social?.facebook ?? '#'} target="_blank" rel="noopener noreferrer">Facebook</a></li>
+          <li><a href={s.social?.instagram ?? '#'} target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href={s.social?.linkedin ?? '#'} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href={`mailto:${s.email ?? 'Contact@151Coffee.com'}`}>Contact</a></li>
+          <li><a href={`tel:${(s.phone ?? '').replace(/\D/g,'')}`}>Call Us</a></li>
+          <li><a href={`mailto:${s.email ?? 'Contact@151Coffee.com'}`}>Support</a></li>
+          <li><a href="javascript:void(0);" id="giftCardFooterSupportBtn">Check Gift Card</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="social-links">
+        <a href={s.social?.facebook ?? '#'} target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
+        <a href={s.social?.tiktok ?? '#'} target="_blank" rel="noopener noreferrer" aria-label="TikTok">tt</a>
+        <a href={s.social?.linkedin ?? '#'} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
+        <a href={s.social?.instagram ?? '#'} target="_blank" rel="noopener noreferrer" aria-label="Instagram">ig</a>
+      </div>
+      <div class="footer-gc">
+        <button id="giftCardFooterBtn" class="gc-btn">Check Gift Card Balance</button>
+      </div>
+      <div class="footer-credits">
+        <p>&copy; 151 Coffee, LLC. It's a Good Day to Have a Good Day.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="giftCardModal" class="modal">
+  <div class="modal-content">
+    <button id="closeGiftCardModal" class="modal-close">&times;</button>
+    <div class="crisp">
+      <iframe src="https://giftcards-151coffee-orders.crispnow.com" style="width:100%;height:650px;border:none;"></iframe>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+name: "Pomekazi"
+category: "Teas"
+subtitle: "Pomegranate & Peach"
+description: "Tea with a twist - pomegranate and peach join forces in a bright, fruity iced tea that's refreshing from first sip to last."
+image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+tags:
+  - "Pomegranate"
+  - "Peach"
+menuOrder: 99

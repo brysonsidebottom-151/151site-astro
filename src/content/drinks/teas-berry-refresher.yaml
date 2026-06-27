@@ -1,0 +1,9 @@
+name: "Berry Refresher"
+category: "Teas"
+subtitle: "Strawberry & Raspberry"
+description: "Two bold berries brewed into a bright, tangy iced tea. Simple, refreshing, and the color alone will make you smile."
+image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+tags:
+  - "Strawberry"
+  - "Raspberry"
+menuOrder: 99

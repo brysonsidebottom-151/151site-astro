@@ -1,0 +1,10 @@
+name: "Purple Dragon"
+category: "Refreshers"
+subtitle: "Lavender, Mango, Diced Dragon Fruit, Coconut Cream"
+description: "Lavender and mango float above diced dragon fruit and a swirl of coconut cream. Bold, beautiful, and packed with tropical flavor."
+image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+tags:
+  - "Lavender"
+  - "Mango"
+  - "Coconut"
+menuOrder: 99

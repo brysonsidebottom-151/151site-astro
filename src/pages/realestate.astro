@@ -1,0 +1,114 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { getEntry } from 'astro:content';
+
+const entry = await getEntry('pages', 'realestate');
+const p = entry!.data as any;
+---
+<Layout
+  title="Real Estate - 151 Coffee | Site Criteria & Expansion"
+  description="151 Coffee is expanding rapidly. If you have a site that fits our drive-thru criteria, we want to hear from you."
+>
+  <Nav active="realestate" />
+
+  <section class="re-hero">
+    <div class="container">
+      <span class="eyebrow" data-sb-field-path="hero.eyebrow">{p.hero?.eyebrow}</span>
+      <h1 data-sb-field-path="hero.heading">{p.hero?.heading}</h1>
+      <p data-sb-field-path="hero.body">{p.hero?.body}</p>
+      <a href={p.hero?.ctaHref} class="btn-primary" data-sb-field-path="hero.ctaLabel">{p.hero?.ctaLabel}</a>
+    </div>
+  </section>
+
+  <section class="re-overview">
+    <div class="container">
+      <div class="re-overview-grid">
+        <div class="re-overview-text">
+          <h2 data-sb-field-path="overview.heading">{p.overview?.heading}</h2>
+          {(p.overview?.body ?? []).map((para: string, i: number) => (
+            <p data-sb-field-path={`overview.body.${i}`}>{para}</p>
+          ))}
+          <div class="re-stats">
+            {(p.overview?.stats ?? []).map((stat: any, i: number) => (
+              <div class="re-stat" data-sb-field-path={`overview.stats.${i}`}>
+                <span class="re-stat-number" data-sb-field-path="number">{stat.number}</span>
+                <span class="re-stat-label" data-sb-field-path="label">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="re-overview-image">
+          <img src={p.overview?.image} alt={p.overview?.imageAlt} data-sb-field-path="overview.image" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="re-criteria">
+    <div class="container">
+      <h2 data-sb-field-path="criteria.heading">{p.criteria?.heading}</h2>
+      <p data-sb-field-path="criteria.subheading">{p.criteria?.subheading}</p>
+      <div class="criteria-grid">
+        {(p.criteria?.cards ?? []).map((card: any, i: number) => (
+          <div class="criteria-card" data-sb-field-path={`criteria.cards.${i}`}>
+            <h3 data-sb-field-path="title">{card.title}</h3>
+            <p data-sb-field-path="body">{card.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="re-ideal">
+    <div class="container">
+      <h2 data-sb-field-path="idealSite.heading">{p.idealSite?.heading}</h2>
+      <ul class="ideal-list">
+        {(p.idealSite?.items ?? []).map((item: string, i: number) => (
+          <li data-sb-field-path={`idealSite.items.${i}`}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="re-markets">
+    <div class="container">
+      <h2 data-sb-field-path="markets.heading">{p.markets?.heading}</h2>
+      <p data-sb-field-path="markets.subheading">{p.markets?.subheading}</p>
+      <div class="market-tags">
+        {(p.markets?.tags ?? []).map((tag: string, i: number) => (
+          <span class="market-tag" data-sb-field-path={`markets.tags.${i}`}>{tag}</span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="re-contact" id="contact">
+    <div class="container">
+      <h2 data-sb-field-path="contact.heading">{p.contact?.heading}</h2>
+      <div class="contact-form-wrapper">
+        <form class="contact-form">
+          <div class="form-header">
+            <h3 data-sb-field-path="contact.formHeading">{p.contact?.formHeading}</h3>
+            <p data-sb-field-path="contact.formSubtext">{p.contact?.formSubtext}</p>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" placeholder="First" required /></div>
+            <div class="form-group"><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" placeholder="Last" required /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="john@company.com" required /></div>
+            <div class="form-group"><label for="phone">Phone</label><input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567" /></div>
+          </div>
+          <div class="form-group full-width"><label for="property">Property Address / Market</label><input type="text" id="property" name="property" placeholder="Address or city you're submitting" /></div>
+          <div class="form-group full-width"><label for="details">Site Details</label><textarea id="details" name="details" placeholder="Tell us about your site - size, traffic count, current use, deal structure..."></textarea></div>
+          <button type="submit" class="form-submit" data-sb-field-path="contact.buttonLabel"><span>{p.contact?.buttonLabel}</span></button>
+        </form>
+        <p style="text-align:center;margin-top:1rem;">or email us directly: <a href={`mailto:${p.contact?.email}`} data-sb-field-path="contact.email">{p.contact?.email}</a></p>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

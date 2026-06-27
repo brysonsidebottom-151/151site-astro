@@ -1,0 +1,9 @@
+name: "Caramel Blondie"
+category: "Coffee"
+subtitle: "Caramel & Vanilla"
+description: "A smooth, golden espresso drink layered with rich caramel syrup and a hint of vanilla. Sweet enough to feel like a treat, balanced enough to be your everyday go-to."
+image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+tags:
+  - "Caramel"
+  - "Vanilla Bean"
+menuOrder: 99

@@ -1,0 +1,118 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { getEntry } from 'astro:content';
+
+const aboutEntry = await getEntry('pages', 'about');
+const p = aboutEntry!.data as any;
+---
+<Layout
+  title="About 151 Coffee | Our Story & Founder Mark Wattles"
+  description="Learn about 151 Coffee - founded in 2017 by Mark Wattles. 15+ drive-thru locations across Texas and Kansas serving handcrafted coffee and energy drinks."
+  ogImage="https://www.151coffee.com/images/splash1.jpg"
+>
+  <Nav active="about" />
+
+  <!-- Hero -->
+  <section class="page-hero" style="background-image:url('/images/splash1.jpg');">
+    <div class="page-hero-overlay"></div>
+    <div class="container">
+      <div class="page-hero-content">
+        <h1 data-sb-field-path="hero.heading">{p.hero?.heading}</h1>
+        <p data-sb-field-path="hero.subheading">{p.hero?.subheading}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="about-intro">
+    <div class="container">
+      <div class="about-intro-grid">
+        <div class="about-intro-text">
+          <h2 data-sb-field-path="intro.heading">{p.intro?.heading} <span class="red" data-sb-field-path="intro.headingSpan">{p.intro?.headingSpan}</span></h2>
+          {(p.intro?.paragraphs ?? []).map((para: string, i: number) => (
+            <p data-sb-field-path={`intro.paragraphs.${i}`}>{para}</p>
+          ))}
+          <p class="tagline" data-sb-field-path="intro.tagline">{p.intro?.tagline}</p>
+        </div>
+        <div class="about-intro-image">
+          <img src={p.intro?.image} alt={p.intro?.imageAlt} data-sb-field-path="intro.image" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="about-stats">
+    <div class="container">
+      <div class="stats-grid">
+        {(p.stats ?? []).map((stat: any, i: number) => (
+          <div class="stat-item" data-sb-field-path={`stats.${i}`}>
+            <span class="stat-number" data-sb-field-path="number">{stat.number}</span>
+            <span class="stat-label" data-sb-field-path="label">{stat.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- History -->
+  <section class="about-history">
+    <div class="container">
+      <h2 data-sb-field-path="history.heading">{p.history?.heading}</h2>
+      {(p.history?.body ?? []).map((para: string, i: number) => (
+        <p data-sb-field-path={`history.body.${i}`}>{para}</p>
+      ))}
+      <div class="timeline">
+        {(p.history?.timeline ?? []).map((item: any, i: number) => (
+          <div class="timeline-item" data-sb-field-path={`history.timeline.${i}`}>
+            <div class="timeline-year" data-sb-field-path="year">{item.year}</div>
+            <div class="timeline-text" data-sb-field-path="text">{item.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Founder -->
+  <section class="about-founder">
+    <div class="container">
+      <h2 data-sb-field-path="founder.heading">{p.founder?.heading}</h2>
+      <div class="founder-grid">
+        <div class="founder-image">
+          <img src={p.founder?.image} alt={p.founder?.imageAlt} data-sb-field-path="founder.image" />
+        </div>
+        <div class="founder-text">
+          <h3 data-sb-field-path="founder.name">{p.founder?.name}</h3>
+          <p class="founder-title" data-sb-field-path="founder.title">{p.founder?.title}</p>
+          {(p.founder?.bio ?? []).map((para: string, i: number) => (
+            <p data-sb-field-path={`founder.bio.${i}`}>{para}</p>
+          ))}
+          <div class="ventures-grid">
+            {(p.founder?.ventures ?? []).map((v: any, i: number) => (
+              <div class="venture-card" data-sb-field-path={`founder.ventures.${i}`}>
+                <h4 data-sb-field-path="name">{v.name}</h4>
+                <p data-sb-field-path="desc">{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="about-cta">
+    <div class="container">
+      <h2 data-sb-field-path="cta.heading">{p.cta?.heading}</h2>
+      <p data-sb-field-path="cta.body">{p.cta?.body}</p>
+      <div class="cta-buttons">
+        <a href={p.cta?.primaryHref} class="btn-primary" data-sb-field-path="cta.primaryLabel">{p.cta?.primaryLabel}</a>
+        <a href={p.cta?.secondaryHref} class="btn-secondary" data-sb-field-path="cta.secondaryLabel">{p.cta?.secondaryLabel}</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>

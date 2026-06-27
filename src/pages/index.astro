@@ -1,0 +1,209 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { getEntry, getCollection } from 'astro:content';
+
+const [homeEntry, settingsEntry, locationsEntries] = await Promise.all([
+  getEntry('pages', 'home'),
+  getEntry('settings', 'global'),
+  getCollection('locations'),
+]);
+
+const p = homeEntry!.data as any;
+const s = settingsEntry?.data as any ?? {};
+const locations = locationsEntries
+  .map(e => e.data)
+  .sort((a: any, b: any) => (a.displayOrder ?? 99) - (b.displayOrder ?? 99));
+
+const storesJson = JSON.stringify(locations.map((l: any) => ({
+  name: l.name, address: l.address, city: l.city, state: l.state, zip: l.zip, lat: l.lat, lng: l.lng,
+})));
+
+const reviewClasses = ['featured', 'featured1', 'featured2', 'featured3'];
+---
+<Layout title="151 Coffee | Drive-Thru Coffee, Cold Brew & Energy Drinks">
+  <fragment slot="head">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "151 Coffee",
+      "url": "https://www.151coffee.com/",
+      "logo": "https://www.151coffee.com/images/logo.png",
+      "telephone": s.phone ?? "+1-682-325-2124",
+      "email": s.email ?? "Contact@151Coffee.com",
+      "slogan": "It's a Good Day to Have a Good Day.",
+    })} />
+  </fragment>
+
+  <Nav />
+
+  <!-- Hero -->
+  <section class="hero">
+    <div>
+      <video autoplay muted loop playsinline class="hero-video" aria-hidden="true">
+        {p.hero?.videoUrl ? <source src={p.hero.videoUrl} type="video/mp4" /> : null}
+      </video>
+    </div>
+    <div class="container">
+      <div class="hero-content">
+        <h1 data-sb-field-path="hero.heading">{p.hero?.heading}<br /><span data-sb-field-path="hero.subheading">{p.hero?.subheading}</span></h1>
+        <div class="hero-buttons">
+          <a href={p.hero?.ctaHref ?? '/menu'} class="main-menu-btn2" data-sb-field-path="hero.ctaLabel">{p.hero?.ctaLabel}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Drink -->
+  <section class="featured-drink">
+    <div class="featured-inner">
+      <div class="featured-visual">
+        <div class="featured-glow"></div>
+        <div class="featured-ring"></div>
+        <img src={p.featuredDrink?.image} alt={p.featuredDrink?.imageAlt} class="featured-img" data-sb-field-path="featuredDrink.image" />
+      </div>
+      <div class="featured-text">
+        <span class="featured-badge" data-sb-field-path="featuredDrink.badge">{p.featuredDrink?.badge}</span>
+        <h2 data-sb-field-path="featuredDrink.name">{p.featuredDrink?.name}<br /><span data-sb-field-path="featuredDrink.nameBold">{p.featuredDrink?.nameBold}</span></h2>
+        <p data-sb-field-path="featuredDrink.description">{p.featuredDrink?.description}</p>
+        <a href={p.featuredDrink?.ctaHref} class="featured-cta" data-sb-field-path="featuredDrink.ctaLabel">{p.featuredDrink?.ctaLabel}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header"><h1 data-sb-field-path="menuSection.heading">{p.menuSection?.heading}</h1></div>
+      <div class="features-grid">
+        {(p.menuSection?.cards ?? []).map((card: any, i: number) => (
+          <div class="feature-card" style={`background-image:url('${card.image}')`} data-sb-field-path={`menuSection.cards.${i}`}>
+            <div class="card-content">
+              <h3 data-sb-field-path="title">{card.title}<p style={i===1?{color:'var(--red)'}:{}} data-sb-field-path="subtitle">{card.subtitle}</p></h3>
+              <a href={card.href} class="menu-btn" data-sb-field-path="label">{card.label}</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container" style="z-index:1;">
+      <div class="cta-content">
+        <h2 data-sb-field-path="cta.heading">{p.cta?.heading}</h2>
+        <p data-sb-field-path="cta.body">{p.cta?.body}</p>
+        <div class="cta-buttons">
+          <a href={p.cta?.ctaHref} class="btn-primary" data-sb-field-path="cta.ctaLabel">{p.cta?.ctaLabel}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Locations -->
+  <section class="spaces" id="spaces">
+    <div class="container">
+      <div class="section-header"><h1>Find Your Location</h1></div>
+      <div class="locator">
+        <div class="locator__panel">
+          <div class="locator__search">
+            <input type="text" id="locator-search" aria-label="Search locations" placeholder="Search by city, state, or zip..." />
+          </div>
+          <div class="locator__list" id="locator-list"></div>
+        </div>
+        <div class="locator__map" id="locator-map"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-header"><h1 data-sb-field-path="reviews.heading">{p.reviews?.heading}</h1></div>
+      <div class="pricing-grid">
+        {(p.reviews?.items ?? []).map((r: any, i: number) => (
+          <div class={`pricing-card ${reviewClasses[i] ?? 'featured'}`} data-sb-field-path={`reviews.items.${i}`}>
+            <div class="plan-price"><br /><br />&ldquo;<span class="price-amount" data-sb-field-path="quote">{r.quote}&rdquo;</span></div>
+            <h3 class="plan-name" data-sb-field-path="name">{r.name}</h3>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Investment -->
+  <section class="amenities" id="amenities">
+    <div class="container">
+      <div class="section-header">
+        <h2 style="font-size:3rem;" data-sb-field-path="investment.heading">{p.investment?.heading}</h2>
+      </div>
+      <div class="amenities-grid">
+        <div class="special-pricing">
+          <h2 data-sb-field-path="investment.subheading">{p.investment?.subheading}</h2><br />
+          <p data-sb-field-path="investment.body">{p.investment?.body}</p>
+          <div class="special-features">
+            {(p.investment?.stats ?? []).map((stat: any, i: number) => (
+              <div class="special-feature" data-sb-field-path={`investment.stats.${i}`}>
+                <span class="special-feature-number" data-sb-field-path="number">{stat.number}</span>
+                <span class="special-feature-label" data-sb-field-path="label">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+          <div><br /><a href={p.investment?.ctaHref} class="btn-primary" data-sb-field-path="investment.ctaLabel">{p.investment?.ctaLabel}</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header"><h2 data-sb-field-path="faqs.heading">{p.faqs?.heading}</h2></div>
+      <div class="faq-list">
+        {(p.faqs?.items ?? []).map((faq: any, i: number) => (
+          <details open={i===0} data-sb-field-path={`faqs.items.${i}`}>
+            <summary data-sb-field-path="question">{faq.question}</summary>
+            <p data-sb-field-path="answer">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-header"><h1 data-sb-field-path="contact.heading">{p.contact?.heading}</h1></div>
+      <div class="contact-form-wrapper">
+        <form class="contact-form">
+          <div class="form-header">
+            <h3 data-sb-field-path="contact.formHeading">{p.contact?.formHeading}</h3>
+            <p data-sb-field-path="contact.subheading">{p.contact?.subheading}</p>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" placeholder="First" required /></div>
+            <div class="form-group"><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" placeholder="Last" required /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="john@company.com" required /></div>
+            <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567" /></div>
+          </div>
+          <div class="form-group full-width"><label for="message">Message</label><textarea id="message" name="message" placeholder="Your Message"></textarea></div>
+          <button type="submit" class="form-submit"><span>Submit</span></button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" is:inline></script>
+  <script define:vars={{ storesJson, hours: s.hours, phone: s.phone }} is:inline>
+    window.COFFEE151_STORES = JSON.parse(storesJson);
+    window.COFFEE151_LOCATOR = { hours, phone };
+  </script>
+  <script src="/js/locator.js" is:inline></script>
+</Layout>

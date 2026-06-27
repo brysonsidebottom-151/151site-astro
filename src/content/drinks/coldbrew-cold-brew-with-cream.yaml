@@ -1,0 +1,8 @@
+name: "Cold Brew with Cream"
+category: "Cold Brew"
+subtitle: "Silky Sweet Cream on Top"
+description: "Our smooth cold brew topped with a generous pour of silky sweet cream that cascades down through the coffee. Sip it as-is or stir it in - either way, it's perfect."
+image: "images/drinks/coldbrew/Cold Brew W Cream.png"
+tags:
+  - "Vanilla Bean"
+menuOrder: 99

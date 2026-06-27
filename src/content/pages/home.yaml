@@ -1,0 +1,83 @@
+hero:
+  heading: "151 Coffee"
+  subheading: "It's a Good Day to have a good day"
+  ctaLabel: "See Our Menu"
+  ctaHref: "/menu"
+  videoUrl: ""
+
+featuredDrink:
+  badge: "June Featured Drink"
+  name: "Dot Cake"
+  nameBold: "Latte"
+  description: "A celebration in every sip. Our Dot Cake Latte layers rich espresso with sweet, festive flavors that taste just like the real thing. Limited time - treat yourself."
+  image: "/images/dot-cake-latte.png"
+  imageAlt: "Dot Cake Latte"
+  ctaLabel: "Explore the Menu"
+  ctaHref: "/menu"
+
+menuSection:
+  heading: "Check Out Our Menu"
+  cards:
+    - title: "Drink Menu"
+      subtitle: "Over 43,000 Flavor Combinations"
+      image: "/images/drinks1.PNG"
+      href: "/menu"
+      label: "Drink Menu"
+    - title: "Food Menu"
+      subtitle: "Select Locations Only!"
+      image: "/images/food1.jpg"
+      href: "/menus/foodmenu.pdf"
+      label: "Food Menu"
+
+cta:
+  heading: "We're Looking For Passionate People."
+  body: "151 Coffee is not your typical coffee shop. Fun and happiness drive our culture and music drives our speed, that's why we live by the 151 motto \"it's a good day to have a good day.\""
+  ctaLabel: "Learn More"
+  ctaHref: "/careers"
+
+reviews:
+  heading: "Hear it from our customers!"
+  items:
+    - quote: "Love 151 Coffee! My order is always the caramel blondie! It comes out perfect every time! Love the efficiency of the staff as well!"
+      name: "Asha J."
+    - quote: "2nd time coming back and coffee has been awesome! The service from the team members was very friendly and they offered some awesome recommendations."
+      name: "Alejandro C."
+    - quote: "Always friendly and efficient service. My pumpkin pie latte was perfectly made, and this reliable drive-thru spot continues to impress."
+      name: "Irene V."
+    - quote: "Fast service good drinks. Peach smoothie and Carmel macchiato are the best on a hot day. Usually a line but they are fast to take orders outside."
+      name: "Clark P."
+
+investment:
+  heading: "brewing the next billion-dollar coffee brand"
+  subheading: "get first dibs on owning 151 coffee"
+  body: "151 Coffee's founder, Mark Wattles, has invested over $15 Million of his money to create the brand and build the first 15 stores. 151 is now raising additional capital to kick off its growth stage. Before we open this investment opportunity to the public, we're letting our most loyal fans - YOU - GET FIRST DIBS ON OWNING 151 COFFEE."
+  stats:
+    - number: "$15 Million"
+      label: "Invested by Founder"
+    - number: "500 Stores"
+      label: "By the End of 2028"
+    - number: "$17 Million"
+      label: "Revenue 2025"
+  ctaLabel: "Learn More"
+  ctaHref: "/realestate"
+
+faqs:
+  heading: "Frequently Asked Questions"
+  items:
+    - question: "What is 151 Coffee?"
+      answer: "151 Coffee is a fast drive-thru coffee concept serving handcrafted espresso, cold brew, and blended energy drinks across Texas and Kansas. Founded in 2017 by Mark Wattles, we live by one motto: It's a good day to have a good day."
+    - question: "Where is 151 Coffee located?"
+      answer: "We currently have 15+ locations across the Dallas-Fort Worth metro in Texas and in Lawrence, Manhattan, and Overland Park, Kansas. Use the locator on our homepage or visit the Locations page to find the nearest store."
+    - question: "What does 151 Coffee serve?"
+      answer: "Our menu includes espresso drinks, cold brew, blended energy drinks, dirty sodas (Dirty Pops), refreshers, smoothies, teas, kids drinks, hot food items like burritos and bagels, and baked treats. With over 43,000 flavor combinations, there's something for everyone."
+    - question: "Does 151 Coffee have a drive-thru?"
+      answer: "Yes - every 151 Coffee location is a drive-thru concept. Speed and convenience are central to what we do. Our dual-lane drive-thru design and outdoor order-takers help us move fast even during peak hours."
+    - question: "Does 151 Coffee sell gift cards?"
+      answer: "Yes! You can purchase and check gift card balances using the Gift Card button at the top of the page."
+    - question: "Is 151 Coffee hiring?"
+      answer: "Always. Visit our Careers page to see current openings. We look for people who are energetic, positive, and passionate about great customer experiences."
+
+contact:
+  heading: "Contact Us"
+  subheading: "Good experience? Event idea? Collaboration? Let us know here."
+  formHeading: "Everyone Loves Coffee"

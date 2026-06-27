@@ -1,0 +1,73 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { getEntry } from 'astro:content';
+
+const entry = await getEntry('pages', 'careers');
+const p = entry!.data as any;
+---
+<Layout title="Careers at 151 Coffee | Join Our Team" bodyClass="careers-page">
+  <Nav active="careers" />
+
+  <!-- Age gate overlay -->
+  <div id="age-gate" class="age-gate-overlay">
+    <div class="age-gate-box">
+      <span class="age-gate-eyebrow" data-sb-field-path="agegate.eyebrow">{p.agegate?.eyebrow}</span>
+      <h1 data-sb-field-path="agegate.heading">{p.agegate?.heading}</h1>
+      <p data-sb-field-path="agegate.body">{p.agegate?.body}</p>
+      <div class="age-gate-buttons">
+        <button id="age-yes" class="btn-primary" data-sb-field-path="agegate.yesLabel">{p.agegate?.yesLabel}</button>
+        <button id="age-no" class="btn-secondary" data-sb-field-path="agegate.noLabel">{p.agegate?.noLabel}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Under 18 message -->
+  <div id="under18-msg" class="under18-section" style="display:none;">
+    <div class="container">
+      <h2 data-sb-field-path="under18.heading">{p.under18?.heading}</h2>
+      {(p.under18?.body ?? []).map((para: string, i: number) => (
+        <p data-sb-field-path={`under18.body.${i}`}>{para}</p>
+      ))}
+      <a href="/" data-sb-field-path="under18.linkText">{p.under18?.linkText}</a>
+    </div>
+  </div>
+
+  <!-- Careers content (shown after age verification) -->
+  <div id="careers-content" style="display:none;">
+    <section class="page-hero" style="background-image:url('/images/nowhiring.jpg');">
+      <div class="page-hero-overlay"></div>
+      <div class="container">
+        <div class="page-hero-content">
+          <h1>Join the 151 Team</h1>
+          <p>Fun, fast, and built on good vibes. See what's open.</p>
+        </div>
+      </div>
+    </section>
+    <section class="careers-apply">
+      <div class="container" style="text-align:center;padding:4rem 1rem;">
+        <a href={p.workstreamHref} target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size:1.2rem;padding:1rem 2.5rem;">
+          View Open Positions
+        </a>
+      </div>
+    </section>
+    <Footer />
+  </div>
+
+  <script define:vars={{ workstreamHref: p.workstreamHref }} is:inline>
+    var ageYes = document.getElementById('age-yes');
+    var ageNo = document.getElementById('age-no');
+    var ageGate = document.getElementById('age-gate');
+    var u18 = document.getElementById('under18-msg');
+    var content = document.getElementById('careers-content');
+    if (ageYes) ageYes.addEventListener('click', function() {
+      ageGate.style.display = 'none';
+      content.style.display = 'block';
+    });
+    if (ageNo) ageNo.addEventListener('click', function() {
+      ageGate.style.display = 'none';
+      u18.style.display = 'block';
+    });
+  </script>
+</Layout>

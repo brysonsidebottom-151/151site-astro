@@ -1,0 +1,9 @@
+name: "Georgia Peach"
+category: "Smoothies"
+subtitle: "Strawberry & Peach"
+description: "Sun-ripened peach meets sweet strawberry in a smoothie that tastes like a summer afternoon. Thick, fruity, and deeply satisfying."
+image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+tags:
+  - "Strawberry"
+  - "Peach"
+menuOrder: 99

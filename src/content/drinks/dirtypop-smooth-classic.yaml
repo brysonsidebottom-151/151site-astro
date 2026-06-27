@@ -1,0 +1,9 @@
+name: "Smooth Classic"
+category: "Dirty Pop"
+subtitle: "Pepsi - Coconut, Vanilla, Half & Half"
+description: "Pepsi elevated with coconut, vanilla, and a pour of half & half. Creamy, smooth, and just enough of a twist to make it feel like a whole new drink."
+image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+tags:
+  - "Coconut"
+  - "Vanilla Bean"
+menuOrder: 99

@@ -1,0 +1,115 @@
+hero:
+  heading: "Our Menu"
+  subheading: "Thousands of flavor combinations. One perfect drink, every time."
+
+categories:
+  - slug: coffee
+    title: "Coffee"
+    number: "01"
+    description: "Espresso-based drinks built around bold shots and real flavor. Classic lattes, signature mochas, and everything in between."
+  - slug: coldbrew
+    title: "Cold Brew"
+    number: "02"
+    description: "Slow-steeped for over 12 hours. Smoother, bolder, and less acidic than iced coffee. Drink it straight or dressed up."
+  - slug: energy
+    title: "Energy"
+    number: "03"
+    description: "Real fruit flavors mixed into an energy base with a kick. Bold, colorful, and built to get you moving."
+  - slug: dirtypop
+    title: "Dirty Pop"
+    number: "04"
+    description: "Your favorite sodas taken somewhere new. Flavored syrups, cream, and fruit purees turn a classic into something you won't forget."
+  - slug: refreshers
+    title: "Refreshers"
+    number: "05"
+    description: "Light, fruity, and made to cool you down. Real fruit purees and coconut cream over ice. No caffeine, all flavor."
+  - slug: smoothies
+    title: "Smoothies"
+    number: "06"
+    description: "Blended thick with real fruit. Sweet, filling, and good enough to count as breakfast. We won't judge."
+  - slug: teas
+    title: "Teas"
+    number: "07"
+    description: "Brewed fresh and flavored to order. From sweet and simple to fruity and bold, there's a tea for every kind of day."
+  - slug: kids
+    title: "Kids"
+    number: "08"
+    description: "Simple, familiar favorites made just for the little ones. No caffeine, no fuss - just something they'll love."
+  - slug: hotfood
+    title: "Hot Food"
+    number: "09"
+    description: "Real food made for the morning rush. Burritos, bagels, biscuits, and more - fresh, hot, and ready to go."
+  - slug: treats
+    title: "Treats"
+    number: "10"
+    description: "House-baked cookies and fresh breads. The kind of thing you add to your order and don't regret."
+
+dirtypopExtra: "Also available plain: Coca-Cola, Coke Zero, Pepsi, Diet Pepsi, Dr. Pepper, Diet Dr. Pepper, Mug Root Beer, Sprite, Sprite Zero, Mountain Dew, Fanta"
+
+customize:
+  heading: "Customize Your Drink, Your Way"
+  milks:
+    - Almond
+    - Oat
+    - Soy
+    - Coconut
+    - Whole
+    - Breve
+    - "2%"
+    - Nonfat
+  flavors:
+    - Almond
+    - Almond Roca
+    - Banana
+    - Blackberry
+    - Blue Raspberry
+    - Brown Sugar Cinnamon
+    - Butterscotch
+    - Cane Sugar
+    - Caramel
+    - Cherry
+    - Chocolate Mac
+    - Cinnamon
+    - Coconut
+    - Creme De Menthe
+    - Dark Chocolate
+    - Grapefruit
+    - Green Apple
+    - Hazelnut
+    - Irish Creme
+    - Kiwi
+    - Lavender
+    - Lemon
+    - Lime
+    - Mango
+    - Orange
+    - Passion Fruit
+    - Peach
+    - Peppermint
+    - Pineapple
+    - Pomegranate
+    - Raspberry
+    - Salted Caramel
+    - Strawberry
+    - Toasted Marshmallow
+    - Vanilla Bean
+    - Watermelon
+    - White Chocolate
+  sfFlavors:
+    - Brown Sugar Cinnamon
+    - Caramel
+    - Chocolate Mac
+    - Coconut
+    - Dark Chocolate
+    - Hazelnut
+    - Irish Creme
+    - Mango
+    - Peach
+    - Peppermint
+    - Pineapple
+    - Raspberry
+    - Salted Caramel
+    - Strawberry
+    - Vanilla Bean
+    - Watermelon
+    - White Chocolate

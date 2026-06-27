@@ -1,0 +1,9 @@
+name: "Caramel Blondie"
+category: "Cold Brew"
+subtitle: "Caramel & Vanilla"
+description: "All the sweet, golden flavors of the classic Caramel Blondie - now cold-brewed for a smoother, more refreshing take on your favorite."
+image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+tags:
+  - "Caramel"
+  - "Vanilla Bean"
+menuOrder: 99

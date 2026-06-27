@@ -1,0 +1,10 @@
+name: "Aloha"
+category: "Smoothies"
+subtitle: "Strawberry, Mango & Pineapple"
+description: "Three fruits, zero regrets. Strawberry, mango, and pineapple blended into a thick, vibrant smoothie that brings the islands to your cup holder."
+image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+tags:
+  - "Strawberry"
+  - "Mango"
+  - "Pineapple"
+menuOrder: 99

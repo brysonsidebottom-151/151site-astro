@@ -1,0 +1,9 @@
+name: "Georgia Peach"
+category: "Teas"
+subtitle: "Strawberry & Peach"
+description: "Brewed tea infused with sweet strawberry and ripe peach. Light and fruity - the afternoon pick-me-up that doesn't require caffeine to be satisfying."
+image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+tags:
+  - "Strawberry"
+  - "Peach"
+menuOrder: 99

@@ -1,0 +1,10 @@
+name: "German Chocolate"
+category: "Coffee"
+subtitle: "Coconut & Caramel, Chocolate Milk"
+description: "Inspired by the beloved cake - coconut and caramel swirl through rich chocolate milk and espresso. Toasty, sweet, and deeply satisfying."
+image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+tags:
+  - "Coconut"
+  - "Caramel"
+  - "Dark Chocolate"
+menuOrder: 99

@@ -1,0 +1,9 @@
+name: "Pina Colada"
+category: "Smoothies"
+subtitle: "Coconut & Pineapple"
+description: "Creamy coconut and tangy pineapple blended thick. The classic poolside flavor, no umbrella required."
+image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+tags:
+  - "Coconut"
+  - "Pineapple"
+menuOrder: 99

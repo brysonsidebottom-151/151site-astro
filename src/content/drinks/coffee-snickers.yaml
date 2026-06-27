@@ -1,0 +1,10 @@
+name: "Snickers"
+category: "Coffee"
+subtitle: "Hazelnut & Caramel, Chocolate Milk"
+description: "Everything you love about the classic candy bar - hazelnut, caramel, and chocolate - blended into a bold espresso drink made with chocolate milk. Indulgent and energizing."
+image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+tags:
+  - "Hazelnut"
+  - "Caramel"
+  - "Dark Chocolate"
+menuOrder: 99

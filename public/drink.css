@@ -1,0 +1,332 @@
+/* ─── Drink Detail Page ─── */
+
+/* Hero */
+.dk-hero {
+    position: relative;
+    min-height: 42vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    background-color: #e63946;
+    background-image: radial-gradient(rgba(255,255,255,0.18) 2px, transparent 2.5px);
+    background-size: 26px 26px;
+    padding-top: 5rem;
+}
+
+.dk-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(120% 55% at 50% 0%,    rgba(255,255,255,0.24) 0%, transparent 60%),
+        radial-gradient(120% 60% at 50% 100%,  rgba(255,255,255,0.14) 0%, transparent 55%),
+        radial-gradient(60%  100% at 0%   50%, rgba(255,255,255,0.10) 0%, transparent 55%),
+        radial-gradient(60%  100% at 100% 50%, rgba(255,255,255,0.10) 0%, transparent 55%);
+    pointer-events: none;
+}
+
+.dk-hero-inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 3rem 2rem 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.dk-pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dk-tag-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.dk-flavor-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.9);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+}
+
+.dk-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255,255,255,0.55);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    margin-bottom: 0.25rem;
+}
+
+.dk-back svg {
+    width: 16px;
+    height: 16px;
+}
+
+.dk-back:hover {
+    color: #e63946;
+}
+
+.dk-cat-pill {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.85rem;
+}
+
+.dk-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    color: #fff;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    margin: 0;
+}
+
+.dk-subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.55);
+    font-weight: 400;
+    margin: 0;
+    max-width: 55ch;
+}
+
+/* Body section */
+.dk-body {
+    background: #111;
+    padding: 5rem 2rem;
+}
+
+.dk-body-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+/* Image column */
+.dk-img-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dk-img-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 420px;
+    width: 100%;
+}
+
+.dk-img-glow {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 45%,
+        rgba(230,57,70,0.55) 0%,
+        rgba(214,150,158,0.28) 38%,
+        transparent 70%);
+    filter: blur(12px);
+    z-index: 0;
+    animation: dk-pulse 6s ease-in-out infinite;
+}
+
+.dk-img-ring {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: inset 0 0 60px rgba(255,255,255,0.05);
+    z-index: 0;
+}
+
+.dk-img-wrap img {
+    position: relative;
+    z-index: 1;
+    width: auto;
+    height: 480px;
+    max-width: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 30px 45px rgba(0,0,0,0.55));
+    transform-origin: center bottom;
+    animation: dk-bob 4.5s ease-in-out infinite;
+}
+
+@keyframes dk-bob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-16px); }
+}
+
+@keyframes dk-pulse {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50%      { opacity: 1;    transform: scale(1.06); }
+}
+
+/* Detail column */
+.dk-detail-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.dk-detail-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 1.25rem;
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.dk-detail-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    color: #fff;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    margin: 0;
+}
+
+.dk-detail-desc {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.dk-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin: 0.25rem 0;
+}
+
+.dk-flavor-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin: 0;
+}
+
+.dk-flavor-val {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.65);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.dk-menu-link {
+    display: inline-block;
+    background: #e63946;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.85rem 1.75rem;
+    border-radius: 100px;
+    transition: background 0.2s ease, transform 0.15s ease;
+    margin-top: 0.5rem;
+    align-self: flex-start;
+}
+
+.dk-menu-link:hover {
+    background: #c0303b;
+    transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .dk-body-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .dk-img-wrap {
+        min-height: 320px;
+    }
+
+    .dk-img-wrap img {
+        height: 360px;
+    }
+
+    .dk-img-glow {
+        width: 300px;
+        height: 300px;
+    }
+
+    .dk-img-ring {
+        width: 240px;
+        height: 240px;
+    }
+
+    .dk-hero {
+        min-height: 36vh;
+    }
+}
+
+@media (max-width: 600px) {
+    .dk-hero-inner {
+        padding: 2.5rem 1.25rem 2.5rem;
+    }
+
+    .dk-body {
+        padding: 3rem 1.25rem;
+    }
+
+    .dk-detail-card {
+        padding: 1.75rem 1.25rem;
+    }
+
+    .dk-img-wrap {
+        min-height: 260px;
+    }
+
+    .dk-img-wrap img {
+        height: 280px;
+    }
+
+    .dk-img-glow {
+        width: 240px;
+        height: 240px;
+    }
+
+    .dk-img-ring {
+        width: 190px;
+        height: 190px;
+    }
+}
