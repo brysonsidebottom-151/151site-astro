@@ -12,14 +12,15 @@ export default defineStackbitConfig({
       contentDirs: ['src/content'],
       models: [
         {
-          name: 'pages/home',
+          name: 'PageHome',
           type: 'page',
           filePath: 'src/content/pages/home.yaml',
           urlPath: '/',
           fields: [
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
-              { name: 'subheading', type: 'string' },
+              { name: 'subheadingLine1', type: 'string' },
+              { name: 'subheadingLine2', type: 'string' },
               { name: 'ctaLabel', type: 'string' },
               { name: 'ctaHref', type: 'string' },
               { name: 'videoUrl', type: 'string' },
@@ -83,7 +84,7 @@ export default defineStackbitConfig({
           ],
         },
         {
-          name: 'pages/menu',
+          name: 'PageMenu',
           type: 'page',
           filePath: 'src/content/pages/menu.yaml',
           urlPath: '/menu',
@@ -108,7 +109,7 @@ export default defineStackbitConfig({
           ],
         },
         {
-          name: 'pages/about',
+          name: 'PageAbout',
           type: 'page',
           filePath: 'src/content/pages/about.yaml',
           urlPath: '/about',
@@ -160,12 +161,62 @@ export default defineStackbitConfig({
           ],
         },
         {
-          name: 'drink',
+          name: 'PageCareers',
+          type: 'page',
+          filePath: 'src/content/pages/careers.yaml',
+          urlPath: '/careers',
+          fields: [
+            { name: 'agegate', type: 'object', fields: [
+              { name: 'eyebrow', type: 'string' },
+              { name: 'heading', type: 'string' },
+              { name: 'body', type: 'string' },
+              { name: 'yesLabel', type: 'string' },
+              { name: 'noLabel', type: 'string' },
+            ]},
+            { name: 'under18', type: 'object', fields: [
+              { name: 'heading', type: 'string' },
+              { name: 'body', type: 'list', items: { type: 'string' } },
+              { name: 'linkText', type: 'string' },
+            ]},
+            { name: 'hero', type: 'object', fields: [
+              { name: 'heading', type: 'string' },
+              { name: 'subheading', type: 'string' },
+            ]},
+            { name: 'workstreamLabel', type: 'string' },
+            { name: 'workstreamHref', type: 'string' },
+          ],
+        },
+        {
+          name: 'PageMerch',
+          type: 'page',
+          filePath: 'src/content/pages/merch.yaml',
+          urlPath: '/merch',
+          fields: [
+            { name: 'hero', type: 'object', fields: [
+              { name: 'heading', type: 'string' },
+              { name: 'subheading', type: 'string' },
+            ]},
+          ],
+        },
+        {
+          name: 'PageRealestate',
+          type: 'page',
+          filePath: 'src/content/pages/realestate.yaml',
+          urlPath: '/real-estate',
+          fields: [
+            { name: 'hero', type: 'object', fields: [
+              { name: 'heading', type: 'string' },
+              { name: 'subheading', type: 'string' },
+            ]},
+          ],
+        },
+        {
+          name: 'Drink',
           type: 'data',
           filePath: 'src/content/drinks/{slug}.yaml',
           fields: [
             { name: 'name', type: 'string', required: true },
-            { name: 'category', type: 'enum', options: { values: ['Coffee','Cold Brew','Energy','Dirty Pop','Refreshers','Smoothies','Teas','Kids','Hot Food','Treats'] } },
+            { name: 'category', type: 'enum', options: ['Coffee','Cold Brew','Energy','Dirty Pop','Refreshers','Smoothies','Teas','Kids','Hot Food','Treats'] },
             { name: 'subtitle', type: 'string' },
             { name: 'description', type: 'string' },
             { name: 'image', type: 'image' },
@@ -174,7 +225,7 @@ export default defineStackbitConfig({
           ],
         },
         {
-          name: 'location',
+          name: 'Location',
           type: 'data',
           filePath: 'src/content/locations/{slug}.yaml',
           fields: [
@@ -189,7 +240,7 @@ export default defineStackbitConfig({
           ],
         },
         {
-          name: 'settings/global',
+          name: 'SettingsGlobal',
           type: 'data',
           filePath: 'src/content/settings/global.yaml',
           fields: [
@@ -211,17 +262,20 @@ export default defineStackbitConfig({
 
   siteMap: ({ documents }): SiteMapEntry[] => {
     const URL_MAP: Record<string, string> = {
-      'pages/home': '/',
-      'pages/menu': '/menu',
-      'pages/about': '/about',
+      PageHome: '/',
+      PageMenu: '/menu',
+      PageAbout: '/about',
+      PageCareers: '/careers',
+      PageMerch: '/merch',
+      PageRealestate: '/real-estate',
     };
     return documents
-      .filter(doc => doc.modelName?.startsWith('pages/'))
+      .filter(doc => doc.modelName && URL_MAP[doc.modelName])
       .map(doc => ({
         stableId: doc.id,
-        urlPath: URL_MAP[doc.modelName ?? ''] ?? '/',
+        urlPath: URL_MAP[doc.modelName!],
         document: doc,
-        isHomePage: doc.modelName === 'pages/home',
+        isHomePage: doc.modelName === 'PageHome',
       }));
   },
 });
