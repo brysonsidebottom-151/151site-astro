@@ -275,7 +275,7 @@ export default defineStackbitConfig({
       PageMerch: '/merch',
       PageRealestate: '/real-estate',
     };
-    return documents
+    const pageEntries = documents
       .filter(doc => doc.modelName && URL_MAP[doc.modelName])
       .map(doc => ({
         stableId: doc.id,
@@ -283,5 +283,12 @@ export default defineStackbitConfig({
         document: doc,
         isHomePage: doc.modelName === 'PageHome',
       }));
+    const drinkEntries = documents
+      .filter(doc => doc.modelName === 'Drink')
+      .map(doc => {
+        const slug = doc.id.replace(/^src\/content\/drinks\//, '').replace(/\.yaml$/, '');
+        return { stableId: doc.id, urlPath: `/drinks/${slug}`, document: doc };
+      });
+    return [...pageEntries, ...drinkEntries];
   },
 });

@@ -31,7 +31,7 @@ const m = menuEntry!.data as any;
   <Nav active="menu" />
 
   <!-- Red polka-dot hero -->
-  <section class="dk-hero" style="margin-top:58px;">
+  <section class="dk-hero" style="margin-top:58px;" data-sb-object-id={`src/content/drinks/${slug}.yaml`}>
     <div class="dk-hero-bg"></div>
     <div class="dk-hero-inner">
       <a href="/menu" class="dk-back">
@@ -61,7 +61,12 @@ const m = menuEntry!.data as any;
         <div class="dk-img-wrap">
           <div class="dk-img-glow"></div>
           <div class="dk-img-ring"></div>
-          <img src="/images/drinks/energy/151 Blue Energy Hand (1).png" alt={drink.name} data-sb-field-path="image" />
+          {(() => {
+            const src = drink.image
+              ? (drink.image.startsWith('/') ? drink.image : '/' + drink.image)
+              : '/images/drinks/energy/151 Blue Energy Hand (1).png';
+            return <img src={src} alt={drink.name} data-sb-field-path="image" />;
+          })()}
         </div>
       </div>
 
