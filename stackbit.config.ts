@@ -1,5 +1,9 @@
 import { defineStackbitConfig, SiteMapEntry } from '@stackbit/types';
 import { GitContentSource } from '@stackbit/cms-git';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineStackbitConfig({
   stackbitVersion: '~0.6.0',
