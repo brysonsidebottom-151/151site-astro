@@ -52,13 +52,5 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, 'https://www.151co
   <script src="/js/script.js" is:inline></script>
   <script src="/js/animations.js" is:inline></script>
   <script src="/js/cookie-consent.js" is:inline></script>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script is:inline>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on('init', function(user) {
-        if (!user) window.netlifyIdentity.on('login', function() { document.location.href = '/admin/'; });
-      });
-    }
-  </script>
 </body>
 </html>

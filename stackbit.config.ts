@@ -3,7 +3,7 @@ import { defineStackbitConfig, SiteMapEntry } from '@stackbit/types';
 export default defineStackbitConfig({
   stackbitVersion: '~0.6.0',
   ssgName: 'astro',
-  nodeVersion: '18',
+  nodeVersion: '22',
 
   contentSources: [
     {
