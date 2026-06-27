@@ -119,7 +119,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
                   {isIconCat(cat.tab)
                     ? <span class="kids-icon">{getIcon(drink.slug, cat.tab)}</span>
                     : drink.image
-                      ? <img loading="lazy" decoding="async" src={drink.image} alt={drink.name} data-sb-field-path="image" />
+                      ? <img loading="lazy" decoding="async" src={drink.image.startsWith('/') ? drink.image : '/' + drink.image} alt={drink.name} data-sb-field-path="image" />
                       : <img loading="lazy" decoding="async" src="/images/drinks/energy/151 Blue Energy Hand (1).png" alt={drink.name} data-sb-field-path="image" />
                   }
                 </div>
