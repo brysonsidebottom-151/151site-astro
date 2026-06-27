@@ -4,6 +4,7 @@ export default defineStackbitConfig({
   stackbitVersion: '~0.6.0',
   ssgName: 'astro',
   nodeVersion: '22',
+  contentSources: [],
 
   models: [
     {
