@@ -459,8 +459,7 @@
 .cz-heading h2 span { color: #e63946; }
 
 .cz-layout {
-    display: grid;
-    grid-template-columns: 340px 1fr;
+    display: flex;
     gap: 1.5rem;
     align-items: start;
 }

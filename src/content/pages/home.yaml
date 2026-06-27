@@ -1,6 +1,7 @@
 hero:
   heading: "151 Coffee"
-  subheading: "It's a Good Day to have a good day"
+  subheadingLine1: "It's a Good Day"
+  subheadingLine2: "to have a good day"
   ctaLabel: "See Our Menu"
   ctaHref: "/menu"
   videoUrl: "/videos/landing_bg.mp4"

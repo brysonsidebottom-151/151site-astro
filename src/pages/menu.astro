@@ -14,11 +14,18 @@ const allDrinks = drinksEntries
   .map(e => ({ slug: e.id, ...(e.data as any) }))
   .sort((a: any, b: any) => (a.menuOrder ?? 99) - (b.menuOrder ?? 99));
 
-const CAT_SLUG_MAP: Record<string, string> = {
-  'Coffee': 'coffee', 'Cold Brew': 'coldbrew', 'Energy': 'energy',
-  'Dirty Pop': 'dirtypop', 'Refreshers': 'refreshers', 'Smoothies': 'smoothies',
-  'Teas': 'teas', 'Kids': 'kids', 'Hot Food': 'hotfood', 'Treats': 'treats',
-};
+// Derive categories from YAML so they're editable in Visual Editor
+const CATEGORIES = (p.categories ?? []).map((cat: any) => ({
+  tab: cat.slug,
+  num: cat.number,
+  title: cat.title,
+  desc: cat.description,
+}));
+
+// Build slug map dynamically from YAML categories
+const CAT_SLUG_MAP: Record<string, string> = Object.fromEntries(
+  CATEGORIES.map((cat: any) => [cat.title, cat.tab])
+);
 
 function catSlug(drink: any): string {
   return CAT_SLUG_MAP[drink.category] ?? drink.category?.toLowerCase().replace(/\s+/g, '') ?? '';
@@ -30,18 +37,8 @@ for (const d of allDrinks) {
   drinksDataObj[d.slug] = { tags: d.tags ?? [], catSlug: catSlug(d) };
 }
 
-const CATEGORIES = [
-  { tab: 'coffee',     num: '01', title: 'Coffee',     desc: 'Espresso-based drinks built around bold shots and real flavor. Classic lattes, signature mochas, and everything in between.' },
-  { tab: 'coldbrew',   num: '02', title: 'Cold Brew',  desc: 'Slow-steeped for over 12 hours. Smoother, bolder, and less acidic than iced coffee. Drink it straight or dressed up.' },
-  { tab: 'energy',     num: '03', title: 'Energy',     desc: 'Real fruit flavors mixed into an energy base with a kick. Bold, colorful, and built to get you moving.' },
-  { tab: 'dirtypop',   num: '04', title: 'Dirty Pop',  desc: 'Your favorite sodas taken somewhere new. Flavored syrups, cream, and fruit purees turn a classic into something you won\'t forget.' },
-  { tab: 'refreshers', num: '05', title: 'Refreshers', desc: 'Light, fruity, and made to cool you down. Real fruit purees and coconut cream over ice. No caffeine, all flavor.' },
-  { tab: 'smoothies',  num: '06', title: 'Smoothies',  desc: 'Blended thick with real fruit. Sweet, filling, and good enough to count as breakfast. We won\'t judge.' },
-  { tab: 'teas',       num: '07', title: 'Teas',       desc: 'Brewed fresh and flavored to order. From sweet and simple to fruity and bold, there\'s a tea for every kind of day.' },
-  { tab: 'kids',       num: '08', title: 'Kids',       desc: 'Simple, familiar favorites made just for the little ones. No caffeine, no fuss - just something they\'ll love.' },
-  { tab: 'hotfood',    num: '09', title: 'Hot Food',   desc: 'Real food made for the morning rush. Burritos, bagels, biscuits, and more - fresh, hot, and ready to go.' },
-  { tab: 'treats',     num: '10', title: 'Treats',     desc: 'House-baked cookies and fresh breads. The kind of thing you add to your order and don\'t regret.' },
-];
+const dirtypopSodas: string[] = (p.dirtypopExtra ?? '')
+  .split(',').map((s: string) => s.trim()).filter(Boolean);
 
 const KIDS_ICONS: Record<string, string> = {
   'kids-hot-cocoa': '☕', 'kids-chocolate-milk': '🥛', 'kids-apple-juice': '🧃', 'kids-hot-cider': '🍎',
@@ -68,9 +65,9 @@ function getIcon(slug: string, cat: string) {
 
 const drinksJson = JSON.stringify(drinksDataObj);
 
-const milks = p.customize?.milks ?? ['Almond','Oat','Soy','Coconut','Whole','Breve','2%','Nonfat'];
-const flavors = p.customize?.flavors ?? ['Almond','Almond Roca','Banana','Blackberry','Blue Raspberry','Brown Sugar Cinnamon','Butterscotch','Cane Sugar','Caramel','Cherry','Chocolate Mac','Cinnamon','Coconut','Creme De Menthe','Dark Chocolate','Grapefruit','Green Apple','Hazelnut','Irish Creme','Kiwi','Lavender','Lemon','Lime','Mango','Orange','Passion Fruit','Peach','Peppermint','Pineapple','Pomegranate','Raspberry','Salted Caramel','Strawberry','Toasted Marshmallow','Vanilla Bean','Watermelon','White Chocolate'];
-const sfFlavors = p.customize?.sfFlavors ?? ['Brown Sugar Cinnamon','Caramel','Chocolate Mac','Coconut','Dark Chocolate','Hazelnut','Irish Creme','Mango','Peach','Peppermint','Pineapple','Raspberry','Salted Caramel','Strawberry','Vanilla Bean','Watermelon','White Chocolate'];
+const milks: string[] = p.customize?.milks ?? [];
+const flavors: string[] = p.customize?.flavors ?? [];
+const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
 ---
 <Layout title="Menu | 151 Coffee - Coffee, Cold Brew, Energy & Dirty Pop" description="Explore the full 151 Coffee menu. Signature espresso drinks, cold brew, blended energy, Dirty Pop sodas, refreshers, smoothies, teas, and more.">
   <Fragment slot="head">
@@ -80,15 +77,18 @@ const sfFlavors = p.customize?.sfFlavors ?? ['Brown Sugar Cinnamon','Caramel','C
   <Nav active="menu" />
 
   <section class="menu-hero">
-    <video autoplay muted loop playsinline class="hero-bg" aria-hidden="true"></video>
+    <video autoplay muted loop playsinline class="hero-bg" aria-hidden="true">
+      <source src="/videos/landing_bg.mp4" type="video/mp4" />
+    </video>
     <div class="menu-hero-content">
       <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Our Menu'}</h1>
       <p data-sb-field-path="hero.subheading">{p.hero?.subheading ?? 'Thousands of flavor combinations. One perfect drink, every time.'}</p>
     </div>
     <div class="cat-nav" id="catNav">
       <div class="cat-nav-inner">
-        {CATEGORIES.map((cat, i) => (
-          <button class={`cat-link${i === 0 ? ' active' : ''}`} data-tab={cat.tab}>{cat.title}</button>
+        {CATEGORIES.map((cat: any, i: number) => (
+          <button class={`cat-link${i === 0 ? ' active' : ''}`} data-tab={cat.tab}
+            data-sb-field-path={`categories.${i}.title`}>{cat.title}</button>
         ))}
       </div>
     </div>
@@ -96,41 +96,44 @@ const sfFlavors = p.customize?.sfFlavors ?? ['Brown Sugar Cinnamon','Caramel','C
 
   <section class="timeline-wrap">
     <div class="timeline-scroll" id="timelineScroll">
-      {CATEGORIES.map(cat => {
+      {CATEGORIES.map((cat: any, catIndex: number) => {
         const drinks = allDrinks.filter((d: any) => catSlug(d) === cat.tab);
         return (
           <>
-            <div class={`cat-title-card`} id={`cat-${cat.tab}`} data-cat={cat.tab}>
+            <div class="cat-title-card" id={`cat-${cat.tab}`} data-cat={cat.tab}
+              data-sb-field-path={`categories.${catIndex}`}>
               <div class="cat-title-inner">
-                <span class="cat-num">{cat.num}</span>
-                <h2 class="cat-title-text">{cat.title}</h2>
-                <p class="cat-title-desc">{cat.desc}</p>
+                <span class="cat-num" data-sb-field-path="number">{cat.num}</span>
+                <h2 class="cat-title-text" data-sb-field-path="title">{cat.title}</h2>
+                <p class="cat-title-desc" data-sb-field-path="description">{cat.desc}</p>
                 <svg class="cat-arrow" viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M2 12h36M26 2l12 10-12 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </div>
             </div>
             {drinks.map((drink: any) => (
-              <a class={`drink-card${drink.slug === 'coldbrew-nitro-brew' ? ' nitro-card' : ''}`} data-cat={cat.tab} href={`/drinks/${drink.slug}`}>
+              <a class={`drink-card${drink.slug === 'coldbrew-nitro-brew' ? ' nitro-card' : ''}`}
+                data-cat={cat.tab} href={`/drinks/${drink.slug}`}
+                data-sb-object-id={`src/content/drinks/${drink.slug}.yaml`}>
                 <div class={`drink-img-wrap${isIconCat(cat.tab) ? ' kids-img-wrap' : ''}`}>
                   {isIconCat(cat.tab)
                     ? <span class="kids-icon">{getIcon(drink.slug, cat.tab)}</span>
                     : drink.image
-                      ? <img loading="lazy" decoding="async" src={drink.image} alt={drink.name} />
-                      : <img loading="lazy" decoding="async" src="/images/drinks/energy/151 Blue Energy Hand (1).png" alt={drink.name} />
+                      ? <img loading="lazy" decoding="async" src={drink.image} alt={drink.name} data-sb-field-path="image" />
+                      : <img loading="lazy" decoding="async" src="/images/drinks/energy/151 Blue Energy Hand (1).png" alt={drink.name} data-sb-field-path="image" />
                   }
                 </div>
                 <div class="drink-info">
-                  <h3>{drink.name}</h3>
-                  {drink.subtitle && <p>{drink.subtitle}</p>}
+                  <h3 data-sb-field-path="name">{drink.name}</h3>
+                  {drink.subtitle && <p data-sb-field-path="subtitle">{drink.subtitle}</p>}
                 </div>
               </a>
             ))}
             {cat.tab === 'dirtypop' && (
               <div class="soda-timeline-card" data-cat="dirtypop">
                 <p class="soda-also">Also available plain:</p>
-                <div class="soda-list">
-                  <span>Coca-Cola</span><span>Coke Zero</span><span>Pepsi</span><span>Diet Pepsi</span><span>Dr. Pepper</span><span>Diet Dr. Pepper</span><span>Mug Root Beer</span><span>Sprite</span><span>Sprite Zero</span><span>Mountain Dew</span><span>Fanta</span>
+                <div class="soda-list" data-sb-field-path="dirtypopExtra">
+                  {dirtypopSodas.map((s: string) => <span>{s}</span>)}
                 </div>
               </div>
             )}
@@ -149,29 +152,25 @@ const sfFlavors = p.customize?.sfFlavors ?? ['Brown Sugar Cinnamon','Caramel','C
   <section class="customize-section">
     <div class="cz-inner">
       <div class="cz-heading">
-        <h2 data-sb-field-path="customize.heading">{p.customize?.heading ?? 'Customize Your Drink, '}<span>Your Way</span></h2>
+        <h2 data-sb-field-path="customize.heading">{p.customize?.heading ?? 'Customize Your Drink, Your Way'}</h2>
         <p class="cz-filter-hint" id="czFilterHint" aria-live="polite"></p>
       </div>
       <div class="cz-layout">
-        <div class="cz-left">
-          <div class="cz-block">
-            <p class="cz-label">Your Milk</p>
-            <div class="cz-pills">
-              {milks.map((m: string) => <span class="cpill">{m}</span>)}
-            </div>
-          </div>
-        </div>
-        <div class="cz-right">
-          <div class="cz-block">
+        <div class="cz-right" style="width:100%;max-width:100%;flex:1">
+          <div class="cz-block" data-sb-field-path="customize.flavors">
             <p class="cz-label">Add a Flavor <span class="cz-filter-tip">- tap to filter the menu</span></p>
             <div class="cz-pills cz-pills--flavors" id="czFlavorPills">
-              {flavors.map((f: string) => <span class="cpill cpill--filter" data-flavor={f}>{f}</span>)}
+              {flavors.map((f: string, i: number) => (
+                <span class="cpill cpill--filter" data-flavor={f} data-sb-field-path={`.${i}`}>{f}</span>
+              ))}
             </div>
           </div>
-          <div class="cz-block cz-block--sf">
+          <div class="cz-block cz-block--sf" data-sb-field-path="customize.sfFlavors">
             <p class="cz-label cz-label--sf">Also Available Sugar Free</p>
             <div class="cz-pills cz-pills--flavors">
-              {sfFlavors.map((f: string) => <span class="cpill cpill--sf cpill--filter" data-flavor={f}>{f}</span>)}
+              {sfFlavors.map((f: string, i: number) => (
+                <span class="cpill cpill--sf cpill--filter" data-flavor={f} data-sb-field-path={`.${i}`}>{f}</span>
+              ))}
             </div>
           </div>
         </div>
@@ -182,7 +181,7 @@ const sfFlavors = p.customize?.sfFlavors ?? ['Brown Sugar Cinnamon','Caramel','C
   <Footer />
 
   <script define:vars={{ drinksJson }} is:inline>
-    var DRINKS = JSON.parse(drinksJson);
+    window.DRINKS = JSON.parse(drinksJson);
   </script>
   <script is:inline>
   (function () {
@@ -320,6 +319,7 @@ const sfFlavors = p.customize?.sfFlavors ?? ['Brown Sugar Cinnamon','Caramel','C
           document.querySelectorAll('.cpill--filter').forEach(function(p) { p.classList.remove('cpill--active'); });
           document.querySelectorAll('.cpill--filter[data-flavor="' + flavor + '"]').forEach(function(p) { p.classList.add('cpill--active'); });
           applyFilter(flavor);
+          document.querySelector('.timeline-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     });

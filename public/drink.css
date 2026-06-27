@@ -3,14 +3,13 @@
 /* Hero */
 .dk-hero {
     position: relative;
-    min-height: 42vh;
     display: flex;
     align-items: flex-end;
     overflow: hidden;
     background-color: #e63946;
     background-image: radial-gradient(rgba(255,255,255,0.18) 2px, transparent 2.5px);
     background-size: 26px 26px;
-    padding-top: 5rem;
+    padding-top: 4rem;
 }
 
 .dk-hero-bg {
@@ -294,8 +293,89 @@
         height: 240px;
     }
 
-    .dk-hero {
-        min-height: 36vh;
+}
+
+/* Customize section */
+.dk-customize {
+    background-color: #111111;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 48px 48px;
+    position: relative;
+    padding: 4rem 2rem 5rem;
+}
+
+.dk-customize::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(90% 45% at 50% 0%, rgba(230,57,70,0.14) 0%, transparent 65%),
+        radial-gradient(50% 50% at 0% 100%, rgba(230,57,70,0.06) 0%, transparent 60%),
+        radial-gradient(50% 50% at 100% 100%, rgba(230,57,70,0.06) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.dk-customize-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.dk-customize-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: #fff;
+    letter-spacing: 0.02em;
+    margin: 0 0 2.5rem;
+}
+
+.dk-customize-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.dk-customize-col h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin: 0 0 1rem;
+}
+
+.dk-customize-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.dk-customize-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.75);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 0.3rem 0.75rem;
+}
+
+.dk-customize-tag.sf {
+    border-color: rgba(230,57,70,0.3);
+    color: rgba(230,57,70,0.85);
+    background: rgba(230,57,70,0.06);
+}
+
+@media (max-width: 768px) {
+    .dk-customize-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 }
 
@@ -330,3 +410,4 @@
         height: 190px;
     }
 }
+

@@ -7,67 +7,213 @@ import { getEntry } from 'astro:content';
 const entry = await getEntry('pages', 'careers');
 const p = entry!.data as any;
 ---
-<Layout title="Careers at 151 Coffee | Join Our Team" bodyClass="careers-page">
+<Layout title="Careers at 151 Coffee | Join Our Team">
+  <Fragment slot="head">
+    <style>
+      body { overflow: hidden; }
+      .age-gate-page {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        background: var(--black);
+      }
+      .age-bg-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.45;
+        z-index: 0;
+      }
+      .age-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.70) 100%);
+        z-index: 1;
+      }
+      nav { z-index: 100; }
+      .age-gate {
+        position: relative;
+        z-index: 2;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+        margin-top: 58px;
+      }
+      .age-card {
+        text-align: center;
+        max-width: 520px;
+        width: 100%;
+      }
+      .age-card .eyebrow {
+        display: inline-block;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.65);
+        border: 1px solid rgba(255,255,255,0.22);
+        padding: 0.3rem 0.9rem;
+        border-radius: 999px;
+        margin-bottom: 1.5rem;
+      }
+      .age-card h1 { font-size: clamp(2.4rem, 6vw, 4rem); color: #fff; line-height: 1.05; margin-bottom: 1rem; }
+      .age-card h1 span { color: var(--red); }
+      .age-card .sub {
+        font-family: 'Inter', sans-serif;
+        font-size: 1rem;
+        color: rgba(255,255,255,0.70);
+        line-height: 1.6;
+        margin-bottom: 2.5rem;
+      }
+      .age-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+      .age-btn-yes {
+        background: var(--red);
+        color: #fff;
+        padding: 0.9rem 2.4rem;
+        border-radius: var(--radius-pill);
+        font-family: 'Inter', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 20px rgba(230,57,70,0.35);
+      }
+      .age-btn-yes:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(230,57,70,0.45); }
+      .age-btn-no {
+        background: transparent;
+        color: rgba(255,255,255,0.70);
+        padding: 0.9rem 2.4rem;
+        border-radius: var(--radius-pill);
+        border: 1px solid rgba(255,255,255,0.25);
+        font-family: 'Inter', sans-serif;
+        font-size: 0.92rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: border-color 0.2s, color 0.2s;
+      }
+      .age-btn-no:hover { border-color: rgba(255,255,255,0.55); color: #fff; }
+      .age-under { display: none; text-align: center; max-width: 520px; width: 100%; }
+      .age-under h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); color: #fff; line-height: 1.1; margin-bottom: 1rem; }
+      .age-under h2 span { color: var(--red); }
+      .age-under p { font-family: 'Inter', sans-serif; font-size: 1rem; color: rgba(255,255,255,0.68); line-height: 1.7; margin-bottom: 1.75rem; }
+      .age-under .back-link { font-family: 'Inter', sans-serif; font-size: 0.85rem; color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+      .age-under .back-link:hover { color: rgba(255,255,255,0.8); }
+      @media (max-width: 480px) {
+        .age-buttons { flex-direction: column; align-items: center; }
+        .age-btn-yes, .age-btn-no { width: 100%; max-width: 280px; }
+      }
+
+      /* Careers content (shown after age gate) */
+      .careers-hero {
+        position: relative;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+        background: var(--black);
+        margin-top: 58px;
+      }
+      .careers-hero .hero-bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.5;
+        z-index: 0;
+      }
+      .careers-hero::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.6) 100%);
+        z-index: 1;
+      }
+      .careers-hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 700px;
+        padding: 2rem 1rem;
+      }
+      .careers-hero-content h1 { color: #fff; font-size: clamp(2.8rem, 6vw, 5rem); line-height: 1; margin-bottom: 1.2rem; }
+      .careers-hero-content p { font-family: 'Inter', sans-serif; font-size: 1.1rem; color: rgba(255,255,255,0.75); margin-bottom: 2.5rem; }
+    </style>
+  </Fragment>
+
   <Nav active="careers" />
 
-  <!-- Age gate overlay -->
-  <div id="age-gate" class="age-gate-overlay">
-    <div class="age-gate-box">
-      <span class="age-gate-eyebrow" data-sb-field-path="agegate.eyebrow">{p.agegate?.eyebrow}</span>
-      <h1 data-sb-field-path="agegate.heading">{p.agegate?.heading}</h1>
-      <p data-sb-field-path="agegate.body">{p.agegate?.body}</p>
-      <div class="age-gate-buttons">
-        <button id="age-yes" class="btn-primary" data-sb-field-path="agegate.yesLabel">{p.agegate?.yesLabel}</button>
-        <button id="age-no" class="btn-secondary" data-sb-field-path="agegate.noLabel">{p.agegate?.noLabel}</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Under 18 message -->
-  <div id="under18-msg" class="under18-section" style="display:none;">
-    <div class="container">
-      <h2 data-sb-field-path="under18.heading">{p.under18?.heading}</h2>
-      {(p.under18?.body ?? []).map((para: string, i: number) => (
-        <p data-sb-field-path={`under18.body.${i}`}>{para}</p>
-      ))}
-      <a href="/" data-sb-field-path="under18.linkText">{p.under18?.linkText}</a>
-    </div>
-  </div>
-
-  <!-- Careers content (shown after age verification) -->
-  <div id="careers-content" style="display:none;">
-    <section class="page-hero" style="background-image:url('/images/nowhiring.jpg');">
-      <div class="page-hero-overlay"></div>
-      <div class="container">
-        <div class="page-hero-content">
-          <h1>Join the 151 Team</h1>
-          <p>Fun, fast, and built on good vibes. See what's open.</p>
+  <!-- Age gate -->
+  <div class="age-gate-page" id="ageGatePage">
+    <video autoplay muted loop playsinline class="age-bg-video" aria-hidden="true">
+      <source src="/videos/landing_bg.mp4" type="video/mp4" />
+    </video>
+    <div class="age-overlay"></div>
+    <div class="age-gate">
+      <div class="age-card" id="ageCard">
+        <span class="eyebrow" data-sb-field-path="agegate.eyebrow">{p.agegate?.eyebrow ?? 'Join the Team'}</span>
+        <h1 data-sb-field-path="agegate.heading">{p.agegate?.heading ?? <>Join <span>151 Coffee</span></>}</h1>
+        <p class="sub" data-sb-field-path="agegate.body">{p.agegate?.body ?? 'Fun and happiness drive our culture. Music drives our speed. Before we send you to our openings - are you 18 or older?'}</p>
+        <div class="age-buttons">
+          <button id="ageYes" class="age-btn-yes" data-sb-field-path="agegate.yesLabel">{p.agegate?.yesLabel ?? "Yes, I'm 18 or Older"}</button>
+          <button id="ageNo" class="age-btn-no" data-sb-field-path="agegate.noLabel">{p.agegate?.noLabel ?? 'Not Quite Yet'}</button>
         </div>
       </div>
-    </section>
-    <section class="careers-apply">
-      <div class="container" style="text-align:center;padding:4rem 1rem;">
-        <a href={p.workstreamHref} target="_blank" rel="noopener noreferrer" class="btn-primary" style="font-size:1.2rem;padding:1rem 2.5rem;">
-          View Open Positions
+      <div class="age-under" id="ageUnder">
+        <h2 data-sb-field-path="under18.heading">{p.under18?.heading ?? <>Come back when you're <span>ready.</span></>}</h2>
+        {(p.under18?.body ?? ['We appreciate your honesty. Check out our menu in the meantime!']).map((para: string, i: number) => (
+          <p data-sb-field-path={`under18.body.${i}`}>{para}</p>
+        ))}
+        <a href="/" class="back-link" data-sb-field-path="under18.linkText">{p.under18?.linkText ?? '← Back to Home'}</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Careers content (revealed after age gate) -->
+  <div id="careersContent" style="display:none;">
+    <section class="careers-hero">
+      <video autoplay muted loop playsinline class="hero-bg" aria-hidden="true">
+        <source src="/videos/landing_bg.mp4" type="video/mp4" />
+      </video>
+      <div class="careers-hero-content">
+        <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Join the 151 Team'}</h1>
+        <p data-sb-field-path="hero.subheading">{p.hero?.subheading ?? 'Fun, fast, and built on good vibes. See what\'s open.'}</p>
+        <a href={p.workstreamHref ?? '#'} target="_blank" rel="noopener noreferrer" class="btn-primary"
+          style="font-size:1.1rem;padding:1rem 2.5rem;" data-sb-field-path="workstreamLabel">
+          {p.workstreamLabel ?? 'View Open Positions'}
         </a>
       </div>
     </section>
     <Footer />
   </div>
 
-  <script define:vars={{ workstreamHref: p.workstreamHref }} is:inline>
-    var ageYes = document.getElementById('age-yes');
-    var ageNo = document.getElementById('age-no');
-    var ageGate = document.getElementById('age-gate');
-    var u18 = document.getElementById('under18-msg');
-    var content = document.getElementById('careers-content');
-    if (ageYes) ageYes.addEventListener('click', function() {
-      ageGate.style.display = 'none';
-      content.style.display = 'block';
-    });
-    if (ageNo) ageNo.addEventListener('click', function() {
-      ageGate.style.display = 'none';
-      u18.style.display = 'block';
-    });
+  <script is:inline>
+    (function () {
+      var page = document.getElementById('ageGatePage');
+      var card = document.getElementById('ageCard');
+      var under = document.getElementById('ageUnder');
+      var content = document.getElementById('careersContent');
+
+      document.getElementById('ageYes').addEventListener('click', function () {
+        page.style.display = 'none';
+        document.body.style.overflow = '';
+        content.style.display = 'block';
+      });
+
+      document.getElementById('ageNo').addEventListener('click', function () {
+        card.style.display = 'none';
+        under.style.display = 'block';
+      });
+    })();
   </script>
 </Layout>

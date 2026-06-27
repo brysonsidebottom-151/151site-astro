@@ -10,69 +10,98 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const drinkEntry = await getCollection('drinks').then(d => d.find(e => e.id === slug));
-const menuEntry = await getEntry('pages', 'menu');
+const [drinks, menuEntry] = await Promise.all([
+  getCollection('drinks'),
+  getEntry('pages', 'menu'),
+]);
+const drinkEntry = drinks.find(e => e.id === slug);
 
 if (!drinkEntry) return Astro.redirect('/menu');
-const drink = drinkEntry.data;
-const p = menuEntry!.data as any;
+const drink = drinkEntry.data as any;
+const m = menuEntry!.data as any;
 ---
 <Layout
   title={`${drink.name} | 151 Coffee Menu`}
-  description={drink.description || `${drink.name} - ${drink.subtitle} at 151 Coffee.`}
+  description={drink.description || `${drink.name}${drink.subtitle ? ' - ' + drink.subtitle : ''} at 151 Coffee.`}
 >
-  <fragment slot="head">
+  <Fragment slot="head">
     <link rel="stylesheet" href="/drink.css" />
-  </fragment>
+  </Fragment>
 
   <Nav active="menu" />
 
-  <section class="drink-detail">
-    <div class="container">
-      <a href="/menu" class="back-link">&larr; Back to Menu</a>
-      <div class="drink-detail-grid">
-        <div class="drink-detail-image">
-          {drink.image && <img src={drink.image} alt={drink.name} />}
+  <!-- Red polka-dot hero -->
+  <section class="dk-hero" style="margin-top:58px;">
+    <div class="dk-hero-bg"></div>
+    <div class="dk-hero-inner">
+      <a href="/menu" class="dk-back">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back to Menu
+      </a>
+      <div class="dk-pills-row">
+        <span class="dk-cat-pill" data-sb-field-path="category">{drink.category}</span>
+      </div>
+      <h1 class="dk-title" data-sb-field-path="name">{drink.name}</h1>
+      {drink.tags && drink.tags.length > 0 && (
+        <div class="dk-tag-pills">
+          {drink.tags.map((tag: string, i: number) => (
+            <span class="dk-flavor-tag" data-sb-field-path={`tags.${i}`}>{tag}</span>
+          ))}
         </div>
-        <div class="drink-detail-info">
-          <span class="drink-category-pill">{drink.category}</span>
-          <h1>{drink.name}</h1>
-          {drink.subtitle && <p class="drink-detail-subtitle">{drink.subtitle}</p>}
-          {drink.description && <p class="drink-detail-desc">{drink.description}</p>}
-          {drink.tags && drink.tags.length > 0 && (
-            <div class="drink-detail-tags">
-              <span class="tags-label">Flavors</span>
-              <div class="drink-tags">
-                {drink.tags.map((tag: string) => <span class="drink-tag">{tag}</span>)}
-              </div>
-            </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Dark body: image + detail card -->
+  <section class="dk-body">
+    <div class="dk-body-inner">
+      <div class="dk-img-col">
+        <div class="dk-img-wrap">
+          <div class="dk-img-glow"></div>
+          <div class="dk-img-ring"></div>
+          <img src="/images/drinks/energy/151 Blue Energy Hand (1).png" alt={drink.name} data-sb-field-path="image" />
+        </div>
+      </div>
+
+      <div class="dk-detail-col">
+        <div class="dk-detail-card">
+          <h2 class="dk-detail-name" data-sb-field-path="name">{drink.name}</h2>
+          {drink.description && (
+            <p class="dk-detail-desc" data-sb-field-path="description">{drink.description}</p>
           )}
-          <a href="/menu" class="btn-primary" style="margin-top:2rem;display:inline-block;">View Full Menu</a>
+          {drink.tags && drink.tags.length > 0 && (
+            <>
+              <div class="dk-divider"></div>
+              <p class="dk-flavor-label">Flavor Notes</p>
+              <p class="dk-flavor-val">{drink.tags.join(', ')}</p>
+            </>
+          )}
+          <a href="/menu" class="dk-menu-link">View Full Menu</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="customize-section">
-    <div class="container">
-      <h2>{p.customize?.heading}</h2>
-      <div class="customize-grid">
-        <div class="customize-col">
-          <h3>Milk Options</h3>
-          <div class="customize-tags">
-            {(p.customize?.milks ?? []).map((m: string) => <span class="customize-tag">{m}</span>)}
-          </div>
-        </div>
-        <div class="customize-col">
+  <section class="dk-customize">
+    <div class="dk-customize-inner">
+      <h2 class="dk-customize-heading" data-sb-field-path="customize.heading">{m.customize?.heading ?? 'Customize Your Drink, Your Way'}</h2>
+      <div class="dk-customize-grid">
+        <div class="dk-customize-col">
           <h3>Flavors</h3>
-          <div class="customize-tags">
-            {(p.customize?.flavors ?? []).map((f: string) => <span class="customize-tag">{f}</span>)}
+          <div class="dk-customize-tags">
+            {(m.customize?.flavors ?? []).map((f: string, i: number) => (
+              <span class="dk-customize-tag" data-sb-field-path={`customize.flavors.${i}`}>{f}</span>
+            ))}
           </div>
         </div>
-        <div class="customize-col">
+        <div class="dk-customize-col">
           <h3>Sugar Free</h3>
-          <div class="customize-tags">
-            {(p.customize?.sfFlavors ?? []).map((f: string) => <span class="customize-tag sf">{f}</span>)}
+          <div class="dk-customize-tags">
+            {(m.customize?.sfFlavors ?? []).map((f: string, i: number) => (
+              <span class="dk-customize-tag sf" data-sb-field-path={`customize.sfFlavors.${i}`}>{f}</span>
+            ))}
           </div>
         </div>
       </div>

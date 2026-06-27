@@ -436,7 +436,8 @@ nav.nav-scrolled .nav-container {
     margin-top: 58px;
 }
 
-.hero-bg {
+.hero-bg,
+.hero-video {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1534,6 +1535,139 @@ footer {
 @media (max-width: 520px) {
     .cc-actions { flex-direction: column; }
     .cc-btn { width: 100%; text-align: center; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Locations page
+   ────────────────────────────────────────────────────────────── */
+.loc-bg {
+    background-color: #e63946;
+    background-image: radial-gradient(rgba(255,255,255,0.18) 2px, transparent 2.5px);
+    background-size: 26px 26px;
+    position: relative;
+}
+.loc-hero {
+    margin-top: 58px;
+    position: relative;
+    height: 38vh;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: var(--black);
+}
+.loc-hero .hero-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    opacity: 0.65;
+}
+.loc-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.40) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.55) 100%);
+}
+.loc-hero-content { position: relative; z-index: 1; }
+.loc-hero h1 { font-size: clamp(2.8rem, 6vw, 4.8rem); color: #fff; line-height: 1; margin-bottom: 0.6rem; }
+.loc-hero p { color: rgba(255,255,255,0.80); font-family: 'Inter', sans-serif; font-size: 1.05rem; font-weight: 400; }
+.loc-count {
+    display: inline-block;
+    margin-top: 1.5rem;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 999px;
+    padding: 0.38rem 1.1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.loc-map-section { background: none; padding: 4rem 0; }
+.loc-map-section .section-header h1 { color: #fff; }
+.loc-grid-section {
+    background: url('/images/background1.jpg') center center / cover no-repeat;
+    padding: 4rem 0 5rem;
+    position: relative;
+}
+.loc-grid-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+        rgba(0,0,0,0.22) 0%,
+        rgba(0,0,0,0.08) 20%,
+        rgba(0,0,0,0.08) 75%,
+        rgba(0,0,0,0.40) 100%);
+}
+.loc-grid-section .container { position: relative; z-index: 1; }
+.loc-state-group { margin-bottom: 3rem; }
+.loc-state-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid rgba(230,57,70,0.35);
+}
+.loc-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1rem;
+}
+.loc-card {
+    background: linear-gradient(165deg, rgba(32,24,25,0.90) 0%, rgba(20,15,16,0.75) 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 1.5rem 1.4rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: border-color 0.22s ease, box-shadow 0.22s ease;
+    text-decoration: none;
+}
+.loc-card:hover { border-color: rgba(230,57,70,0.45); box-shadow: 0 8px 28px rgba(230,57,70,0.10); }
+.loc-card-city { font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.15rem; }
+.loc-card-addr { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: rgba(255,255,255,0.48); line-height: 1.55; flex: 1; }
+.loc-card-cta {
+    margin-top: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: gap 0.2s ease, color 0.2s ease;
+    width: fit-content;
+}
+.loc-card-cta:hover { gap: 0.6rem; color: #fff; }
+.loc-card-cta svg { width: 13px; height: 13px; flex-shrink: 0; }
+.loc-divider { background: none; padding: 0 0 1rem; }
+.loc-divider hr { border: none; border-top: 1px solid rgba(255,255,255,0.18); margin: 0; }
+@media (max-width: 768px) {
+    .loc-bg { margin-top: 58px !important; }
+    .loc-hero { margin-top: 0; padding: 4rem 0 3.5rem; }
+    .loc-cards { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+    .loc-cards { grid-template-columns: 1fr; }
 }
 
 /* ──────────────────────────────────────────────────────────────
