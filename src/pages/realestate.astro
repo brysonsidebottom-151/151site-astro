@@ -91,7 +91,7 @@ const p = entry!.data as any;
     <div class="container">
       <div class="re-overview-inner">
         <div class="re-overview-text">
-          <h2>A Brand Built<br>for <span>Fast Growth.</span></h2>
+          <h2><span data-sb-field-path="overview.heading" style="color:inherit">{p.overview?.heading ?? 'A Brand Built for'}</span> <span data-sb-field-path="overview.headingSpan">{p.overview?.headingSpan ?? 'Fast Growth.'}</span></h2>
           {(p.overview?.body ?? [
             '151 Coffee currently operates 16 locations across the Dallas-Fort Worth metro and Kansas City metro areas, with 4 more stores opening in 2026 and many more in the pipeline.',
             'Founded and funded by Mark Wattles - who built a 2,000-store retail chain, co-founded HomeAdvisor, and scaled Firebirds Wood Fired Grill to 45 locations - 151 Coffee is built to grow fast without losing what makes it special.',

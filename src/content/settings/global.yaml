@@ -1,4 +1,7 @@
 ﻿type: SettingsGlobal
+siteName: "151 Coffee"
+logo: "/images/logo.png"
+copyright: "© 151 Coffee, LLC. It's a Good Day to Have a Good Day."
 phone: "(682) 325-2124"
 hours: "Open daily 6 AM - 8 PM"
 email: "Contact@151Coffee.com"

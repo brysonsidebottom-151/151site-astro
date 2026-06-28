@@ -4,14 +4,16 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { getCollection, getEntry } from 'astro:content';
 
-const [locationsEntries, settingsEntry] = await Promise.all([
+const [locationsEntries, settingsEntry, pageEntry] = await Promise.all([
   getCollection('locations'),
   getEntry('settings', 'global'),
+  getEntry('pages', 'locations'),
 ]);
 
 const s = settingsEntry?.data as any ?? {};
+const p = pageEntry?.data as any ?? {};
 const locations = locationsEntries
-  .map(e => e.data as any)
+  .map(e => ({ slug: e.id, ...(e.data as any) }))
   .sort((a, b) => (a.displayOrder ?? 99) - (b.displayOrder ?? 99));
 
 const storesJson = JSON.stringify(locations.map((l) => ({
@@ -43,9 +45,9 @@ const STATE_NAMES: Record<string, string> = { TX: 'Texas', KS: 'Kansas' };
       <source src="/videos/landing_bg.mp4" type="video/mp4" />
     </video>
     <div class="loc-hero-content container">
-      <h1>Find Your 151</h1>
-      <p>Texas &amp; Kansas - more coming soon.</p>
-      <span class="loc-count">{locations.length} Locations Open</span>
+      <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Find Your 151'}</h1>
+      <p data-sb-field-path="hero.subheading">{p.hero?.subheading ?? 'Texas & Kansas - more coming soon.'}</p>
+      <span class="loc-count">{locations.length} <span data-sb-field-path="hero.countSuffix">{p.hero?.countSuffix ?? 'Locations Open'}</span></span>
     </div>
   </section>
 
@@ -79,10 +81,11 @@ const STATE_NAMES: Record<string, string> = { TX: 'Texas', KS: 'Kansas' };
                   href={`https://www.google.com/maps/dir/?api=1&destination=${loc.lat},${loc.lng}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-sb-object-id={`src/content/locations/${loc.slug}.yaml`}
                 >
-                  <div class="loc-card-city">{loc.city}</div>
+                  <div class="loc-card-city" data-sb-field-path="city">{loc.city}</div>
                   <div class="loc-card-addr">
-                    {loc.address}<br />{loc.city}, {loc.state} {loc.zip}
+                    <span data-sb-field-path="address">{loc.address}</span><br />{loc.city}, {loc.state} {loc.zip}
                   </div>
                   <span class="loc-card-cta">
                     Get Directions

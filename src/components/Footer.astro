@@ -44,8 +44,8 @@ const s = g?.data ?? {};
       <div class="footer-gc">
         <button id="giftCardFooterBtn" class="gc-btn">Check Gift Card Balance</button>
       </div>
-      <div class="footer-credits">
-        <p>&copy; 151 Coffee, LLC. It's a Good Day to Have a Good Day.</p>
+      <div class="footer-credits" data-sb-object-id="src/content/settings/global.yaml">
+        <p data-sb-field-path="copyright">{s.copyright ?? "© 151 Coffee, LLC. It's a Good Day to Have a Good Day."}</p>
       </div>
     </div>
   </div>

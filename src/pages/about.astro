@@ -96,7 +96,7 @@ const p = aboutEntry!.data as any;
     <div class="container">
       <div class="about-intro-inner">
         <div class="about-intro-text">
-          <h2>Not Your Typical<br><span>Coffee Shop.</span></h2>
+          <h2><span data-sb-field-path="intro.heading" style="color:inherit">{p.intro?.heading ?? 'Not Your Typical'}</span><br><span data-sb-field-path="intro.headingSpan">{p.intro?.headingSpan ?? 'Coffee Shop.'}</span></h2>
           {(p.intro?.paragraphs ?? [
             '151 Coffee is not your typical coffee shop. Fun and happiness drive our culture and music drives our speed, that\'s why we live by the 151 motto "It\'s a good day to have a good day."',
             "Each of our drive-thru stores serves the best tasting coffee and blended energy drinks faster than anyone. If you're thirsty and looking for a tasty beverage to buzz your day, swing through our drive thru, say hi, and drive with the 151 vibe.",

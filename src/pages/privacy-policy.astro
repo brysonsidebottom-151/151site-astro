@@ -2,6 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { getEntry } from 'astro:content';
+
+const entry = await getEntry('pages', 'privacy');
+const p = entry?.data as any ?? {};
+const sections: any[] = p.sections ?? [];
 ---
 <Layout title="Privacy Policy | 151 Coffee" description="151 Coffee privacy policy - how we collect, use, and protect your information.">
   <Nav />
@@ -10,37 +15,20 @@ import Footer from '../components/Footer.astro';
     <div class="page-hero-overlay"></div>
     <div class="container">
       <div class="page-hero-content">
-        <h1>Privacy Policy</h1>
-        <p>Last updated: June 2025</p>
+        <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Privacy Policy'}</h1>
+        <p data-sb-field-path="hero.subheading">{p.hero?.subheading ?? 'Last updated: June 2025'}</p>
       </div>
     </div>
   </section>
 
   <section class="legal-content">
     <div class="container" style="max-width:800px;padding:4rem 1rem;">
-      <h2>Information We Collect</h2>
-      <p>We collect information you provide directly to us, such as when you contact us through our website, sign up for communications, or submit a form. This may include your name, email address, phone number, and message content.</p>
-
-      <h2>How We Use Your Information</h2>
-      <p>We use the information we collect to respond to your inquiries, send you updates and promotional materials (with your consent), improve our website and services, and comply with legal obligations.</p>
-
-      <h2>Information Sharing</h2>
-      <p>We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as required by law or to trusted partners who assist us in operating our website and conducting our business.</p>
-
-      <h2>Cookies</h2>
-      <p>Our website uses cookies to enhance your browsing experience. You may choose to disable cookies through your browser settings, though this may affect certain features of our site.</p>
-
-      <h2>Third-Party Services</h2>
-      <p>Our website may contain links to third-party websites. We are not responsible for the privacy practices of those sites and encourage you to review their privacy policies.</p>
-
-      <h2>Data Security</h2>
-      <p>We implement reasonable security measures to protect your personal information. However, no method of transmission over the Internet is 100% secure.</p>
-
-      <h2>Children's Privacy</h2>
-      <p>Our website is not directed to children under 13. We do not knowingly collect personal information from children under 13.</p>
-
-      <h2>Contact Us</h2>
-      <p>If you have questions about this Privacy Policy, please contact us at <a href="mailto:Contact@151Coffee.com">Contact@151Coffee.com</a>.</p>
+      {sections.map((sec: any, i: number) => (
+        <div data-sb-field-path={`sections.${i}`}>
+          <h2 data-sb-field-path="heading">{sec.heading}</h2>
+          <p data-sb-field-path="body">{sec.body}</p>
+        </div>
+      ))}
     </div>
   </section>
 

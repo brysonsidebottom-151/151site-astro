@@ -82,6 +82,9 @@ export default defineStackbitConfig({
                 { name: 'answer', type: 'string' },
               ]}},
             ]},
+            { name: 'locationsSection', type: 'object', fields: [
+              { name: 'heading', type: 'string' },
+            ]},
             { name: 'contact', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
@@ -202,6 +205,12 @@ export default defineStackbitConfig({
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
             ]},
+            { name: 'items', type: 'list', items: { type: 'object', labelField: 'name', fields: [
+              { name: 'name', type: 'string' },
+              { name: 'price', type: 'string' },
+              { name: 'category', type: 'string' },
+              { name: 'image', type: 'image' },
+            ]}},
           ],
         },
         {
@@ -211,31 +220,100 @@ export default defineStackbitConfig({
           urlPath: '/real-estate',
           fields: [
             { name: 'hero', type: 'object', fields: [
+              { name: 'eyebrow', type: 'string' },
+              { name: 'heading', type: 'string' },
+              { name: 'body', type: 'string' },
+              { name: 'ctaLabel', type: 'string' },
+              { name: 'ctaHref', type: 'string' },
+            ]},
+            { name: 'overview', type: 'object', fields: [
+              { name: 'heading', type: 'string' },
+              { name: 'headingSpan', type: 'string' },
+              { name: 'body', type: 'list', items: { type: 'string' } },
+              { name: 'stats', type: 'list', items: { type: 'object', fields: [
+                { name: 'number', type: 'string' },
+                { name: 'label', type: 'string' },
+              ]}},
+              { name: 'image', type: 'image' },
+              { name: 'imageAlt', type: 'string' },
+            ]},
+            { name: 'criteria', type: 'object', fields: [
+              { name: 'heading', type: 'string' },
+              { name: 'subheading', type: 'string' },
+              { name: 'cards', type: 'list', items: { type: 'object', labelField: 'title', fields: [
+                { name: 'title', type: 'string' },
+                { name: 'body', type: 'string' },
+              ]}},
+            ]},
+            { name: 'idealSite', type: 'object', fields: [
+              { name: 'heading', type: 'string' },
+              { name: 'items', type: 'list', items: { type: 'string' } },
+            ]},
+            { name: 'markets', type: 'object', fields: [
+              { name: 'heading', type: 'string' },
+              { name: 'subheading', type: 'string' },
+              { name: 'tags', type: 'list', items: { type: 'string' } },
+            ]},
+            { name: 'contact', type: 'object', fields: [
+              { name: 'heading', type: 'string' },
+              { name: 'formHeading', type: 'string' },
+              { name: 'formSubtext', type: 'string' },
+              { name: 'email', type: 'string' },
+              { name: 'buttonLabel', type: 'string' },
+            ]},
+          ],
+        },
+        {
+          name: 'PageLocations',
+          type: 'page',
+          filePath: 'src/content/pages/locations.yaml',
+          urlPath: '/locations',
+          fields: [
+            { name: 'hero', type: 'object', fields: [
+              { name: 'heading', type: 'string' },
+              { name: 'subheading', type: 'string' },
+              { name: 'countSuffix', type: 'string' },
+            ]},
+          ],
+        },
+        {
+          name: 'PagePrivacy',
+          type: 'page',
+          filePath: 'src/content/pages/privacy.yaml',
+          urlPath: '/privacy-policy',
+          fields: [
+            { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
             ]},
+            { name: 'sections', type: 'list', items: { type: 'object', labelField: 'heading', fields: [
+              { name: 'heading', type: 'string' },
+              { name: 'body', type: 'text' },
+            ]}},
           ],
         },
         {
           name: 'Drink',
           type: 'data',
+          labelField: 'name',
           filePath: 'src/content/drinks/{slug}.yaml',
           fields: [
-            { name: 'name', type: 'string', required: true },
-            { name: 'category', type: 'enum', options: ['Coffee','Cold Brew','Energy','Dirty Pop','Refreshers','Smoothies','Teas','Kids','Hot Food','Treats'] },
-            { name: 'subtitle', type: 'string' },
-            { name: 'description', type: 'string' },
+            { name: 'name', type: 'string', required: true, default: 'New Drink' },
+            { name: 'category', type: 'enum', required: true, default: 'Coffee', options: ['Coffee','Cold Brew','Energy','Dirty Pop','Refreshers','Smoothies','Teas','Kids','Hot Food','Treats'] },
+            { name: 'subtitle', type: 'string', default: '' },
+            { name: 'description', type: 'string', default: '' },
             { name: 'image', type: 'image' },
             { name: 'tags', type: 'list', items: { type: 'string' } },
-            { name: 'menuOrder', type: 'number' },
+            { name: 'menuOrder', type: 'number', default: 99 },
           ],
         },
         {
           name: 'Location',
           type: 'data',
+          labelField: 'name',
           filePath: 'src/content/locations/{slug}.yaml',
           fields: [
-            { name: 'name', type: 'string', required: true },
+            { name: 'name', type: 'string', required: true, default: '151 Coffee' },
             { name: 'address', type: 'string' },
             { name: 'city', type: 'string' },
             { name: 'state', type: 'string' },
@@ -250,6 +328,9 @@ export default defineStackbitConfig({
           type: 'data',
           filePath: 'src/content/settings/global.yaml',
           fields: [
+            { name: 'siteName', type: 'string' },
+            { name: 'logo', type: 'image' },
+            { name: 'copyright', type: 'string' },
             { name: 'phone', type: 'string' },
             { name: 'hours', type: 'string' },
             { name: 'email', type: 'string' },
@@ -274,6 +355,8 @@ export default defineStackbitConfig({
       PageCareers: '/careers',
       PageMerch: '/merch',
       PageRealestate: '/real-estate',
+      PageLocations: '/locations',
+      PagePrivacy: '/privacy-policy',
     };
     const pageEntries = documents
       .filter(doc => doc.modelName && URL_MAP[doc.modelName])

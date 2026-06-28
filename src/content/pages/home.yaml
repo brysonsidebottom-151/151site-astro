@@ -31,6 +31,9 @@ menuSection:
       href: "/menus/foodmenu.pdf"
       label: "Food Menu"
 
+locationsSection:
+  heading: "Find Your Location"
+
 cta:
   heading: "We're Looking For Passionate People."
   body: "151 Coffee is not your typical coffee shop. Fun and happiness drive our culture and music drives our speed, that's why we live by the 151 motto \"it's a good day to have a good day.\""
