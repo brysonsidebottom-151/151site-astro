@@ -69,7 +69,7 @@ const milks: string[] = p.customize?.milks ?? [];
 const flavors: string[] = p.customize?.flavors ?? [];
 const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
 ---
-<Layout title="Menu | 151 Coffee - Coffee, Cold Brew, Energy & Dirty Pop" description="Explore the full 151 Coffee menu. Signature espresso drinks, cold brew, blended energy, Dirty Pop sodas, refreshers, smoothies, teas, and more.">
+<Layout title={p.seo?.title ?? 'Menu | 151 Coffee - Coffee, Cold Brew, Energy & Dirty Pop'} description={p.seo?.description ?? 'Explore the full 151 Coffee menu. Signature espresso drinks, cold brew, blended energy, Dirty Pop sodas, refreshers, smoothies, teas, and more.'} ogImage={p.seo?.ogImage}>
   <Fragment slot="head">
     <link rel="stylesheet" href="/menu.css" />
   </Fragment>
@@ -117,7 +117,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
                 data-sb-object-id={`src/content/drinks/${drink.slug}.yaml`}>
                 <div class={`drink-img-wrap${isIconCat(cat.tab) ? ' kids-img-wrap' : ''}`}>
                   {isIconCat(cat.tab)
-                    ? <span class="kids-icon">{getIcon(drink.slug, cat.tab)}</span>
+                    ? <span class="kids-icon">{drink.icon || getIcon(drink.slug, cat.tab)}</span>
                     : drink.image
                       ? <img loading="lazy" decoding="async" src={drink.image.startsWith('/') ? drink.image : '/' + drink.image} alt={drink.name} data-sb-field-path="image" />
                       : <img loading="lazy" decoding="async" src="/images/drinks/energy/151 Blue Energy Hand (1).png" alt={drink.name} data-sb-field-path="image" />
@@ -131,7 +131,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
             ))}
             {cat.tab === 'dirtypop' && (
               <div class="soda-timeline-card" data-cat="dirtypop">
-                <p class="soda-also">Also available plain:</p>
+                <p class="soda-also" data-sb-field-path="labels.sodaAlso">{p.labels?.sodaAlso ?? 'Also available plain:'}</p>
                 <div class="soda-list" data-sb-field-path="dirtypopExtra">
                   {dirtypopSodas.map((s: string) => <span>{s}</span>)}
                 </div>
@@ -142,8 +142,8 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
       })}
 
       <div class="timeline-empty-state" id="timelineEmpty">
-        <p>Nothing here yet.</p>
-        <span>But we're always working on something good.</span>
+        <p data-sb-field-path="labels.emptyHeading">{p.labels?.emptyHeading ?? 'Nothing here yet.'}</p>
+        <span data-sb-field-path="labels.emptySub">{p.labels?.emptySub ?? "But we're always working on something good."}</span>
       </div>
       <div class="timeline-end-spacer"></div>
     </div>
@@ -157,17 +157,17 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
       </div>
       <div class="cz-layout">
         <div class="cz-right" style="width:100%;max-width:100%;flex:1">
-          <div class="cz-block" data-sb-field-path="customize.flavors">
-            <p class="cz-label">Add a Flavor <span class="cz-filter-tip">- tap to filter the menu</span></p>
-            <div class="cz-pills cz-pills--flavors" id="czFlavorPills">
+          <div class="cz-block">
+            <p class="cz-label"><span data-sb-field-path="customize.flavorLabel">{p.customize?.flavorLabel ?? 'Add a Flavor'}</span> <span class="cz-filter-tip" data-sb-field-path="customize.flavorTip">{p.customize?.flavorTip ?? '- tap to filter the menu'}</span></p>
+            <div class="cz-pills cz-pills--flavors" id="czFlavorPills" data-sb-field-path="customize.flavors">
               {flavors.map((f: string, i: number) => (
                 <span class="cpill cpill--filter" data-flavor={f} data-sb-field-path={`.${i}`}>{f}</span>
               ))}
             </div>
           </div>
-          <div class="cz-block cz-block--sf" data-sb-field-path="customize.sfFlavors">
-            <p class="cz-label cz-label--sf">Also Available Sugar Free</p>
-            <div class="cz-pills cz-pills--flavors">
+          <div class="cz-block cz-block--sf">
+            <p class="cz-label cz-label--sf" data-sb-field-path="customize.sfLabel">{p.customize?.sfLabel ?? 'Also Available Sugar Free'}</p>
+            <div class="cz-pills cz-pills--flavors" data-sb-field-path="customize.sfFlavors">
               {sfFlavors.map((f: string, i: number) => (
                 <span class="cpill cpill--sf cpill--filter" data-flavor={f} data-sb-field-path={`.${i}`}>{f}</span>
               ))}

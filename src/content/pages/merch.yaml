@@ -1,4 +1,8 @@
 ﻿type: PageMerch
+seo:
+  title: "151 Coffee Merch | Rep Your Favorite Coffee"
+  description: "Shop 151 Coffee merch - apparel, drinkware, accessories, and coffee beans. Rep your favorite drive-thru coffee."
+  ogImage: "https://www.151coffee.com/images/splash1.jpg"
 hero:
   heading: "Merch"
   subheading: "Rep your favorite coffee. Wear it, sip from it, carry it."

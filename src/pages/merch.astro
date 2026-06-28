@@ -9,7 +9,7 @@ const p = entry!.data as any;
 
 const categories = ['All', ...Array.from(new Set((p.items ?? []).map((i: any) => i.category))) as string[]];
 ---
-<Layout title="151 Coffee Merch | Rep Your Favorite Coffee">
+<Layout title={p.seo?.title ?? '151 Coffee Merch | Rep Your Favorite Coffee'} description={p.seo?.description} ogImage={p.seo?.ogImage}>
   <Nav />
 
   <section class="page-hero" style="background-image:url('/images/background1.jpg');">

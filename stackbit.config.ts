@@ -1,6 +1,16 @@
 import { defineStackbitConfig, SiteMapEntry } from '@stackbit/types';
 import { GitContentSource } from '@stackbit/cms-git';
 
+// Reusable SEO block (browser-tab title, meta description, social share image)
+// added to every page model so search/social metadata is editable per page.
+const seoField: any = {
+  name: 'seo', type: 'object', label: 'SEO & Social', fields: [
+    { name: 'title', type: 'string', label: 'Browser tab / search title' },
+    { name: 'description', type: 'string', label: 'Meta description' },
+    { name: 'ogImage', type: 'image', label: 'Social share image' },
+  ],
+};
+
 export default defineStackbitConfig({
   stackbitVersion: '~0.6.0',
   ssgName: 'astro',
@@ -23,6 +33,7 @@ export default defineStackbitConfig({
           filePath: 'src/content/pages/home.yaml',
           urlPath: '/',
           fields: [
+            seoField,
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheadingLine1', type: 'string' },
@@ -85,10 +96,17 @@ export default defineStackbitConfig({
             { name: 'locationsSection', type: 'object', fields: [
               { name: 'heading', type: 'string' },
             ]},
+            { name: 'locatorPlaceholder', type: 'string' },
             { name: 'contact', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
               { name: 'formHeading', type: 'string' },
+              { name: 'firstNameLabel', type: 'string' },
+              { name: 'lastNameLabel', type: 'string' },
+              { name: 'emailLabel', type: 'string' },
+              { name: 'phoneLabel', type: 'string' },
+              { name: 'messageLabel', type: 'string' },
+              { name: 'submitLabel', type: 'string' },
             ]},
           ],
         },
@@ -98,6 +116,7 @@ export default defineStackbitConfig({
           filePath: 'src/content/pages/menu.yaml',
           urlPath: '/menu',
           fields: [
+            seoField,
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
@@ -111,9 +130,24 @@ export default defineStackbitConfig({
             { name: 'dirtypopExtra', type: 'string' },
             { name: 'customize', type: 'object', fields: [
               { name: 'heading', type: 'string' },
+              { name: 'flavorLabel', type: 'string' },
+              { name: 'flavorTip', type: 'string' },
+              { name: 'sfLabel', type: 'string' },
               { name: 'milks', type: 'list', items: { type: 'string' } },
               { name: 'flavors', type: 'list', items: { type: 'string' } },
               { name: 'sfFlavors', type: 'list', items: { type: 'string' } },
+            ]},
+            { name: 'labels', type: 'object', label: 'Menu UI labels', fields: [
+              { name: 'sodaAlso', type: 'string' },
+              { name: 'emptyHeading', type: 'string' },
+              { name: 'emptySub', type: 'string' },
+            ]},
+            { name: 'drinkPage', type: 'object', label: 'Drink detail page labels', fields: [
+              { name: 'backLabel', type: 'string' },
+              { name: 'flavorNotesLabel', type: 'string' },
+              { name: 'viewMenuLabel', type: 'string' },
+              { name: 'flavorsHeading', type: 'string' },
+              { name: 'sugarFreeHeading', type: 'string' },
             ]},
           ],
         },
@@ -123,6 +157,7 @@ export default defineStackbitConfig({
           filePath: 'src/content/pages/about.yaml',
           urlPath: '/about',
           fields: [
+            seoField,
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
@@ -175,6 +210,7 @@ export default defineStackbitConfig({
           filePath: 'src/content/pages/careers.yaml',
           urlPath: '/careers',
           fields: [
+            seoField,
             { name: 'agegate', type: 'object', fields: [
               { name: 'eyebrow', type: 'string' },
               { name: 'heading', type: 'string' },
@@ -201,6 +237,7 @@ export default defineStackbitConfig({
           filePath: 'src/content/pages/merch.yaml',
           urlPath: '/merch',
           fields: [
+            seoField,
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
@@ -217,8 +254,9 @@ export default defineStackbitConfig({
           name: 'PageRealestate',
           type: 'page',
           filePath: 'src/content/pages/realestate.yaml',
-          urlPath: '/real-estate',
+          urlPath: '/realestate',
           fields: [
+            seoField,
             { name: 'hero', type: 'object', fields: [
               { name: 'eyebrow', type: 'string' },
               { name: 'heading', type: 'string' },
@@ -259,7 +297,14 @@ export default defineStackbitConfig({
               { name: 'formHeading', type: 'string' },
               { name: 'formSubtext', type: 'string' },
               { name: 'email', type: 'string' },
+              { name: 'emailIntro', type: 'string' },
               { name: 'buttonLabel', type: 'string' },
+              { name: 'firstNameLabel', type: 'string' },
+              { name: 'lastNameLabel', type: 'string' },
+              { name: 'emailLabel', type: 'string' },
+              { name: 'phoneLabel', type: 'string' },
+              { name: 'propertyLabel', type: 'string' },
+              { name: 'detailsLabel', type: 'string' },
             ]},
           ],
         },
@@ -269,11 +314,14 @@ export default defineStackbitConfig({
           filePath: 'src/content/pages/locations.yaml',
           urlPath: '/locations',
           fields: [
+            seoField,
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
               { name: 'countSuffix', type: 'string' },
             ]},
+            { name: 'searchPlaceholder', type: 'string' },
+            { name: 'directionsLabel', type: 'string' },
           ],
         },
         {
@@ -282,6 +330,7 @@ export default defineStackbitConfig({
           filePath: 'src/content/pages/privacy.yaml',
           urlPath: '/privacy-policy',
           fields: [
+            seoField,
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
@@ -303,6 +352,7 @@ export default defineStackbitConfig({
             { name: 'subtitle', type: 'string', default: '' },
             { name: 'description', type: 'string', default: '' },
             { name: 'image', type: 'image' },
+            { name: 'icon', type: 'string', label: 'Emoji icon (Kids / Hot Food / Treats only)' },
             { name: 'tags', type: 'list', items: { type: 'string' } },
             { name: 'menuOrder', type: 'number', default: 99 },
           ],
@@ -330,16 +380,33 @@ export default defineStackbitConfig({
           fields: [
             { name: 'siteName', type: 'string' },
             { name: 'logo', type: 'image' },
+            { name: 'slogan', type: 'string' },
             { name: 'copyright', type: 'string' },
             { name: 'phone', type: 'string' },
             { name: 'hours', type: 'string' },
             { name: 'email', type: 'string' },
             { name: 'realEstateEmail', type: 'string' },
+            { name: 'giftCardLabel', type: 'string', label: 'Gift Card button text' },
+            { name: 'giftCardUrl', type: 'string', label: 'Gift Card iframe URL' },
+            { name: 'nav', type: 'list', label: 'Header nav links', items: { type: 'object', labelField: 'label', fields: [
+              { name: 'label', type: 'string' },
+              { name: 'href', type: 'string' },
+            ]}},
             { name: 'social', type: 'object', fields: [
               { name: 'instagram', type: 'string' },
               { name: 'facebook', type: 'string' },
               { name: 'tiktok', type: 'string' },
               { name: 'linkedin', type: 'string' },
+            ]},
+            { name: 'footer', type: 'object', label: 'Footer', fields: [
+              { name: 'companyHeading', type: 'string' },
+              { name: 'companyLinks', type: 'list', items: { type: 'object', labelField: 'label', fields: [
+                { name: 'label', type: 'string' },
+                { name: 'href', type: 'string' },
+              ]}},
+              { name: 'socialHeading', type: 'string' },
+              { name: 'supportHeading', type: 'string' },
+              { name: 'giftCardButtonLabel', type: 'string' },
             ]},
           ],
         },
@@ -354,7 +421,7 @@ export default defineStackbitConfig({
       PageAbout: '/about',
       PageCareers: '/careers',
       PageMerch: '/merch',
-      PageRealestate: '/real-estate',
+      PageRealestate: '/realestate',
       PageLocations: '/locations',
       PagePrivacy: '/privacy-policy',
     };

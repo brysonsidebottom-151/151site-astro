@@ -1,4 +1,8 @@
 ﻿type: PageAbout
+seo:
+  title: "About 151 Coffee | Our Story & Founder Mark Wattles"
+  description: "151 Coffee is not your typical coffee shop. Founded in 2017 by entrepreneur Mark Wattles, we serve the best-tasting coffee and blended energy drinks fast."
+  ogImage: "https://www.151coffee.com/images/splash1.jpg"
 hero:
   heading: "About 151 Coffee"
   subheading: "It's a Good Day to Have a Good Day."

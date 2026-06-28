@@ -30,9 +30,9 @@ for (const loc of locations) {
 const STATE_NAMES: Record<string, string> = { TX: 'Texas', KS: 'Kansas' };
 ---
 <Layout
-  title="151 Coffee Locations | Find a Drive-Thru Near You"
-  description="Find your nearest 151 Coffee drive-thru. 15+ locations across Texas and Kansas with more opening soon."
-  ogImage="https://www.151coffee.com/images/store1.jpg"
+  title={p.seo?.title ?? '151 Coffee Locations | Find a Drive-Thru Near You'}
+  description={p.seo?.description ?? 'Find your nearest 151 Coffee drive-thru. 15+ locations across Texas and Kansas with more opening soon.'}
+  ogImage={p.seo?.ogImage ?? 'https://www.151coffee.com/images/store1.jpg'}
 >
   <fragment slot="head">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
@@ -57,7 +57,7 @@ const STATE_NAMES: Record<string, string> = { TX: 'Texas', KS: 'Kansas' };
         <div class="locator">
           <div class="locator__panel">
             <div class="locator__search">
-              <input type="text" id="locator-search" aria-label="Search locations" placeholder="Search by city, state, or zip..." />
+              <input type="text" id="locator-search" aria-label="Search locations" placeholder={p.searchPlaceholder ?? 'Search by city, state, or zip...'} />
             </div>
             <div class="locator__list" id="locator-list"></div>
           </div>
@@ -88,7 +88,7 @@ const STATE_NAMES: Record<string, string> = { TX: 'Texas', KS: 'Kansas' };
                     <span data-sb-field-path="address">{loc.address}</span><br />{loc.city}, {loc.state} {loc.zip}
                   </div>
                   <span class="loc-card-cta">
-                    Get Directions
+                    {p.directionsLabel ?? 'Get Directions'}
                     <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>

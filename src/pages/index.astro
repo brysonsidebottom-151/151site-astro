@@ -22,18 +22,18 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
 
 const reviewClasses = ['featured', 'featured1', 'featured2', 'featured3'];
 ---
-<Layout title="151 Coffee | Drive-Thru Coffee, Cold Brew & Energy Drinks">
+<Layout title={p.seo?.title ?? '151 Coffee | Drive-Thru Coffee, Cold Brew & Energy Drinks'} description={p.seo?.description} ogImage={p.seo?.ogImage}>
   <fragment slot="head">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "151 Coffee",
+      "name": s.siteName ?? "151 Coffee",
       "url": "https://www.151coffee.com/",
       "logo": "https://www.151coffee.com/images/logo.png",
       "telephone": s.phone ?? "+1-682-325-2124",
       "email": s.email ?? "Contact@151Coffee.com",
-      "slogan": "It's a Good Day to Have a Good Day.",
+      "slogan": s.slogan ?? "It's a Good Day to Have a Good Day.",
     })} />
   </fragment>
 
@@ -110,7 +110,7 @@ const reviewClasses = ['featured', 'featured1', 'featured2', 'featured3'];
       <div class="locator">
         <div class="locator__panel">
           <div class="locator__search">
-            <input type="text" id="locator-search" aria-label="Search locations" placeholder="Search by city, state, or zip..." />
+            <input type="text" id="locator-search" aria-label="Search locations" placeholder={p.locatorPlaceholder ?? 'Search by city, state, or zip...'} />
           </div>
           <div class="locator__list" id="locator-list"></div>
         </div>
@@ -184,15 +184,15 @@ const reviewClasses = ['featured', 'featured1', 'featured2', 'featured3'];
             <p data-sb-field-path="contact.subheading">{p.contact?.subheading}</p>
           </div>
           <div class="form-row">
-            <div class="form-group"><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName" placeholder="First" required /></div>
-            <div class="form-group"><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" placeholder="Last" required /></div>
+            <div class="form-group"><label for="firstName" data-sb-field-path="contact.firstNameLabel">{p.contact?.firstNameLabel ?? 'First Name'}</label><input type="text" id="firstName" name="firstName" placeholder="First" required /></div>
+            <div class="form-group"><label for="lastName" data-sb-field-path="contact.lastNameLabel">{p.contact?.lastNameLabel ?? 'Last Name'}</label><input type="text" id="lastName" name="lastName" placeholder="Last" required /></div>
           </div>
           <div class="form-row">
-            <div class="form-group"><label for="email">Email Address</label><input type="email" id="email" name="email" placeholder="john@company.com" required /></div>
-            <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567" /></div>
+            <div class="form-group"><label for="email" data-sb-field-path="contact.emailLabel">{p.contact?.emailLabel ?? 'Email Address'}</label><input type="email" id="email" name="email" placeholder="john@company.com" required /></div>
+            <div class="form-group"><label for="phone" data-sb-field-path="contact.phoneLabel">{p.contact?.phoneLabel ?? 'Phone Number'}</label><input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567" /></div>
           </div>
-          <div class="form-group full-width"><label for="message">Message</label><textarea id="message" name="message" placeholder="Your Message"></textarea></div>
-          <button type="submit" class="form-submit"><span>Submit</span></button>
+          <div class="form-group full-width"><label for="message" data-sb-field-path="contact.messageLabel">{p.contact?.messageLabel ?? 'Message'}</label><textarea id="message" name="message" placeholder="Your Message"></textarea></div>
+          <button type="submit" class="form-submit"><span data-sb-field-path="contact.submitLabel">{p.contact?.submitLabel ?? 'Submit'}</span></button>
         </form>
       </div>
     </div>

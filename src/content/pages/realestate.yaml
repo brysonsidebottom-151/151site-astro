@@ -1,4 +1,8 @@
 ﻿type: PageRealestate
+seo:
+  title: "Real Estate & Site Development | 151 Coffee Drive-Thru Expansion"
+  description: "151 Coffee is expanding across Texas and Kansas. Seeking drive-thru pad sites of 25,000+ sq ft with 30,000+ VPD. See our site criteria and submit your property."
+  ogImage: "https://www.151coffee.com/images/store1.jpg"
 hero:
   eyebrow: "Est. 2017"
   heading: "Here We Grow Again."
@@ -78,4 +82,11 @@ contact:
   formHeading: "Real Estate Inquiry"
   formSubtext: "Contact Mark Wattles directly about site opportunities across our target markets."
   email: "RealEstate@151Coffee.com"
+  emailIntro: "or email us directly"
   buttonLabel: "Submit Inquiry"
+  firstNameLabel: "First Name"
+  lastNameLabel: "Last Name"
+  emailLabel: "Email Address"
+  phoneLabel: "Phone Number"
+  propertyLabel: "Property Address / Market"
+  detailsLabel: "Site Details"

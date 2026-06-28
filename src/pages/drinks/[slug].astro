@@ -38,7 +38,7 @@ const m = menuEntry!.data as any;
         <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        Back to Menu
+        <span data-sb-object-id="src/content/pages/menu.yaml" data-sb-field-path="drinkPage.backLabel">{m.drinkPage?.backLabel ?? 'Back to Menu'}</span>
       </a>
       <div class="dk-pills-row">
         <span class="dk-cat-pill" data-sb-field-path="category">{drink.category}</span>
@@ -79,33 +79,33 @@ const m = menuEntry!.data as any;
           {drink.tags && drink.tags.length > 0 && (
             <>
               <div class="dk-divider"></div>
-              <p class="dk-flavor-label">Flavor Notes</p>
+              <p class="dk-flavor-label" data-sb-object-id="src/content/pages/menu.yaml" data-sb-field-path="drinkPage.flavorNotesLabel">{m.drinkPage?.flavorNotesLabel ?? 'Flavor Notes'}</p>
               <p class="dk-flavor-val">{drink.tags.join(', ')}</p>
             </>
           )}
-          <a href="/menu" class="dk-menu-link">View Full Menu</a>
+          <a href="/menu" class="dk-menu-link" data-sb-object-id="src/content/pages/menu.yaml" data-sb-field-path="drinkPage.viewMenuLabel">{m.drinkPage?.viewMenuLabel ?? 'View Full Menu'}</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="dk-customize">
+  <section class="dk-customize" data-sb-object-id="src/content/pages/menu.yaml">
     <div class="dk-customize-inner">
       <h2 class="dk-customize-heading" data-sb-field-path="customize.heading">{m.customize?.heading ?? 'Customize Your Drink, Your Way'}</h2>
       <div class="dk-customize-grid">
         <div class="dk-customize-col">
-          <h3>Flavors</h3>
-          <div class="dk-customize-tags">
+          <h3 data-sb-field-path="drinkPage.flavorsHeading">{m.drinkPage?.flavorsHeading ?? 'Flavors'}</h3>
+          <div class="dk-customize-tags" data-sb-field-path="customize.flavors">
             {(m.customize?.flavors ?? []).map((f: string, i: number) => (
-              <span class="dk-customize-tag" data-sb-field-path={`customize.flavors.${i}`}>{f}</span>
+              <span class="dk-customize-tag" data-sb-field-path={`.${i}`}>{f}</span>
             ))}
           </div>
         </div>
         <div class="dk-customize-col">
-          <h3>Sugar Free</h3>
-          <div class="dk-customize-tags">
+          <h3 data-sb-field-path="drinkPage.sugarFreeHeading">{m.drinkPage?.sugarFreeHeading ?? 'Sugar Free'}</h3>
+          <div class="dk-customize-tags" data-sb-field-path="customize.sfFlavors">
             {(m.customize?.sfFlavors ?? []).map((f: string, i: number) => (
-              <span class="dk-customize-tag sf" data-sb-field-path={`customize.sfFlavors.${i}`}>{f}</span>
+              <span class="dk-customize-tag sf" data-sb-field-path={`.${i}`}>{f}</span>
             ))}
           </div>
         </div>

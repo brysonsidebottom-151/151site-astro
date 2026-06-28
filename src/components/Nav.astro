@@ -8,6 +8,25 @@ const g = await getEntry('settings', 'global');
 const s = g?.data as any ?? {};
 const siteName = s.siteName ?? '151 Coffee';
 const logo = s.logo ?? '/images/logo.png';
+const giftCardLabel = s.giftCardLabel ?? 'Gift Card';
+
+const navLinks: { label: string; href: string }[] = s.nav ?? [
+  { label: 'Menu', href: '/menu' },
+  { label: 'Locations', href: '/locations' },
+  { label: 'About', href: '/about' },
+  { label: 'Careers', href: '/careers' },
+  { label: 'Contact', href: '/#contact' },
+  { label: 'Real Estate', href: '/realestate' },
+];
+
+const cur = Astro.url.pathname.replace(/\/+$/, '') || '/';
+function isActive(href: string): boolean {
+  const base = (href.split('#')[0] || '').replace(/\/+$/, '');
+  if (!base || base === '/') return false;
+  const key = base.replace(/^\//, '');
+  if (active && active === key) return true;
+  return cur === base || cur.startsWith(base + '/');
+}
 ---
 <div id="top"></div>
 <div class="loading-bar"></div>
@@ -17,16 +36,13 @@ const logo = s.logo ?? '/images/logo.png';
       <img src={logo} alt={`${siteName} logo`} style="width:3rem;height:auto;" data-sb-field-path="logo" />
       <span data-sb-field-path="siteName">{siteName}</span>
     </a>
-    <ul class="nav-links">
-      <li><a href="/menu" class={`nav-link${active==='menu'?' active':''}`}>Menu</a></li>
-      <li><a href="/locations" class={`nav-link${active==='locations'?' active':''}`}>Locations</a></li>
-      <li><a href="/about" class={`nav-link${active==='about'?' active':''}`}>About</a></li>
-      <li><a href="/careers" class={`nav-link${active==='careers'?' active':''}`}>Careers</a></li>
-      <li><a href="/#contact" class="nav-link">Contact</a></li>
-      <li><a href="/realestate" class={`nav-link${active==='realestate'?' active':''}`}>Real Estate</a></li>
-      <li><a id="giftCardMobileBtn" href="javascript:void(0);" class="nav-link">Gift Card</a></li>
+    <ul class="nav-links" data-sb-object-id="src/content/settings/global.yaml">
+      {navLinks.map((link, i) => (
+        <li><a href={link.href} class={`nav-link${isActive(link.href) ? ' active' : ''}`} data-sb-field-path={`nav.${i}.label`}>{link.label}</a></li>
+      ))}
+      <li><a id="giftCardMobileBtn" href="javascript:void(0);" class="nav-link" data-sb-field-path="giftCardLabel">{giftCardLabel}</a></li>
     </ul>
-    <a id="giftCardNavBtn" href="javascript:void(0);" class="main-menu-btn">Gift Card</a>
+    <a id="giftCardNavBtn" href="javascript:void(0);" class="main-menu-btn" data-sb-object-id="src/content/settings/global.yaml" data-sb-field-path="giftCardLabel">{giftCardLabel}</a>
     <div class="menu-toggle" role="button" tabindex="0" aria-label="Toggle navigation menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </div>

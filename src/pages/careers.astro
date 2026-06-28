@@ -7,7 +7,7 @@ import { getEntry } from 'astro:content';
 const entry = await getEntry('pages', 'careers');
 const p = entry!.data as any;
 ---
-<Layout title="Careers at 151 Coffee | Join Our Team">
+<Layout title={p.seo?.title ?? 'Careers at 151 Coffee | Join Our Team'} description={p.seo?.description} ogImage={p.seo?.ogImage}>
   <Fragment slot="head">
     <style>
       body { overflow: hidden; }

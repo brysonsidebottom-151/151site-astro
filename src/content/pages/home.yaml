@@ -1,4 +1,8 @@
 ﻿type: PageHome
+seo:
+  title: "151 Coffee | Drive-Thru Coffee, Cold Brew & Energy Drinks"
+  description: "151 Coffee is a fast drive-thru coffee shop serving handcrafted espresso, cold brew, blended energy drinks, smoothies, teas & breakfast across Texas and Kansas."
+  ogImage: "https://www.151coffee.com/images/splash1.jpg"
 hero:
   heading: "151 Coffee"
   subheadingLine1: "It's a Good Day"
@@ -33,6 +37,8 @@ menuSection:
 
 locationsSection:
   heading: "Find Your Location"
+
+locatorPlaceholder: "Search by city, state, or zip..."
 
 cta:
   heading: "We're Looking For Passionate People."
@@ -86,3 +92,9 @@ contact:
   heading: "Contact Us"
   subheading: "Good experience? Event idea? Collaboration? Let us know here."
   formHeading: "Everyone Loves Coffee"
+  firstNameLabel: "First Name"
+  lastNameLabel: "Last Name"
+  emailLabel: "Email Address"
+  phoneLabel: "Phone Number"
+  messageLabel: "Message"
+  submitLabel: "Submit"

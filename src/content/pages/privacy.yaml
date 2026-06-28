@@ -1,4 +1,8 @@
 type: PagePrivacy
+seo:
+  title: "Privacy Policy | 151 Coffee"
+  description: "151 Coffee privacy policy - how we collect, use, and protect your information."
+  ogImage: "https://www.151coffee.com/images/splash1.jpg"
 hero:
   heading: "Privacy Policy"
   subheading: "Last updated: June 2025"

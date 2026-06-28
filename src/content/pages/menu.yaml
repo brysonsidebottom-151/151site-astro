@@ -1,7 +1,23 @@
 ﻿type: PageMenu
+seo:
+  title: "Menu | 151 Coffee - Coffee, Cold Brew, Energy & Dirty Pop"
+  description: "Explore the full 151 Coffee menu. Signature espresso drinks, cold brew, blended energy, Dirty Pop sodas, refreshers, smoothies, teas, and more."
+  ogImage: "https://www.151coffee.com/images/splash1.jpg"
 hero:
   heading: "Our Menu"
   subheading: "Thousands of flavor combinations. One perfect drink, every time."
+
+labels:
+  sodaAlso: "Also available plain:"
+  emptyHeading: "Nothing here yet."
+  emptySub: "But we're always working on something good."
+
+drinkPage:
+  backLabel: "Back to Menu"
+  flavorNotesLabel: "Flavor Notes"
+  viewMenuLabel: "View Full Menu"
+  flavorsHeading: "Flavors"
+  sugarFreeHeading: "Sugar Free"
 
 categories:
   - slug: coffee
@@ -49,6 +65,9 @@ dirtypopExtra: "Also available plain: Coca-Cola, Coke Zero, Pepsi, Diet Pepsi, D
 
 customize:
   heading: "Customize Your Drink, Your Way"
+  flavorLabel: "Add a Flavor"
+  flavorTip: "- tap to filter the menu"
+  sfLabel: "Also Available Sugar Free"
   milks:
     - Almond
     - Oat

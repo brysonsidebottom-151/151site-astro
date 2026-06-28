@@ -8,9 +8,9 @@ const entry = await getEntry('pages', 'realestate');
 const p = entry!.data as any;
 ---
 <Layout
-  title="Real Estate & Site Development | 151 Coffee Drive-Thru Expansion"
-  description="151 Coffee is expanding across Texas and Kansas. Seeking drive-thru pad sites of 25,000+ sq ft with 30,000+ VPD. See our site criteria and submit your property."
-  ogImage="https://www.151coffee.com/images/store1.jpg"
+  title={p.seo?.title ?? 'Real Estate & Site Development | 151 Coffee Drive-Thru Expansion'}
+  description={p.seo?.description ?? '151 Coffee is expanding across Texas and Kansas. Seeking drive-thru pad sites of 25,000+ sq ft with 30,000+ VPD. See our site criteria and submit your property.'}
+  ogImage={p.seo?.ogImage ?? 'https://www.151coffee.com/images/store1.jpg'}
 >
   <style is:global slot="head">
     .re-hero { margin-top: 58px; background-color: #e63946; background-image: radial-gradient(rgba(255,255,255,0.18) 2px, transparent 2.5px); background-size: 26px 26px; position: relative; padding: 6rem 0 5rem; text-align: center; }
@@ -203,19 +203,19 @@ const p = entry!.data as any;
               <p data-sb-field-path="contact.formSubtext">{p.contact?.formSubtext ?? 'Contact Mark Wattles directly about site opportunities across our target markets.'}</p>
             </div>
             <div class="form-row">
-              <div class="form-group"><label for="re-firstName">First Name</label><input type="text" id="re-firstName" placeholder="First" required /></div>
-              <div class="form-group"><label for="re-lastName">Last Name</label><input type="text" id="re-lastName" placeholder="Last" required /></div>
+              <div class="form-group"><label for="re-firstName" data-sb-field-path="contact.firstNameLabel">{p.contact?.firstNameLabel ?? 'First Name'}</label><input type="text" id="re-firstName" placeholder="First" required /></div>
+              <div class="form-group"><label for="re-lastName" data-sb-field-path="contact.lastNameLabel">{p.contact?.lastNameLabel ?? 'Last Name'}</label><input type="text" id="re-lastName" placeholder="Last" required /></div>
             </div>
             <div class="form-row">
-              <div class="form-group"><label for="re-email">Email Address</label><input type="email" id="re-email" placeholder="you@company.com" required /></div>
-              <div class="form-group"><label for="re-phone">Phone Number</label><input type="tel" id="re-phone" placeholder="+1 (555) 123-4567" /></div>
+              <div class="form-group"><label for="re-email" data-sb-field-path="contact.emailLabel">{p.contact?.emailLabel ?? 'Email Address'}</label><input type="email" id="re-email" placeholder="you@company.com" required /></div>
+              <div class="form-group"><label for="re-phone" data-sb-field-path="contact.phoneLabel">{p.contact?.phoneLabel ?? 'Phone Number'}</label><input type="tel" id="re-phone" placeholder="+1 (555) 123-4567" /></div>
             </div>
-            <div class="form-group full-width"><label for="re-site">Property Address / Market</label><input type="text" id="re-site" placeholder="Address or city you're submitting" /></div>
-            <div class="form-group full-width"><label for="re-message">Site Details</label><textarea id="re-message" placeholder="Tell us about your site - size, traffic count, current use, deal structure..."></textarea></div>
+            <div class="form-group full-width"><label for="re-site" data-sb-field-path="contact.propertyLabel">{p.contact?.propertyLabel ?? 'Property Address / Market'}</label><input type="text" id="re-site" placeholder="Address or city you're submitting" /></div>
+            <div class="form-group full-width"><label for="re-message" data-sb-field-path="contact.detailsLabel">{p.contact?.detailsLabel ?? 'Site Details'}</label><textarea id="re-message" placeholder="Tell us about your site - size, traffic count, current use, deal structure..."></textarea></div>
             <button type="submit" class="form-submit"><span data-sb-field-path="contact.buttonLabel">{p.contact?.buttonLabel ?? 'Submit Inquiry'}</span></button>
           </form>
         </div>
-        <div class="re-contact-or">or email us directly</div>
+        <div class="re-contact-or" data-sb-field-path="contact.emailIntro">{p.contact?.emailIntro ?? 'or email us directly'}</div>
         <a href={`mailto:${p.contact?.email ?? 'RealEstate@151Coffee.com'}`} class="re-contact-email" data-sb-field-path="contact.email">{p.contact?.email ?? 'RealEstate@151Coffee.com'}</a>
       </div>
     </div>
