@@ -27,7 +27,11 @@ for (const loc of locations) {
   if (!byState[key]) byState[key] = [];
   byState[key].push(loc);
 }
-const STATE_NAMES: Record<string, string> = { TX: 'Texas', KS: 'Kansas' };
+const STATE_NAMES: Record<string, string> = Object.fromEntries(
+  (p.stateNames ?? [{ code: 'TX', name: 'Texas' }, { code: 'KS', name: 'Kansas' }])
+    .filter((s: any) => s?.code)
+    .map((s: any) => [s.code, s.name])
+);
 ---
 <Layout
   title={p.seo?.title ?? '151 Coffee Locations | Find a Drive-Thru Near You'}
@@ -42,7 +46,7 @@ const STATE_NAMES: Record<string, string> = { TX: 'Texas', KS: 'Kansas' };
 
   <section class="loc-hero">
     <video autoplay muted loop playsinline class="hero-bg" aria-hidden="true">
-      <source src="/videos/landing_bg.mp4" type="video/mp4" />
+      <source src={p.heroVideo ?? '/videos/landing_bg.mp4'} type="video/mp4" />
     </video>
     <div class="loc-hero-content container">
       <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Find Your 151'}</h1>

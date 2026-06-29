@@ -156,7 +156,7 @@ const p = entry!.data as any;
   <!-- Age gate -->
   <div class="age-gate-page" id="ageGatePage">
     <video autoplay muted loop playsinline class="age-bg-video" aria-hidden="true">
-      <source src="/videos/landing_bg.mp4" type="video/mp4" />
+      <source src={p.heroVideo ?? '/videos/landing_bg.mp4'} type="video/mp4" />
     </video>
     <div class="age-overlay"></div>
     <div class="age-gate">
@@ -183,7 +183,7 @@ const p = entry!.data as any;
   <div id="careersContent" style="display:none;">
     <section class="careers-hero">
       <video autoplay muted loop playsinline class="hero-bg" aria-hidden="true">
-        <source src="/videos/landing_bg.mp4" type="video/mp4" />
+        <source src={p.heroVideo ?? '/videos/landing_bg.mp4'} type="video/mp4" />
       </video>
       <div class="careers-hero-content">
         <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Join the 151 Team'}</h1>

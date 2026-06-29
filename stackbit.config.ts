@@ -117,6 +117,7 @@ export default defineStackbitConfig({
           urlPath: '/menu',
           fields: [
             seoField,
+            { name: 'heroVideo', type: 'string', label: 'Hero background video (path or URL)' },
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
@@ -211,6 +212,7 @@ export default defineStackbitConfig({
           urlPath: '/careers',
           fields: [
             seoField,
+            { name: 'heroVideo', type: 'string', label: 'Hero background video (path or URL)' },
             { name: 'agegate', type: 'object', fields: [
               { name: 'eyebrow', type: 'string' },
               { name: 'heading', type: 'string' },
@@ -315,6 +317,7 @@ export default defineStackbitConfig({
           urlPath: '/locations',
           fields: [
             seoField,
+            { name: 'heroVideo', type: 'string', label: 'Hero background video (path or URL)' },
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
@@ -322,6 +325,10 @@ export default defineStackbitConfig({
             ]},
             { name: 'searchPlaceholder', type: 'string' },
             { name: 'directionsLabel', type: 'string' },
+            { name: 'stateNames', type: 'list', label: 'State code to full name', items: { type: 'object', labelField: 'name', fields: [
+              { name: 'code', type: 'string' },
+              { name: 'name', type: 'string' },
+            ]}},
           ],
         },
         {

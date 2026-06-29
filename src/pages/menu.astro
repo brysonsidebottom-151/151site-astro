@@ -78,7 +78,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
 
   <section class="menu-hero">
     <video autoplay muted loop playsinline class="hero-bg" aria-hidden="true">
-      <source src="/videos/landing_bg.mp4" type="video/mp4" />
+      <source src={p.heroVideo ?? '/videos/landing_bg.mp4'} type="video/mp4" />
     </video>
     <div class="menu-hero-content">
       <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Our Menu'}</h1>

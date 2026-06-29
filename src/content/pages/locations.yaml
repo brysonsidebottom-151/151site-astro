@@ -3,9 +3,15 @@ seo:
   title: "151 Coffee Locations | Find a Drive-Thru Near You"
   description: "Find your nearest 151 Coffee drive-thru. 15+ locations across Texas and Kansas with more opening soon."
   ogImage: "https://www.151coffee.com/images/store1.jpg"
+heroVideo: "/videos/landing_bg.mp4"
 hero:
   heading: "Find Your 151"
   subheading: "Texas & Kansas - more coming soon."
   countSuffix: "Locations Open"
 searchPlaceholder: "Search by city, state, or zip..."
 directionsLabel: "Get Directions"
+stateNames:
+  - code: "TX"
+    name: "Texas"
+  - code: "KS"
+    name: "Kansas"
