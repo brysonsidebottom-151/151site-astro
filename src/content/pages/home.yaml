@@ -32,7 +32,7 @@ menuSection:
     - title: "Food Menu"
       subtitle: "Select Locations Only!"
       image: "/images/food1.jpg"
-      href: "/menus/foodmenu.pdf"
+      href: "/menu#hotfood"
       label: "Food Menu"
 
 locationsSection:
