@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Sweet Tea"
-category: "Teas"
+category: src/content/categories/teas.yaml
 subtitle: "Black Tea with Cane Sugar"
 description: "Real brewed black tea sweetened with cane sugar the proper way. Cold, refreshing, and the most honest drink on the menu."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Dr. Feel Good"
-category: "Dirty Pop"
+category: src/content/categories/dirtypop.yaml
 subtitle: "Dr. Pepper - Raspberry Puree & Coconut Cream"
 description: "Dr. Pepper meets real raspberry puree and coconut cream for a fruity, creamy soda experience. One sip and you'll know exactly why it's called what it's called."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

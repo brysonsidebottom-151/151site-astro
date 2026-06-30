@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Chocolate Milk"
-category: "Kids"
+category: src/content/categories/kids.yaml
 subtitle: "Cold & Delicious"
 description: "Cold, creamy, chocolatey. A drive-thru essential for kids who know what they want. Simple and perfectly satisfying every time."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

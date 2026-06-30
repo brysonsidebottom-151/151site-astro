@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Tigers Blood"
-category: "Energy"
+category: src/content/categories/energy.yaml
 subtitle: "Strawberry & Coconut"
 description: "A tropical punch of strawberry and coconut blended into a high-energy drink that tastes like summer. Bright, fruity, and ready to fuel your day."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

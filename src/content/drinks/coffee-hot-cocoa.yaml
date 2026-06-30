@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Hot Cocoa"
-category: "Coffee"
+category: src/content/categories/coffee.yaml
 subtitle: "Rich Creamy Chocolate"
 description: "Real, rich chocolate blended into a creamy, warming mug of cocoa. The grown-up version of the childhood classic."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

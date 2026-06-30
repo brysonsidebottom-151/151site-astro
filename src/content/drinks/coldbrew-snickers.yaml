@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Snickers"
-category: "Cold Brew"
+category: src/content/categories/coldbrew.yaml
 subtitle: "Hazelnut & Caramel, Chocolate Milk"
 description: "The beloved Snickers flavor gets the cold brew treatment - hazelnut, caramel, and chocolate milk meet slow-steeped coffee for an indulgent cold sip."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

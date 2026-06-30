@@ -4,9 +4,10 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { getEntry, getCollection } from 'astro:content';
 
-const [menuEntry, drinksEntries] = await Promise.all([
+const [menuEntry, drinksEntries, categoryEntries] = await Promise.all([
   getEntry('pages', 'menu'),
   getCollection('drinks'),
+  getCollection('categories'),
 ]);
 
 const p = menuEntry!.data as any;
@@ -14,21 +15,25 @@ const allDrinks = drinksEntries
   .map(e => ({ slug: e.id, ...(e.data as any) }))
   .sort((a: any, b: any) => (a.menuOrder ?? 99) - (b.menuOrder ?? 99));
 
-// Derive categories from YAML so they're editable in Visual Editor
-const CATEGORIES = (p.categories ?? []).map((cat: any) => ({
-  tab: cat.slug,
-  num: cat.number,
-  title: cat.title,
-  desc: cat.description,
-}));
+// Categories are their own content collection (add / remove / edit in the Visual Editor).
+// One file per category; each drink's `category` field references that file's path.
+const CATEGORIES = categoryEntries
+  .map((e: any) => ({
+    tab: e.id,
+    refId: `src/content/categories/${e.id}.yaml`,
+    num: e.data.number,
+    title: e.data.title,
+    desc: e.data.description,
+  }))
+  .sort((a: any, b: any) => (parseInt(a.num) || 99) - (parseInt(b.num) || 99));
 
-// Build slug map dynamically from YAML categories
-const CAT_SLUG_MAP: Record<string, string> = Object.fromEntries(
-  CATEGORIES.map((cat: any) => [cat.title, cat.tab])
+// Map a drink's category reference (file path) back to its category slug.
+const REFID_TO_SLUG: Record<string, string> = Object.fromEntries(
+  CATEGORIES.map((cat: any) => [cat.refId, cat.tab])
 );
 
 function catSlug(drink: any): string {
-  return CAT_SLUG_MAP[drink.category] ?? drink.category?.toLowerCase().replace(/\s+/g, '') ?? '';
+  return REFID_TO_SLUG[drink.category] ?? '';
 }
 
 // Build DRINKS data object for flavor filter JS
@@ -88,7 +93,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
       <div class="cat-nav-inner">
         {CATEGORIES.map((cat: any, i: number) => (
           <button class={`cat-link${i === 0 ? ' active' : ''}`} data-tab={cat.tab}
-            data-sb-field-path={`categories.${i}.title`}>{cat.title}</button>
+            data-sb-object-id={cat.refId} data-sb-field-path="title">{cat.title}</button>
         ))}
       </div>
     </div>
@@ -101,7 +106,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
         return (
           <>
             <div class="cat-title-card" id={`cat-${cat.tab}`} data-cat={cat.tab}
-              data-sb-field-path={`categories.${catIndex}`}>
+              data-sb-object-id={cat.refId}>
               <div class="cat-title-inner">
                 <span class="cat-num" data-sb-field-path="number">{cat.num}</span>
                 <h2 class="cat-title-text" data-sb-field-path="title">{cat.title}</h2>

@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Apple Juice"
-category: "Kids"
+category: src/content/categories/kids.yaml
 subtitle: "Fresh & Sweet"
 description: "Fresh, sweet apple juice served cold. The classic kid's drink - no notes, no complaints, just happy faces in the backseat."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

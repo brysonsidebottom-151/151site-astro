@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Everything Bagel"
-category: "Hot Food"
+category: src/content/categories/hotfood.yaml
 subtitle: "Spicy Sausage, Egg & Cheese on an Everything Bagel"
 description: "Toasted everything bagel loaded with a spicy sausage patty, egg, and melted cheese. Bold flavor, satisfying crunch - the breakfast sandwich for people who don't do boring."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

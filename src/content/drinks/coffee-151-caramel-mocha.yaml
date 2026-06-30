@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "151 Caramel Mocha"
-category: "Coffee"
+category: src/content/categories/coffee.yaml
 subtitle: "Caramel, Chocolate Milk"
 description: "Our signature mocha - bold espresso, real caramel, and chocolate milk come together in the drink that put 151 on the map. Classic for a reason."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

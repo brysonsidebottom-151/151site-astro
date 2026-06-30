@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "French Toast"
-category: "Cold Brew"
+category: src/content/categories/coldbrew.yaml
 subtitle: "White Chocolate & Brown Sugar Cinnamon"
 description: "Cold brew steeped in the flavors of Sunday morning - white chocolate and brown sugar cinnamon transform your coffee into something that tastes like brunch."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

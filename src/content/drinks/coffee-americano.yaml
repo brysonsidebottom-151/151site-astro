@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Americano"
-category: "Coffee"
+category: src/content/categories/coffee.yaml
 subtitle: "Classic Bold Espresso"
 description: "Espresso shots pulled fresh and diluted with hot water for a clean, bold cup. No frills, all flavor. The purist's pick."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

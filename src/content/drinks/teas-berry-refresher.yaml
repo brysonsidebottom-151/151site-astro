@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Berry Refresher"
-category: "Teas"
+category: src/content/categories/teas.yaml
 subtitle: "Strawberry & Raspberry"
 description: "Two bold berries brewed into a bright, tangy iced tea. Simple, refreshing, and the color alone will make you smile."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

@@ -5,12 +5,22 @@ const drinks = defineCollection({
   loader: glob({ pattern: '**/*.yaml', base: 'src/content/drinks' }),
   schema: z.object({
     name: z.string(),
-    category: z.string(),
+    category: z.string().optional().default(''),
     subtitle: z.string().optional().default(''),
     description: z.string().optional().default(''),
     image: z.string().optional().default(''),
+    icon: z.string().optional().default(''),
     tags: z.preprocess((v) => (v == null ? [] : v), z.array(z.string())).default([]),
     menuOrder: z.number().optional().default(99),
+  }),
+});
+
+const categories = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: 'src/content/categories' }),
+  schema: z.object({
+    title: z.string(),
+    number: z.string().optional().default('99'),
+    description: z.string().optional().default(''),
   }),
 });
 
@@ -38,4 +48,4 @@ const settings = defineCollection({
   schema: z.any(),
 });
 
-export const collections = { drinks, locations, pages, settings };
+export const collections = { drinks, categories, locations, pages, settings };

@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Mango Dream"
-category: "Refreshers"
+category: src/content/categories/refreshers.yaml
 subtitle: "Mango Puree, SF Vanilla, Diced Mango, Coconut Cream"
 description: "Real mango puree, diced mango pieces, and SF vanilla all tied together with coconut cream. A full tropical experience in every sip."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

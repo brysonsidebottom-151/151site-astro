@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Strawberry Lemonade"
-category: "Smoothies"
+category: src/content/categories/smoothies.yaml
 subtitle: "Fresh & Tangy"
 description: "Real strawberry and bright lemon blended into a tangy-sweet smoothie that hits every note. Fresh, bold, and perfectly tart."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

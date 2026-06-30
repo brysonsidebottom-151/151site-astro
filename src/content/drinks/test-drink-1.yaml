@@ -1,6 +1,6 @@
 type: Drink
 name: Test 1
-category: Coffee
+category: src/content/categories/coffee.yaml
 subtitle: ''
 description: ''
 menuOrder: 99

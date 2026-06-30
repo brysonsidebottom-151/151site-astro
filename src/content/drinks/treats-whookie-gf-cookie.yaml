@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Whookie GF Cookie"
-category: "Treats"
+category: src/content/categories/treats.yaml
 subtitle: "Chocolate Sandwich Cookie - Gluten Free"
 description: "A gluten-free chocolate sandwich cookie that doesn't play it safe. Rich, chocolatey, and satisfying in every bite."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

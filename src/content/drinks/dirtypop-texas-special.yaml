@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Texas Special"
-category: "Dirty Pop"
+category: src/content/categories/dirtypop.yaml
 subtitle: "Dr. Pepper - Vanilla & Coconut Cream"
 description: "A Texas staple. Dr. Pepper gets dressed up with vanilla syrup and a pour of coconut cream - sweet, creamy, and unapologetically Texan."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

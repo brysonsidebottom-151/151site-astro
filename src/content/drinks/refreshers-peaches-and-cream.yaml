@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Peaches & Cream"
-category: "Refreshers"
+category: src/content/categories/refreshers.yaml
 subtitle: "Peach Puree & Vanilla Cream"
 description: "Sweet peach puree meets silky vanilla cream in the simplest, most satisfying refresher on the menu. Classic and crowd-pleasing every single time."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

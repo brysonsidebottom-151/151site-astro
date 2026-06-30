@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Lemon Pound Cake"
-category: "Treats"
+category: src/content/categories/treats.yaml
 subtitle: "Bright & Buttery"
 description: "Dense, buttery pound cake with a bright lemon punch. Sweet and tart in the best possible way - the kind of thing you eat half of before you get home."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

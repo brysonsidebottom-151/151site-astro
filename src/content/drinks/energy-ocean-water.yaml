@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Ocean Water"
-category: "Energy"
+category: src/content/categories/energy.yaml
 subtitle: "Blue Raspberry, Lime & Coconut"
 description: "A cooling blue wave of raspberry, lime, and coconut that tastes exactly like its name. Vibrant, refreshing, and borderline addictive."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

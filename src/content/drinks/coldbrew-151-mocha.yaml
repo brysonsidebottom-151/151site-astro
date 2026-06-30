@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "151 Mocha"
-category: "Cold Brew"
+category: src/content/categories/coldbrew.yaml
 subtitle: "Dark Chocolate & Milk"
 description: "Bold cold brew meets dark, rich chocolate and a splash of milk. Deep, smooth, and unapologetically chocolatey."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

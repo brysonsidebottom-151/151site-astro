@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Pumpkin Spice Bread"
-category: "Treats"
+category: src/content/categories/treats.yaml
 subtitle: "Warm Spiced Pumpkin Loaf"
 description: "A warmly spiced pumpkin loaf that's tender, aromatic, and exactly what you want alongside a hot coffee. Seasonal flavor, all-the-time worthy."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

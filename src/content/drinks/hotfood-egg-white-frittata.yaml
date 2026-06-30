@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Egg White Frittata"
-category: "Hot Food"
+category: src/content/categories/hotfood.yaml
 subtitle: "Spinach, Feta & Roasted Red Pepper"
 description: "Light and satisfying. Egg whites baked with spinach, salty feta, and sweet roasted red pepper. Proof that eating well doesn't have to mean eating bland."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Bacon Cheddar Egg Bites"
-category: "Hot Food"
+category: src/content/categories/hotfood.yaml
 subtitle: "Three Per Order"
 description: "Three tender, protein-packed egg bites loaded with crispy bacon and sharp cheddar. Small but mighty - exactly what a busy morning needs."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"

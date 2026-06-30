@@ -10,15 +10,20 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
-const [drinks, menuEntry] = await Promise.all([
+const [drinks, menuEntry, categoryEntries] = await Promise.all([
   getCollection('drinks'),
   getEntry('pages', 'menu'),
+  getCollection('categories'),
 ]);
 const drinkEntry = drinks.find(e => e.id === slug);
 
 if (!drinkEntry) return Astro.redirect('/menu');
 const drink = drinkEntry.data as any;
 const m = menuEntry!.data as any;
+
+// drink.category holds a reference to a category file; resolve it to the title.
+const categoryEntry = categoryEntries.find((c: any) => `src/content/categories/${c.id}.yaml` === drink.category);
+const categoryTitle = categoryEntry ? (categoryEntry.data as any).title : '';
 ---
 <Layout
   title={`${drink.name} | 151 Coffee Menu`}
@@ -41,7 +46,7 @@ const m = menuEntry!.data as any;
         <span data-sb-object-id="src/content/pages/menu.yaml" data-sb-field-path="drinkPage.backLabel">{m.drinkPage?.backLabel ?? 'Back to Menu'}</span>
       </a>
       <div class="dk-pills-row">
-        <span class="dk-cat-pill" data-sb-field-path="category">{drink.category}</span>
+        <span class="dk-cat-pill" data-sb-field-path="category">{categoryTitle}</span>
       </div>
       <h1 class="dk-title" data-sb-field-path="name">{drink.name}</h1>
       {drink.tags && drink.tags.length > 0 && (

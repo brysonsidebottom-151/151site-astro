@@ -122,12 +122,6 @@ export default defineStackbitConfig({
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
             ]},
-            { name: 'categories', type: 'list', items: { type: 'object', fields: [
-              { name: 'slug', type: 'string' },
-              { name: 'number', type: 'string' },
-              { name: 'title', type: 'string' },
-              { name: 'description', type: 'string' },
-            ]}},
             { name: 'dirtypopExtra', type: 'string' },
             { name: 'customize', type: 'object', fields: [
               { name: 'heading', type: 'string' },
@@ -355,13 +349,24 @@ export default defineStackbitConfig({
           filePath: 'src/content/drinks/{slug}.yaml',
           fields: [
             { name: 'name', type: 'string', required: true, default: 'New Drink' },
-            { name: 'category', type: 'enum', required: true, default: 'Coffee', options: ['Coffee','Cold Brew','Energy','Dirty Pop','Refreshers','Smoothies','Teas','Kids','Hot Food','Treats'] },
+            { name: 'category', type: 'reference', required: true, models: ['Category'] },
             { name: 'subtitle', type: 'string', default: '' },
             { name: 'description', type: 'string', default: '' },
             { name: 'image', type: 'image' },
             { name: 'icon', type: 'string', label: 'Emoji icon (Kids / Hot Food / Treats only)' },
             { name: 'tags', type: 'list', items: { type: 'string' } },
             { name: 'menuOrder', type: 'number', default: 99 },
+          ],
+        },
+        {
+          name: 'Category',
+          type: 'data',
+          labelField: 'title',
+          filePath: 'src/content/categories/{slug}.yaml',
+          fields: [
+            { name: 'title', type: 'string', required: true, default: 'New Category' },
+            { name: 'number', type: 'string', label: 'Display order (e.g. 01, 02)' },
+            { name: 'description', type: 'string' },
           ],
         },
         {

@@ -1,6 +1,6 @@
 ﻿type: Drink
 name: "Cake Pops"
-category: "Treats"
+category: src/content/categories/treats.yaml
 subtitle: "Birthday Cake, Cookies & Cream, or Triple Chocolate"
 description: "Three flavors, zero wrong answers. Birthday Cake, Cookies & Cream, and Triple Chocolate - grab one (or all three) for the road."
 image: "images/drinks/energy/151 Blue Energy Hand (1).png"
