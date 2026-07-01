@@ -40,7 +40,9 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
   ogImage={p.seo?.ogImage ?? 'https://www.151coffee.com/images/store1.jpg'}
 >
   <fragment slot="head">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" /></noscript>
   </fragment>
 
   <Nav active="locations" />

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap');
+/* Fonts load via <link rel="preconnect"> + stylesheet in Layout.astro (faster than @import). */
 
 * {
     margin: 0;

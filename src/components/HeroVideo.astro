@@ -29,7 +29,8 @@ if (ytMatch) {
   <div class={`hero-embed-wrap ${videoClass}`} aria-hidden="true">
     <iframe
       class="hero-embed"
-      src={embedUrl}
+      data-hero-embed
+      data-src={embedUrl}
       title="Background video"
       frameborder="0"
       allow="autoplay; encrypted-media; picture-in-picture"
@@ -37,10 +38,32 @@ if (ytMatch) {
     ></iframe>
   </div>
 ) : (
-  <video autoplay muted loop playsinline class={videoClass} aria-hidden="true">
-    <source src={raw} type="video/mp4" />
-  </video>
+  <video muted loop playsinline preload="none" class={videoClass} data-hero-video data-src={raw} aria-hidden="true"></video>
 )}
+
+<script>
+  // Load hero backgrounds after the page is interactive and idle, so the
+  // (large) video never competes with the content for bandwidth.
+  (function () {
+    function activate() {
+      document.querySelectorAll('video[data-hero-video]').forEach(function (v) {
+        if (v.dataset.src && !v.src) {
+          v.muted = true;
+          v.setAttribute('autoplay', '');
+          v.src = v.dataset.src;               // setting src triggers muted autoplay
+          var pr = v.play();
+          if (pr && pr.catch) pr.catch(function () {});
+        }
+      });
+      document.querySelectorAll('iframe[data-hero-embed]').forEach(function (f) {
+        if (!f.getAttribute('src')) f.setAttribute('src', f.getAttribute('data-src'));
+      });
+    }
+    var idle = window.requestIdleCallback || function (cb) { return setTimeout(cb, 300); };
+    if (document.readyState === 'complete') idle(activate);
+    else window.addEventListener('load', function () { idle(activate); });
+  })();
+</script>
 
 <style>
   .hero-embed-wrap { overflow: hidden; }
