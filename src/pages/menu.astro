@@ -193,9 +193,13 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
     var catLinks = document.querySelectorAll('.cat-link');
     var titleCards = document.querySelectorAll('.cat-title-card');
 
+    var mobileMq = window.matchMedia('(max-width: 768px)');
+    function isMobile() { return mobileMq.matches; }
+
     function equalizeCards() {
       var cards = scroll.querySelectorAll('.drink-card');
       cards.forEach(function(c) { c.style.width = ''; c.style.minWidth = ''; });
+      if (isMobile()) return; // mobile uses a CSS grid; don't force fixed widths
       var maxW = 0;
       cards.forEach(function(c) { if (c.offsetWidth > maxW) maxW = c.offsetWidth; });
       if (maxW > 0) cards.forEach(function(c) { c.style.width = maxW + 'px'; c.style.minWidth = maxW + 'px'; });
@@ -224,7 +228,12 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
         stopAutoScroll();
         var target = document.getElementById('cat-' + btn.dataset.tab);
         if (!target) return;
-        scroll.scrollTo({ left: target.offsetLeft - 24, behavior: 'smooth' });
+        if (isMobile()) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          scroll.scrollTo({ left: target.offsetLeft - 24, behavior: 'smooth' });
+        }
+        applyActiveCat(btn.dataset.tab);
       });
     });
 
@@ -241,18 +250,33 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
       if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
     }
     ['wheel','mousedown','touchstart'].forEach(function(evt) { scroll.addEventListener(evt, stopAutoScroll, { once: true, passive: true }); });
-    rafId = requestAnimationFrame(autoScroll);
+    if (!isMobile()) rafId = requestAnimationFrame(autoScroll);
     setTimeout(function() { scroll.classList.add('timeline-ready'); }, 80);
 
     scroll.addEventListener('wheel', function(e) {
+      if (isMobile()) return; // let the page scroll vertically on mobile
       if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) { e.preventDefault(); scroll.scrollLeft += e.deltaY * 3; }
     }, { passive: false });
+
+    // On mobile the timeline scrolls vertically, so highlight the category
+    // whose header is currently in view.
+    if (isMobile() && 'IntersectionObserver' in window) {
+      var catObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) { if (e.isIntersecting) applyActiveCat(e.target.dataset.cat); });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      titleCards.forEach(function(c) { catObserver.observe(c); });
+    }
 
     var paramTab = (window.location.hash || '').replace(/^#/, '') || new URLSearchParams(window.location.search).get('tab');
     if (paramTab && document.getElementById('cat-' + paramTab)) {
       window.addEventListener('load', function() {
         stopAutoScroll(); equalizeCards();
-        scroll.scrollTo({ left: document.getElementById('cat-' + paramTab).offsetLeft - 24, behavior: 'instant' });
+        var target = document.getElementById('cat-' + paramTab);
+        if (isMobile()) {
+          target.scrollIntoView({ behavior: 'instant', block: 'start' });
+        } else {
+          scroll.scrollTo({ left: target.offsetLeft - 24, behavior: 'instant' });
+        }
         applyActiveCat(paramTab);
       });
     }

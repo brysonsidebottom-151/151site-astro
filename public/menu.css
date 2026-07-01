@@ -839,33 +839,77 @@
 
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
-    .timeline-wrap {
-        padding: 8rem 0;
-    }
-
-    .timeline-scroll {
-        padding: 4rem 1.25rem 5rem;
-        gap: 0.875rem;
-    }
-
-    .cat-title-card {
-        width: 210px;
-        min-height: 320px;
-        margin-left: 1rem;
-    }
-
-    .cat-title-text {
-        font-size: clamp(2.2rem, 6vw, 3.2rem);
-    }
-
-    .drink-img-wrap img {
-        height: 340px;
-        max-width: 380px;
-    }
-
     .menu-hero {
         min-height: 35vh;
     }
+
+    /* On mobile the horizontal timeline becomes a vertical, wrapping grid:
+       category headers span a full row, drinks show two per row, and the
+       page scrolls normally so you can browse many drinks at once. */
+    .timeline-wrap {
+        padding: 2.5rem 0 3rem;
+    }
+
+    .timeline-scroll {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: stretch;
+        overflow-x: visible;
+        overflow-y: visible;
+        left: auto;
+        margin: 0;
+        width: 100%;
+        padding: 0 1rem;
+        gap: 0.875rem;
+        cursor: default;
+        opacity: 1;                 /* always visible on mobile */
+        scroll-behavior: auto;
+    }
+
+    /* Category header — full width, compact banner */
+    .cat-title-card {
+        flex: 0 0 100%;
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: 0;
+        margin-left: 0;
+        margin-top: 1.75rem;
+        scroll-margin-top: 70px;    /* clear the fixed site nav on jump */
+    }
+    .cat-title-card:first-child { margin-top: 0; }
+
+    .cat-title-inner {
+        padding: 1.25rem 1.25rem 1.4rem;
+        justify-content: flex-start;
+    }
+    .cat-title-inner .cat-num { position: static; margin-bottom: 0.25rem; }
+    .cat-title-inner .cat-arrow { display: none; }
+    .cat-title-text { font-size: clamp(2rem, 8vw, 3rem); }
+    .cat-title-desc { max-width: none; }
+
+    /* Drinks — two per row */
+    .drink-card {
+        flex: 0 0 calc(50% - 0.4375rem);
+        width: calc(50% - 0.4375rem) !important;
+        min-width: 0 !important;
+    }
+
+    .drink-img-wrap { padding: 1rem 0.5rem 0; }
+    .drink-img-wrap img {
+        height: 150px;
+        max-width: 100%;
+    }
+    .kids-img-wrap { min-height: 90px; padding: 1.25rem 0.5rem 0; }
+    .kids-icon { font-size: 2.75rem; }
+
+    .drink-info { padding: 0.75rem 0.75rem 1rem; }
+    .drink-info h3 { font-size: 1.05rem; }
+    .drink-info p { font-size: 0.72rem; }
+
+    /* Full-width helper cards */
+    .soda-timeline-card { flex: 0 0 100%; width: 100%; }
+    .timeline-empty-state { width: 100%; min-width: 0; }
+    .timeline-end-spacer { display: none; }
 
     /* Mobile category nav: scrollable pill strip */
     .cat-nav {
