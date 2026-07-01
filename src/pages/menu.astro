@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import HeroVideo from '../components/HeroVideo.astro';
 import { getEntry, getCollection } from 'astro:content';
 
 const [menuEntry, drinksEntries, categoryEntries] = await Promise.all([
@@ -82,9 +83,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
   <Nav active="menu" />
 
   <section class="menu-hero">
-    <video autoplay muted loop playsinline class="hero-bg" aria-hidden="true">
-      <source src={p.heroVideo || '/videos/landing_bg.mp4'} type="video/mp4" />
-    </video>
+    <HeroVideo src={p.heroVideo} videoClass="hero-bg" />
     <div class="menu-hero-content">
       <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Our Menu'}</h1>
       <p data-sb-field-path="hero.subheading">{p.hero?.subheading ?? 'Thousands of flavor combinations. One perfect drink, every time.'}</p>

@@ -1,0 +1,63 @@
+---
+// Renders a full-bleed hero background from a URL that can be:
+//  - a YouTube link (any format)  -> autoplay/muted/looping embed
+//  - a Vimeo link                 -> autoplay/muted/looping embed
+//  - a direct video file (.mp4)   -> <video> tag
+//  - blank                        -> falls back to the default brand video
+// videoClass is the existing hero CSS class (positioning / opacity / z-index).
+interface Props {
+  src?: string;
+  videoClass?: string;
+  fallback?: string;
+}
+const { src, videoClass = '', fallback = '/videos/landing_bg.mp4' } = Astro.props;
+
+const raw = (src && src.trim()) ? src.trim() : fallback;
+
+const ytMatch = raw.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+const vimeoMatch = ytMatch ? null : raw.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+
+let embedUrl: string | null = null;
+if (ytMatch) {
+  const id = ytMatch[1];
+  embedUrl = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1&disablekb=1&fs=0&iv_load_policy=3`;
+} else if (vimeoMatch) {
+  embedUrl = `https://player.vimeo.com/video/${vimeoMatch[1]}?background=1&autoplay=1&muted=1&loop=1`;
+}
+---
+{embedUrl ? (
+  <div class={`hero-embed-wrap ${videoClass}`} aria-hidden="true">
+    <iframe
+      class="hero-embed"
+      src={embedUrl}
+      title="Background video"
+      frameborder="0"
+      allow="autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+) : (
+  <video autoplay muted loop playsinline class={videoClass} aria-hidden="true">
+    <source src={raw} type="video/mp4" />
+  </video>
+)}
+
+<style>
+  .hero-embed-wrap { overflow: hidden; }
+  .hero-embed {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Cover the hero while keeping the video's 16:9 aspect ratio:
+       size to the smallest 16:9 box that is at least as wide and tall
+       as the container, then clip the overflow via the wrapper. */
+    width: auto;
+    height: auto;
+    min-width: 100%;
+    min-height: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    pointer-events: none;   /* let clicks pass through the background */
+  }
+</style>

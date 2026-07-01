@@ -40,7 +40,7 @@ export default defineStackbitConfig({
               { name: 'subheadingLine2', type: 'string' },
               { name: 'ctaLabel', type: 'string' },
               { name: 'ctaHref', type: 'string' },
-              { name: 'videoUrl', type: 'string' },
+              { name: 'videoUrl', type: 'string', label: 'Hero background video', description: 'Paste a YouTube or Vimeo link, or a direct .mp4 file URL. Leave blank for the default video.' },
             ]},
             { name: 'featuredDrink', type: 'object', fields: [
               { name: 'badge', type: 'string' },
@@ -117,7 +117,7 @@ export default defineStackbitConfig({
           urlPath: '/menu',
           fields: [
             seoField,
-            { name: 'heroVideo', type: 'string', label: 'Hero background video (path or URL)' },
+            { name: 'heroVideo', type: 'string', label: 'Hero background video', description: 'Paste a YouTube or Vimeo link, or a direct .mp4 file URL. Leave blank for the default video.' },
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
@@ -206,7 +206,7 @@ export default defineStackbitConfig({
           urlPath: '/careers',
           fields: [
             seoField,
-            { name: 'heroVideo', type: 'string', label: 'Hero background video (path or URL)' },
+            { name: 'heroVideo', type: 'string', label: 'Hero background video', description: 'Paste a YouTube or Vimeo link, or a direct .mp4 file URL. Leave blank for the default video.' },
             { name: 'agegate', type: 'object', fields: [
               { name: 'eyebrow', type: 'string' },
               { name: 'heading', type: 'string' },
@@ -311,7 +311,7 @@ export default defineStackbitConfig({
           urlPath: '/locations',
           fields: [
             seoField,
-            { name: 'heroVideo', type: 'string', label: 'Hero background video (path or URL)' },
+            { name: 'heroVideo', type: 'string', label: 'Hero background video', description: 'Paste a YouTube or Vimeo link, or a direct .mp4 file URL. Leave blank for the default video.' },
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },

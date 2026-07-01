@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import HeroVideo from '../components/HeroVideo.astro';
 import { getCollection, getEntry } from 'astro:content';
 
 const [locationsEntries, settingsEntry, pageEntry] = await Promise.all([
@@ -45,9 +46,7 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
   <Nav active="locations" />
 
   <section class="loc-hero">
-    <video autoplay muted loop playsinline class="hero-bg" aria-hidden="true">
-      <source src={p.heroVideo || '/videos/landing_bg.mp4'} type="video/mp4" />
-    </video>
+    <HeroVideo src={p.heroVideo} videoClass="hero-bg" />
     <div class="loc-hero-content container">
       <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Find Your 151'}</h1>
       <p data-sb-field-path="hero.subheading">{p.hero?.subheading ?? 'Texas & Kansas - more coming soon.'}</p>

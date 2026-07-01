@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import HeroVideo from '../components/HeroVideo.astro';
 import { getEntry, getCollection } from 'astro:content';
 
 const [homeEntry, settingsEntry, locationsEntries] = await Promise.all([
@@ -42,9 +43,7 @@ const reviewClasses = ['featured', 'featured1', 'featured2', 'featured3'];
   <!-- Hero -->
   <section class="hero">
     <div>
-      <video autoplay muted loop playsinline class="hero-video" aria-hidden="true">
-        {p.hero?.videoUrl ? <source src={p.hero.videoUrl} type="video/mp4" /> : null}
-      </video>
+      <HeroVideo src={p.hero?.videoUrl} videoClass="hero-video" />
     </div>
     <div class="container">
       <div class="hero-content">

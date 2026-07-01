@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import HeroVideo from '../components/HeroVideo.astro';
 import { getEntry } from 'astro:content';
 
 const entry = await getEntry('pages', 'careers');
@@ -155,9 +156,7 @@ const p = entry!.data as any;
 
   <!-- Age gate -->
   <div class="age-gate-page" id="ageGatePage">
-    <video autoplay muted loop playsinline class="age-bg-video" aria-hidden="true">
-      <source src={p.heroVideo || '/videos/landing_bg.mp4'} type="video/mp4" />
-    </video>
+    <HeroVideo src={p.heroVideo} videoClass="age-bg-video" />
     <div class="age-overlay"></div>
     <div class="age-gate">
       <div class="age-card" id="ageCard">
@@ -182,9 +181,7 @@ const p = entry!.data as any;
   <!-- Careers content (revealed after age gate) -->
   <div id="careersContent" style="display:none;">
     <section class="careers-hero">
-      <video autoplay muted loop playsinline class="hero-bg" aria-hidden="true">
-        <source src={p.heroVideo || '/videos/landing_bg.mp4'} type="video/mp4" />
-      </video>
+      <HeroVideo src={p.heroVideo} videoClass="hero-bg" />
       <div class="careers-hero-content">
         <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Join the 151 Team'}</h1>
         <p data-sb-field-path="hero.subheading">{p.hero?.subheading ?? 'Fun, fast, and built on good vibes. See what\'s open.'}</p>
