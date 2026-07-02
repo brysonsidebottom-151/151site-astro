@@ -16,7 +16,7 @@ featuredDrink:
   name: "Dot Cake"
   nameBold: "Latte"
   description: "A celebration in every sip. Our Dot Cake Latte layers rich espresso with sweet, festive flavors that taste just like the real thing. Limited time - treat yourself."
-  image: "/images/dot-cake-latte.png"
+  image: "/images/dot-cake-latte.webp"
   imageAlt: "Dot Cake Latte"
   ctaLabel: "Explore the Menu"
   ctaHref: "/menu"
@@ -26,12 +26,12 @@ menuSection:
   cards:
     - title: "Drink Menu"
       subtitle: "Over 43,000 Flavor Combinations"
-      image: "/images/drinks1.PNG"
+      image: "/images/drinks1.webp"
       href: "/menu"
       label: "Drink Menu"
     - title: "Food Menu"
       subtitle: "Select Locations Only!"
-      image: "/images/food1.jpg"
+      image: "/images/food1.webp"
       href: "/menu#hotfood"
       label: "Food Menu"
 

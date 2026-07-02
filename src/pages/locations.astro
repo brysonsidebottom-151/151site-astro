@@ -41,8 +41,6 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
 >
   <fragment slot="head">
     <link rel="preconnect" href="https://unpkg.com" crossorigin />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" /></noscript>
   </fragment>
 
   <Nav active="locations" />
@@ -108,10 +106,9 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
 
   <Footer />
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" is:inline></script>
   <script define:vars={{ storesJson, hours: s.hours, phone: s.phone }} is:inline>
     window.COFFEE151_STORES = JSON.parse(storesJson);
     window.COFFEE151_LOCATOR = { hours, phone };
   </script>
-  <script src="/js/locator.js" is:inline></script>
+  <script src="/js/locator-loader.js" is:inline></script>
 </Layout>
