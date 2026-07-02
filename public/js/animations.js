@@ -26,11 +26,11 @@
     '.founder-img', '.founder-text',
     '.about-cta h2', '.about-cta p', '.about-cta-buttons',
     // careers
-    '.careers-hero .hero-content',
+    '.careers-hero-content',
     // menu + merch (shared hero) and menu customize
     '.menu-hero-content', '.cz-heading', '.cz-block',
     // merch
-    '.merch-filter', '.merch-card',
+    '.filter-pill', '.merch-card',
     // real estate
     '.re-hero-content', '.re-overview-text', '.re-map-img', '.re-stat',
     '.re-criteria .section-header', '.criteria-card',
@@ -39,8 +39,8 @@
     '.re-contact .section-header',
     // locations
     '.loc-hero-content', '.loc-state-label', '.loc-card',
-    // privacy policy
-    '.legal-hero .container', '.legal-content'
+    // merch + privacy policy (shared page hero) and privacy content
+    '.page-hero-content', '.legal-content'
   ].join(',');
 
   const targets = document.querySelectorAll(REVEAL_SELECTOR);

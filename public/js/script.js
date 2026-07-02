@@ -1,6 +1,6 @@
 // Gentle background parallax for sections using background1.jpg
 (function () {
-  const els = document.querySelectorAll('.features, .pricing, .contact, .cta, .amenities, .menu-section');
+  const els = document.querySelectorAll('.features, .pricing, .contact, .cta, .amenities');
   if (!els.length) return;
   const SPEED = 0.05;   // very gentle — bg drifts at 5% of scroll
   const MAX = 40;       // px cap so the layer never runs out of slack
@@ -31,7 +31,6 @@
 (function () {
   const nav = document.querySelector('nav');
   if (!nav) return;
-  const navLinksEl = document.querySelector('.nav-links');
   const REVEAL_TOP = 90;   // always visible near the top
   const DELTA = 5;         // ignore tiny jitters
   let lastY = window.scrollY || 0;
@@ -41,8 +40,7 @@
     const y = window.scrollY || 0;
     nav.classList.toggle('nav-scrolled', y > 40);
 
-    const menuOpen = navLinksEl && navLinksEl.classList.contains('active');
-    if (y < REVEAL_TOP || menuOpen) {
+    if (y < REVEAL_TOP) {
       nav.classList.remove('nav-hidden');
     } else if (y > lastY + DELTA) {
       nav.classList.add('nav-hidden');      // scrolling down
@@ -69,27 +67,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 behavior: 'smooth',
                 block: 'start'
             });
-        }
-    });
-});
-
-// Active navigation highlighting
-const sections = document.querySelectorAll('section');
-const navLinks = document.querySelectorAll('.nav-link');
-
-window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        if (pageYOffset >= (sectionTop - 400)) {
-            current = section.getAttribute('id');
-        }
-    });
-
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').slice(1) === current) {
-            link.classList.add('active');
         }
     });
 });
@@ -125,8 +102,7 @@ window.addEventListener('scroll', () => {
         btn.textContent = 'Gift Card';
         btn.addEventListener('click', () => {
             closeDrawer();
-            const modal = document.getElementById('giftCardModal');
-            if (modal) { modal.classList.add('active'); }
+            openGiftCardModal();
         });
         wrapper.appendChild(btn);
         drawer.appendChild(wrapper);
@@ -191,24 +167,38 @@ const giftCardFooterBtn = document.getElementById('giftCardFooterBtn');
 const giftCardFooterSupportBtn = document.getElementById('giftCardFooterSupportBtn');
 const closeGiftCardModal = document.getElementById('closeGiftCardModal');
 
+// The gift-card balance checker is a full third-party embedded app (Crisp).
+// Loading its iframe eagerly would run that app's JS on every single page
+// view, even though almost nobody opens this modal - so its src is set only
+// the first time the modal is actually opened.
+function openGiftCardModal() {
+    if (!giftCardModal) return;
+    const iframe = giftCardModal.querySelector('iframe[data-src]');
+    if (iframe) {
+        iframe.src = iframe.getAttribute('data-src');
+        iframe.removeAttribute('data-src');
+    }
+    giftCardModal.classList.add('active');
+}
+
 if (giftCardNavBtn) {
     giftCardNavBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        giftCardModal.classList.add('active');
+        openGiftCardModal();
     });
 }
 
 if (giftCardFooterBtn) {
     giftCardFooterBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        giftCardModal.classList.add('active');
+        openGiftCardModal();
     });
 }
 
 if (giftCardFooterSupportBtn) {
     giftCardFooterSupportBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        giftCardModal.classList.add('active');
+        openGiftCardModal();
     });
 }
 

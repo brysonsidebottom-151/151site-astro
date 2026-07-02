@@ -1769,16 +1769,16 @@ footer {
     .about-hero-content, .about-intro-text, .about-intro-img, .stat-item,
     .about-history .section-header, .history-body, .timeline-item,
     .founder-img, .founder-text, .about-cta h2, .about-cta p, .about-cta-buttons,
-    .careers-hero .hero-content,
+    .careers-hero-content,
     .menu-hero-content, .cz-heading, .cz-block,
-    .merch-filter, .merch-card,
+    .filter-pill, .merch-card,
     .re-hero-content, .re-overview-text, .re-map-img, .re-stat,
     .re-criteria .section-header, .criteria-card,
     .re-ideal .section-header, .ideal-item,
     .re-locations .section-header, .re-location-tag, .re-contact .section-header,
     .re-contact .contact-form-wrapper,
     .loc-hero-content, .loc-state-label, .loc-card,
-    .legal-hero .container, .legal-content
+    .page-hero-content, .legal-content
 ) {
     opacity: 0;
     transform: translateY(28px);
@@ -1789,16 +1789,16 @@ footer {
     .about-hero-content, .about-intro-text, .about-intro-img, .stat-item,
     .about-history .section-header, .history-body, .timeline-item,
     .founder-img, .founder-text, .about-cta h2, .about-cta p, .about-cta-buttons,
-    .careers-hero .hero-content,
+    .careers-hero-content,
     .menu-hero-content, .cz-heading, .cz-block,
-    .merch-filter, .merch-card,
+    .filter-pill, .merch-card,
     .re-hero-content, .re-overview-text, .re-map-img, .re-stat,
     .re-criteria .section-header, .criteria-card,
     .re-ideal .section-header, .ideal-item,
     .re-locations .section-header, .re-location-tag, .re-contact .section-header,
     .re-contact .contact-form-wrapper,
     .loc-hero-content, .loc-state-label, .loc-card,
-    .legal-hero .container, .legal-content
+    .page-hero-content, .legal-content
 ).in {
     opacity: 1;
     transform: none;
