@@ -187,8 +187,8 @@ window.addEventListener('load', function() {
 // Gift Card Modal functionality
 const giftCardModal = document.getElementById('giftCardModal');
 const giftCardNavBtn = document.getElementById('giftCardNavBtn');
-const giftCardMobileBtn = document.getElementById('giftCardMobileBtn');
 const giftCardFooterBtn = document.getElementById('giftCardFooterBtn');
+const giftCardFooterSupportBtn = document.getElementById('giftCardFooterSupportBtn');
 const closeGiftCardModal = document.getElementById('closeGiftCardModal');
 
 if (giftCardNavBtn) {
@@ -198,15 +198,15 @@ if (giftCardNavBtn) {
     });
 }
 
-if (giftCardMobileBtn) {
-    giftCardMobileBtn.addEventListener('click', function(e) {
+if (giftCardFooterBtn) {
+    giftCardFooterBtn.addEventListener('click', function(e) {
         e.preventDefault();
         giftCardModal.classList.add('active');
     });
 }
 
-if (giftCardFooterBtn) {
-    giftCardFooterBtn.addEventListener('click', function(e) {
+if (giftCardFooterSupportBtn) {
+    giftCardFooterSupportBtn.addEventListener('click', function(e) {
         e.preventDefault();
         giftCardModal.classList.add('active');
     });

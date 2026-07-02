@@ -40,9 +40,8 @@ function isActive(href: string): boolean {
       {navLinks.map((link, i) => (
         <li><a href={link.href} class={`nav-link${isActive(link.href) ? ' active' : ''}`} data-sb-field-path={`nav.${i}.label`}>{link.label}</a></li>
       ))}
-      <li><a id="giftCardMobileBtn" href="javascript:void(0);" class="nav-link" data-sb-field-path="giftCardLabel">{giftCardLabel}</a></li>
     </ul>
-    <a id="giftCardNavBtn" href="javascript:void(0);" class="main-menu-btn" data-sb-object-id="src/content/settings/global.yaml" data-sb-field-path="giftCardLabel">{giftCardLabel}</a>
+    <button type="button" id="giftCardNavBtn" class="main-menu-btn" data-sb-object-id="src/content/settings/global.yaml" data-sb-field-path="giftCardLabel">{giftCardLabel}</button>
     <div class="menu-toggle" role="button" tabindex="0" aria-label="Toggle navigation menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </div>

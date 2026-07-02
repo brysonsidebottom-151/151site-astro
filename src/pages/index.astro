@@ -96,7 +96,7 @@ const reviewClasses = ['featured', 'featured1', 'featured2', 'featured3'];
         <h2 data-sb-field-path="cta.heading">{p.cta?.heading}</h2>
         <p data-sb-field-path="cta.body">{p.cta?.body}</p>
         <div class="cta-buttons">
-          <a href={p.cta?.ctaHref} class="btn-primary" data-sb-field-path="cta.ctaLabel">{p.cta?.ctaLabel}</a>
+          <a href={p.cta?.ctaHref} class="btn-primary" aria-label="Learn more about careers at 151 Coffee" data-sb-field-path="cta.ctaLabel">{p.cta?.ctaLabel}</a>
         </div>
       </div>
     </div>
@@ -151,7 +151,7 @@ const reviewClasses = ['featured', 'featured1', 'featured2', 'featured3'];
               </div>
             ))}
           </div>
-          <div><br /><a href={p.investment?.ctaHref} class="btn-primary" data-sb-field-path="investment.ctaLabel">{p.investment?.ctaLabel}</a></div>
+          <div><br /><a href={p.investment?.ctaHref} class="btn-primary" aria-label="Learn more about investing in 151 Coffee" data-sb-field-path="investment.ctaLabel">{p.investment?.ctaLabel}</a></div>
         </div>
       </div>
     </div>
