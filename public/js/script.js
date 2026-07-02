@@ -126,7 +126,7 @@ window.addEventListener('scroll', () => {
         btn.addEventListener('click', () => {
             closeDrawer();
             const modal = document.getElementById('giftCardModal');
-            if (modal) { modal.style.display = 'flex'; modal.classList.add('active'); }
+            if (modal) { modal.classList.add('active'); }
         });
         wrapper.appendChild(btn);
         drawer.appendChild(wrapper);
@@ -215,6 +215,7 @@ if (giftCardFooterBtn) {
 if (closeGiftCardModal) {
     closeGiftCardModal.addEventListener('click', function() {
         giftCardModal.classList.remove('active');
+        giftCardModal.style.display = '';
     });
 }
 
@@ -222,6 +223,7 @@ if (giftCardModal) {
     giftCardModal.addEventListener('click', function(e) {
         if (e.target === giftCardModal) {
             giftCardModal.classList.remove('active');
+            giftCardModal.style.display = '';
         }
     });
 }
