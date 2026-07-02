@@ -197,21 +197,23 @@ const p = entry!.data as any;
       </div>
       <div class="re-contact-inner">
         <div class="contact-form-wrapper">
-          <form class="contact-form" onsubmit="handleRESubmit(event)">
+          <form class="contact-form" name="realestate-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="realestate-inquiry" />
+            <p style="display:none"><label>Leave this field blank: <input name="bot-field" /></label></p>
             <div class="form-header">
               <h3 data-sb-field-path="contact.formHeading">{p.contact?.formHeading ?? 'Real Estate Inquiry'}</h3>
               <p data-sb-field-path="contact.formSubtext">{p.contact?.formSubtext ?? 'Contact Mark Wattles directly about site opportunities across our target markets.'}</p>
             </div>
             <div class="form-row">
-              <div class="form-group"><label for="re-firstName" data-sb-field-path="contact.firstNameLabel">{p.contact?.firstNameLabel ?? 'First Name'}</label><input type="text" id="re-firstName" placeholder="First" required /></div>
-              <div class="form-group"><label for="re-lastName" data-sb-field-path="contact.lastNameLabel">{p.contact?.lastNameLabel ?? 'Last Name'}</label><input type="text" id="re-lastName" placeholder="Last" required /></div>
+              <div class="form-group"><label for="re-firstName" data-sb-field-path="contact.firstNameLabel">{p.contact?.firstNameLabel ?? 'First Name'}</label><input type="text" id="re-firstName" name="firstName" placeholder="First" required /></div>
+              <div class="form-group"><label for="re-lastName" data-sb-field-path="contact.lastNameLabel">{p.contact?.lastNameLabel ?? 'Last Name'}</label><input type="text" id="re-lastName" name="lastName" placeholder="Last" required /></div>
             </div>
             <div class="form-row">
-              <div class="form-group"><label for="re-email" data-sb-field-path="contact.emailLabel">{p.contact?.emailLabel ?? 'Email Address'}</label><input type="email" id="re-email" placeholder="you@company.com" required /></div>
-              <div class="form-group"><label for="re-phone" data-sb-field-path="contact.phoneLabel">{p.contact?.phoneLabel ?? 'Phone Number'}</label><input type="tel" id="re-phone" placeholder="+1 (555) 123-4567" /></div>
+              <div class="form-group"><label for="re-email" data-sb-field-path="contact.emailLabel">{p.contact?.emailLabel ?? 'Email Address'}</label><input type="email" id="re-email" name="email" placeholder="you@company.com" required /></div>
+              <div class="form-group"><label for="re-phone" data-sb-field-path="contact.phoneLabel">{p.contact?.phoneLabel ?? 'Phone Number'}</label><input type="tel" id="re-phone" name="phone" placeholder="+1 (555) 123-4567" /></div>
             </div>
-            <div class="form-group full-width"><label for="re-site" data-sb-field-path="contact.propertyLabel">{p.contact?.propertyLabel ?? 'Property Address / Market'}</label><input type="text" id="re-site" placeholder="Address or city you're submitting" /></div>
-            <div class="form-group full-width"><label for="re-message" data-sb-field-path="contact.detailsLabel">{p.contact?.detailsLabel ?? 'Site Details'}</label><textarea id="re-message" placeholder="Tell us about your site - size, traffic count, current use, deal structure..."></textarea></div>
+            <div class="form-group full-width"><label for="re-site" data-sb-field-path="contact.propertyLabel">{p.contact?.propertyLabel ?? 'Property Address / Market'}</label><input type="text" id="re-site" name="property" placeholder="Address or city you're submitting" /></div>
+            <div class="form-group full-width"><label for="re-message" data-sb-field-path="contact.detailsLabel">{p.contact?.detailsLabel ?? 'Site Details'}</label><textarea id="re-message" name="message" placeholder="Tell us about your site - size, traffic count, current use, deal structure..."></textarea></div>
             <button type="submit" class="form-submit"><span data-sb-field-path="contact.buttonLabel">{p.contact?.buttonLabel ?? 'Submit Inquiry'}</span></button>
           </form>
         </div>
@@ -222,14 +224,4 @@ const p = entry!.data as any;
   </section>
 
   <Footer />
-
-  <script is:inline>
-    function handleRESubmit(e) {
-      e.preventDefault();
-      var btn = e.target.querySelector('.form-submit');
-      btn.textContent = 'Sent!';
-      btn.style.background = '#2a9d5c';
-      setTimeout(function() { btn.textContent = 'Submit Inquiry'; btn.style.background = ''; }, 3000);
-    }
-  </script>
 </Layout>

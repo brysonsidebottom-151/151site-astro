@@ -218,6 +218,41 @@ if (giftCardModal) {
     });
 }
 
+// ── Netlify Forms (AJAX submit, no page reload) ──
+// Shared by every form marked data-netlify="true" (home contact + real
+// estate inquiry) so a submission actually reaches Netlify's dashboard
+// instead of silently going nowhere.
+document.querySelectorAll('form[data-netlify]').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const btn = form.querySelector('.form-submit');
+        const label = btn ? (btn.querySelector('span') || btn) : null;
+        const originalText = label ? label.textContent : '';
+        const formData = new FormData(form);
+
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString(),
+        })
+            .then(function (res) {
+                if (!res.ok) throw new Error('Form submission failed');
+                if (label) label.textContent = 'Sent!';
+                if (btn) btn.style.background = '#2a9d5c';
+                form.reset();
+            })
+            .catch(function () {
+                if (label) label.textContent = 'Error - please try again';
+            })
+            .finally(function () {
+                setTimeout(function () {
+                    if (label) label.textContent = originalText;
+                    if (btn) btn.style.background = '';
+                }, 3000);
+            });
+    });
+});
+
 // ── Page transition ──
 (function () {
     document.addEventListener('click', function (e) {

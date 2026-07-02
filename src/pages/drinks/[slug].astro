@@ -24,10 +24,15 @@ const m = menuEntry!.data as any;
 // drink.category holds a reference to a category file; resolve it to the title.
 const categoryEntry = categoryEntries.find((c: any) => `src/content/categories/${c.id}.yaml` === drink.category);
 const categoryTitle = categoryEntry ? (categoryEntry.data as any).title : '';
+
+const ogImage = drink.image
+  ? `https://www.151coffee.com${encodeURI(drink.image.startsWith('/') ? drink.image : '/' + drink.image)}`
+  : undefined;
 ---
 <Layout
   title={`${drink.name} | 151 Coffee Menu`}
   description={drink.description || `${drink.name}${drink.subtitle ? ' - ' + drink.subtitle : ''} at 151 Coffee.`}
+  ogImage={ogImage}
 >
   <Fragment slot="head">
     <link rel="stylesheet" href="/drink.css" />
