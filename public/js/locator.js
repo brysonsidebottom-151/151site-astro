@@ -42,8 +42,8 @@ const STORES = [
         "city": "Fort Worth",
         "state": "TX",
         "zip": "76177",
-        "lat": 32.8056952,
-        "lng": -97.275202
+        "lat": 32.9377,
+        "lng": -97.3145
     },
     {
         "name": "151 Coffee Lewisville",
