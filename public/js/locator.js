@@ -1,151 +1,21 @@
 // 151 Coffee store locator - Leaflet + OpenStreetMap, no API key required.
-const STORES = [
-    {
-        "name": "151 Coffee North Richland Hills",
-        "address": "6244 Rufe Snow Dr",
-        "city": "North Richland Hills",
-        "state": "TX",
-        "zip": "76148",
-        "lat": 32.8580904,
-        "lng": -97.2378174
-    },
-    {
-        "name": "151 Coffee Flower Mound",
-        "address": "3343 Long Prairie Rd",
-        "city": "Flower Mound",
-        "state": "TX",
-        "zip": "75022",
-        "lat": 33.0309506,
-        "lng": -97.0705513
-    },
-    {
-        "name": "151 Coffee Plano",
-        "address": "1151 Preston Rd",
-        "city": "Plano",
-        "state": "TX",
-        "zip": "75093",
-        "lat": 33.041912,
-        "lng": -96.7943275
-    },
-    {
-        "name": "151 Coffee Roanoke",
-        "address": "1200 US-377",
-        "city": "Roanoke",
-        "state": "TX",
-        "zip": "76262",
-        "lat": 33.0125118,
-        "lng": -97.2200814
-    },
-    {
-        "name": "151 Coffee Alliance",
-        "address": "9301 N Fwy",
-        "city": "Fort Worth",
-        "state": "TX",
-        "zip": "76177",
-        "lat": 32.9377,
-        "lng": -97.3145
-    },
-    {
-        "name": "151 Coffee Lewisville",
-        "address": "720 W Main St",
-        "city": "Lewisville",
-        "state": "TX",
-        "zip": "75067",
-        "lat": 33.0458472,
-        "lng": -97.0111036
-    },
-    {
-        "name": "151 Coffee Coppell",
-        "address": "131 S Denton Tap Rd",
-        "city": "Coppell",
-        "state": "TX",
-        "zip": "75019",
-        "lat": 32.9679663,
-        "lng": -96.9941574
-    },
-    {
-        "name": "151 Coffee Keller",
-        "address": "1510 Keller Pkwy",
-        "city": "Keller",
-        "state": "TX",
-        "zip": "76248",
-        "lat": 32.933998,
-        "lng": -97.2174392
-    },
-    {
-        "name": "151 Coffee Rowlett",
-        "address": "3525 Lakeview Pkwy",
-        "city": "Rowlett",
-        "state": "TX",
-        "zip": "75088",
-        "lat": 32.907404,
-        "lng": -96.567121
-    },
-    {
-        "name": "151 Coffee Burleson",
-        "address": "1484 SW Wilshire Blvd",
-        "city": "Burleson",
-        "state": "TX",
-        "zip": "76028",
-        "lat": 32.5209435,
-        "lng": -97.3477463
-    },
-    {
-        "name": "151 Coffee Westworth Village",
-        "address": "6720 Westworth Blvd",
-        "city": "Westworth Village",
-        "state": "TX",
-        "zip": "76114",
-        "lat": 32.7642639,
-        "lng": -97.4099758
-    },
-    {
-        "name": "151 Coffee Lawrence",
-        "address": "1533 W 23rd St",
-        "city": "Lawrence",
-        "state": "KS",
-        "zip": "66046",
-        "lat": 38.9424193,
-        "lng": -95.2543922
-    },
-    {
-        "name": "151 Coffee The Colony",
-        "address": "4580 Destination Dr",
-        "city": "The Colony",
-        "state": "TX",
-        "zip": "75056",
-        "lat": 33.079624,
-        "lng": -96.8562017
-    },
-    {
-        "name": "151 Coffee Manhattan",
-        "address": "900 N 3rd St",
-        "city": "Manhattan",
-        "state": "KS",
-        "zip": "66502",
-        "lat": 39.1880443,
-        "lng": -96.5598186
-    },
-    {
-        "name": "151 Coffee Overland Park",
-        "address": "9180 Metcalf Ave",
-        "city": "Overland Park",
-        "state": "KS",
-        "zip": "66212",
-        "lat": 38.9624981,
-        "lng": -94.6677576
-    }
-];
-
+// Store data comes from window.COFFEE151_STORES, populated on each page from
+// the editable Location content collection (see index.astro / locations.astro)
+// - so adding, removing, or correcting a location in the Visual Editor is
+// reflected here automatically, with nothing to keep in sync by hand.
 (function () {
     const mapEl = document.getElementById("locator-map");
     const listEl = document.getElementById("locator-list");
     const searchEl = document.getElementById("locator-search");
-    if (!mapEl || !listEl || !searchEl || typeof L === "undefined") return;
+    const STORES = window.COFFEE151_STORES || [];
+    if (!mapEl || !listEl || !searchEl || typeof L === "undefined" || !STORES.length) return;
 
-    // Store hours — same for every location (static for now). Change this one
-    // line to update all locations, or swap to the Google Places API later.
-    const HOURS = "Open daily 6 AM - 8 PM";
+    // Store hours + phone come from global settings (editable), same for
+    // every location today; swap to per-location fields or the Google
+    // Places API later if that's ever needed.
+    const HOURS = (window.COFFEE151_LOCATOR && window.COFFEE151_LOCATOR.hours) || "Open daily 6 AM - 8 PM";
+    const PHONE = (window.COFFEE151_LOCATOR && window.COFFEE151_LOCATOR.phone) || "(682) 325-2124";
+    const PHONE_TEL = PHONE.replace(/\D/g, "");
 
     const redIcon = L.divIcon({
         className: "locator__marker",
@@ -165,7 +35,7 @@ const STORES = [
 
     const markers = STORES.map((store, i) => {
         const marker = L.marker([store.lat, store.lng], { icon: redIcon }).addTo(map);
-        marker.bindPopup(`<strong>${store.name}</strong><br>${store.address}<br>${store.city}, ${store.state} ${store.zip}<br>${HOURS}<br><a href="tel:+16823252124">(682) 325-2124</a>`);
+        marker.bindPopup(`<strong>${store.name}</strong><br>${store.address}<br>${store.city}, ${store.state} ${store.zip}<br>${HOURS}<br><a href="tel:+1${PHONE_TEL}">${PHONE}</a>`);
         marker.on("click", () => setActive(i, true));
         return marker;
     });
@@ -195,7 +65,7 @@ const STORES = [
                     <h3>${store.name.replace("151 Coffee ", "")}${dist}</h3>
                     <p>${store.address}<br>${store.city}, ${store.state} ${store.zip}</p>
                     <p class="locator__hours">${HOURS}</p>
-                    <a class="locator__phone" href="tel:+16823252124">(682) 325-2124</a>
+                    <a class="locator__phone" href="tel:+1${PHONE_TEL}">${PHONE}</a>
                 </div>
                 <a class="locator__directions" href="${directionsUrl(store)}" target="_blank" rel="noopener noreferrer">Directions</a>
             `;
