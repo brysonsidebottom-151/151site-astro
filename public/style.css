@@ -385,13 +385,21 @@ nav.nav-scrolled .nav-container {
     .menu-toggle { display: flex; }
     .main-menu-btn { display: none; }
 
+    /* The drawer's own gift card button reuses .main-menu-btn for its
+       look, so it gets hidden by the rule above too — restore it here
+       with higher specificity. */
+    .mobile-nav-drawer .drawer-gc-btn .main-menu-btn { display: inline-flex; }
+
     /* Hide the desktop inline nav */
     nav .nav-links { display: none; }
 
-    /* Keep last li (gift card) visible inside drawer only */
+    /* The drawer has its own dedicated, working gift card button
+       (.drawer-gc-btn) — keep the cloned "Gift Card" nav-links item
+       hidden here too, so it isn't shown twice with the clone being
+       the non-functional one. */
     .mobile-nav-drawer .nav-links { display: flex; }
     .mobile-nav-drawer .nav-links li { display: block; }
-    .mobile-nav-drawer .nav-links li:last-child { display: block; }
+    .mobile-nav-drawer .nav-links li:last-child { display: none; }
 
     .menu-toggle.open span:nth-child(1) {
         transform: translateY(7px) rotate(45deg);
