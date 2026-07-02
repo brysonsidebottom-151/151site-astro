@@ -354,6 +354,7 @@ export default defineStackbitConfig({
             { name: 'description', type: 'string', default: '' },
             { name: 'image', type: 'image' },
             { name: 'icon', type: 'string', label: 'Emoji icon (Kids / Hot Food / Treats only)' },
+            { name: 'badge', type: 'string', label: 'Badge text (e.g. "Fan Fav", "Select Locations Only"). Leave blank for no badge.' },
             { name: 'tags', type: 'list', items: { type: 'string' } },
             { name: 'menuOrder', type: 'number', default: 99 },
           ],

@@ -254,6 +254,7 @@
 
 /* ─── Drink Card ─── */
 .drink-card {
+    position: relative;
     flex: 0 0 auto;
     background: linear-gradient(165deg, rgba(28,22,23,0.62) 0%, rgba(18,14,15,0.48) 100%);
     backdrop-filter: blur(16px) saturate(160%);

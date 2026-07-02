@@ -64,6 +64,7 @@ const categoryTitle = categoryEntry ? (categoryEntry.data as any).title : '';
     <div class="dk-body-inner">
       <div class="dk-img-col">
         <div class="dk-img-wrap">
+          {drink.badge && <span class="drink-badge" data-sb-field-path="badge">{drink.badge}</span>}
           <div class="dk-img-glow"></div>
           <div class="dk-img-ring"></div>
           {(() => {

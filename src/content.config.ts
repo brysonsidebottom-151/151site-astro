@@ -10,6 +10,7 @@ const drinks = defineCollection({
     description: z.string().optional().default(''),
     image: z.string().optional().default(''),
     icon: z.string().optional().default(''),
+    badge: z.string().optional().default(''),
     tags: z.preprocess((v) => (v == null ? [] : v), z.array(z.string())).default([]),
     menuOrder: z.number().optional().default(99),
   }),

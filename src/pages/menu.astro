@@ -119,6 +119,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
               <a class={`drink-card${drink.slug === 'coldbrew-nitro-brew' ? ' nitro-card' : ''}`}
                 data-cat={cat.tab} href={`/drinks/${drink.slug}`}
                 data-sb-object-id={`src/content/drinks/${drink.slug}.yaml`}>
+                {drink.badge && <span class="drink-badge" data-sb-field-path="badge">{drink.badge}</span>}
                 <div class={`drink-img-wrap${isIconCat(cat.tab) ? ' kids-img-wrap' : ''}`}>
                   {isIconCat(cat.tab)
                     ? <span class="kids-icon">{drink.icon || getIcon(drink.slug, cat.tab)}</span>
