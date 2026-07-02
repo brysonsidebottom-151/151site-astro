@@ -1920,7 +1920,7 @@ footer {
 @media (max-width: 700px) { .merch-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 420px) { .merch-grid { grid-template-columns: 1fr; } }
 
-/* ─── Drink Badge (menu card + drink detail page) ─── */
+/* ─── Drink Badge (menu card + drink detail page) — flag-tag style ─── */
 .drink-badge {
     position: absolute;
     top: 0.75rem;
@@ -1931,11 +1931,25 @@ footer {
     font-family: 'Inter', sans-serif;
     font-size: 0.66rem;
     font-weight: 800;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    padding: 0.3rem 0.65rem;
-    border-radius: 999px;
+    padding: 0.4rem 0.9rem 0.4rem 0.65rem;
+    border-radius: 3px 8px 8px 3px;
     box-shadow: 0 4px 14px rgba(0,0,0,0.35);
     white-space: nowrap;
     pointer-events: none;
+    transform: rotate(-4deg);
+    transform-origin: top left;
+}
+
+.drink-badge::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #7a1f26;
 }
