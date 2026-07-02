@@ -1670,7 +1670,6 @@ footer {
 .loc-divider { background: none; padding: 0 0 1rem; }
 .loc-divider hr { border: none; border-top: 1px solid rgba(255,255,255,0.18); margin: 0; }
 @media (max-width: 768px) {
-    .loc-bg { margin-top: 58px !important; }
     .loc-hero { margin-top: 0; padding: 4rem 0 3.5rem; }
     .loc-cards { grid-template-columns: repeat(2, 1fr); }
 }

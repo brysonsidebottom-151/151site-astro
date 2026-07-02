@@ -19,7 +19,11 @@ const p = entry!.data as any;
         flex-direction: column;
         background: var(--black);
       }
-      .age-bg-video {
+      /* :global() is required here because the video/iframe is rendered
+         by the HeroVideo child component, so Astro's default CSS scoping
+         (which only tags elements written directly in this file) would
+         otherwise never match it. */
+      :global(.age-bg-video) {
         position: absolute;
         inset: 0;
         width: 100%;
@@ -125,7 +129,7 @@ const p = entry!.data as any;
         background: var(--black);
         margin-top: 58px;
       }
-      .careers-hero .hero-bg {
+      :global(.careers-hero .hero-bg) {
         position: absolute;
         inset: 0;
         width: 100%;
