@@ -1,10 +1,12 @@
-﻿type: Drink
-name: "Pina Colada"
+type: Drink
+name: Pina Colada
 category: src/content/categories/smoothies.yaml
-subtitle: "Coconut & Pineapple"
-description: "Creamy coconut and tangy pineapple blended thick. The classic poolside flavor, no umbrella required."
-image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+subtitle: Coconut & Pineapple
+description: >-
+  Creamy coconut and tangy pineapple blended thick. The classic poolside flavor,
+  no umbrella required.
+image: /images/pina-colada.webp
 tags:
-  - "Coconut"
-  - "Pineapple"
+  - Coconut
+  - Pineapple
 menuOrder: 99
