@@ -21,7 +21,11 @@ const allDrinks = drinksEntries
 const CATEGORIES = categoryEntries
   .map((e: any) => ({
     tab: e.id,
-    refId: `src/content/categories/${e.id}.yaml`,
+    // Use the entry's real source path (not a rebuilt "id + .yaml" guess) so
+    // filenames with capitals, spaces, or extra dots (e.g. "Misc..yaml",
+    // whose id gets slugified to "misc") still match the drink's `category`
+    // reference, which always stores the literal file path.
+    refId: e.filePath ?? `src/content/categories/${e.id}.yaml`,
     num: e.data.number,
     title: e.data.title,
     desc: e.data.description,
