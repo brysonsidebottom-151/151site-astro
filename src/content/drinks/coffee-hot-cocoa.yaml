@@ -1,6 +1,5 @@
 type: Drink
 name: Hot Cocoa
-category: src/content/categories/coffee.yaml
 subtitle: Rich Creamy Chocolate
 description: >-
   Real, rich chocolate blended into a creamy, warming mug of cocoa. The grown-up
@@ -9,3 +8,4 @@ image: /images/americano.webp
 tags:
   - Dark Chocolate
 menuOrder: 99
+category: src/content/categories/Misc..yaml
