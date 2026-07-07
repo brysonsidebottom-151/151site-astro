@@ -151,7 +151,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
             <p class="cz-label cz-label--sf" data-sb-field-path="customize.sfLabel">{p.customize?.sfLabel ?? 'Also Available Sugar Free'}</p>
             <div class="cz-pills cz-pills--flavors" data-sb-field-path="customize.sfFlavors">
               {sfFlavors.map((f: string, i: number) => (
-                <span class="cpill cpill--sf cpill--filter" data-flavor={f} data-sb-field-path={`.${i}`}>{f}</span>
+                <span class="cpill cpill--sf" data-sb-field-path={`.${i}`}>{f}</span>
               ))}
             </div>
           </div>

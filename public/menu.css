@@ -517,10 +517,16 @@
     color: rgba(255,255,255,0.55);
 }
 
+/* Sugar-free pills are informational only -- not clickable filters like the
+   regular flavor pills, so they shouldn't look interactive either. */
+.cpill--sf {
+    cursor: default;
+}
+
 .cpill--sf:hover {
-    background: rgba(255,255,255,0.09);
-    border-color: rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.55);
 }
 
 .cz-flavor-header {

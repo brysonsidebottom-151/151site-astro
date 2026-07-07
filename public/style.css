@@ -379,7 +379,10 @@ nav.nav-scrolled .nav-container {
 }
 
 /* Hamburger → X when open */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+    /* The full desktop nav (6 links + logo + gift-card button) gets cramped
+       well before phone widths -- switch to the hamburger drawer here too
+       so tablets get the same clean, already-solved mobile top bar. */
     .menu-toggle { display: flex; }
     .main-menu-btn { display: none; }
 
