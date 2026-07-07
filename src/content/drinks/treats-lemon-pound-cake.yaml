@@ -3,10 +3,10 @@ name: Lemon Pound Cake
 category: src/content/categories/treats.yaml
 subtitle: Bright & Buttery
 description: >-
-  Dense, buttery pound cake with a bright lemon punch. Sweet and tart in the
-  best possible way - the kind of thing you eat half of before you get home.
+  Dense, buttery pound cake with a bright lemon punch. The kind of thing you eat
+  half of before you get home.
 image: /images/lemon-pound-cake.webp
 tags:
   - Lemon
 menuOrder: 99
-badge: "Select Locations"
+badge: Select Locations
