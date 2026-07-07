@@ -6,3 +6,5 @@ description: >-
   there's a tea for every kind of day.
 extraCards:
   - label: 'Hot Teas Available:'
+    items:
+      - ''
