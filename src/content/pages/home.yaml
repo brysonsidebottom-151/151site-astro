@@ -47,7 +47,7 @@ cta:
     151 Coffee is not your typical coffee shop. Fun and happiness drive our
     culture and music drives our speed, that's why we live by the 151 motto
     "it's a good day to have a good day."
-  ctaLabel: Learn More
+  ctaLabel: See Career Openings
   ctaHref: /careers
 reviews:
   heading: Hear it from our customers!
@@ -90,7 +90,7 @@ investment:
       label: By the End of 2028
     - number: $17 Million
       label: Revenue 2025
-  ctaLabel: Learn More
+  ctaLabel: Explore Investment Opportunities
   ctaHref: /realestate
 faqs:
   heading: Frequently Asked Questions
