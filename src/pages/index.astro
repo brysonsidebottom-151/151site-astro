@@ -21,7 +21,6 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
   name: l.name, address: l.address, city: l.city, state: l.state, zip: l.zip, lat: l.lat, lng: l.lng,
 })));
 
-const reviewClasses = ['featured', 'featured1', 'featured2', 'featured3'];
 ---
 <Layout title={p.seo?.title ?? '151 Coffee | Drive-Thru Coffee, Cold Brew & Energy Drinks'} description={p.seo?.description} ogImage={p.seo?.ogImage}>
   <fragment slot="head">
@@ -124,7 +123,8 @@ const reviewClasses = ['featured', 'featured1', 'featured2', 'featured3'];
       <div class="section-header"><h1 data-sb-field-path="reviews.heading">{p.reviews?.heading}</h1></div>
       <div class="pricing-grid">
         {(p.reviews?.items ?? []).map((r: any, i: number) => (
-          <div class={`pricing-card ${reviewClasses[i] ?? 'featured'}`} data-sb-field-path={`reviews.items.${i}`}>
+          <div class="pricing-card featured" data-sb-field-path={`reviews.items.${i}`}>
+            {r.location && <span class="review-location" data-sb-field-path="location">{r.location}</span>}
             <div class="plan-price"><br /><br />&ldquo;<span class="price-amount" data-sb-field-path="quote">{r.quote}&rdquo;</span></div>
             <h3 class="plan-name" data-sb-field-path="name">{r.name}</h3>
           </div>
