@@ -10,6 +10,13 @@ const companyLinks: { label: string; href: string }[] = f.companyLinks ?? [
   { label: 'Privacy Policy', href: '/privacy-policy' },
 ];
 const giftCardUrl = s.giftCardUrl ?? 'https://giftcards-151coffee-orders.crispnow.com';
+
+// Instagram supports a reliable username-based app URI scheme, so a tap can
+// open the native app directly instead of the profile's mobile web page.
+// (Facebook/TikTok/LinkedIn don't have an equivalent public, username-based
+// scheme, so those stay as plain web links.)
+const igUsername = (s.social?.instagram ?? '').match(/instagram\.com\/([^/?]+)/)?.[1];
+const igAppUrl = igUsername ? `instagram://user?username=${igUsername}` : undefined;
 ---
 <footer>
   <div class="container">
@@ -27,7 +34,7 @@ const giftCardUrl = s.giftCardUrl ?? 'https://giftcards-151coffee-orders.crispno
         <ul>
           <li><a href={s.social?.tiktok ?? '#'} target="_blank" rel="noopener noreferrer">TikTok</a></li>
           <li><a href={s.social?.facebook ?? '#'} target="_blank" rel="noopener noreferrer">Facebook</a></li>
-          <li><a href={s.social?.instagram ?? '#'} target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href={s.social?.instagram ?? '#'} data-app-url={igAppUrl} target="_blank" rel="noopener noreferrer">Instagram</a></li>
           <li><a href={s.social?.linkedin ?? '#'} target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
         </ul>
       </div>
@@ -46,7 +53,7 @@ const giftCardUrl = s.giftCardUrl ?? 'https://giftcards-151coffee-orders.crispno
         <a href={s.social?.facebook ?? '#'} target="_blank" rel="noopener noreferrer" aria-label="Facebook">f</a>
         <a href={s.social?.tiktok ?? '#'} target="_blank" rel="noopener noreferrer" aria-label="TikTok">tt</a>
         <a href={s.social?.linkedin ?? '#'} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">in</a>
-        <a href={s.social?.instagram ?? '#'} target="_blank" rel="noopener noreferrer" aria-label="Instagram">ig</a>
+        <a href={s.social?.instagram ?? '#'} data-app-url={igAppUrl} target="_blank" rel="noopener noreferrer" aria-label="Instagram">ig</a>
       </div>
       <div class="footer-gc" data-sb-object-id="src/content/settings/global.yaml">
         <button id="giftCardFooterBtn" class="gc-btn" data-sb-field-path="footer.giftCardButtonLabel">{f.giftCardButtonLabel ?? 'Check Gift Card Balance'}</button>

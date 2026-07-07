@@ -279,3 +279,36 @@ document.querySelectorAll('form[data-netlify]').forEach(function (form) {
         if (e.persisted) document.body.classList.remove('page-exiting');
     });
 })();
+
+// ── Social links: open the native app on mobile instead of the web page ──
+// A plain https:// link to instagram.com opens the profile inside whatever
+// browser/webview the visitor is already in. On a phone with the Instagram
+// app installed, jumping to its app:// URI scheme instead opens the app
+// directly. If the app isn't installed, the scheme silently fails and
+// nothing happens -- so fall back to the normal web link if the page hasn't
+// been backgrounded (i.e. the app didn't open) after a short delay.
+(function () {
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    if (!isMobile) return;
+
+    document.querySelectorAll('a[data-app-url]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            const appUrl = link.dataset.appUrl;
+            const webUrl = link.getAttribute('href');
+            if (!appUrl || !webUrl) return;
+            e.preventDefault();
+
+            let fellBack = false;
+            function fallback() {
+                if (fellBack || document.hidden) return; // app opened, page backgrounded
+                fellBack = true;
+                window.open(webUrl, '_blank', 'noopener,noreferrer');
+            }
+            document.addEventListener('visibilitychange', function onHide() {
+                if (document.hidden) { fellBack = true; document.removeEventListener('visibilitychange', onHide); }
+            });
+            window.location.href = appUrl;
+            setTimeout(fallback, 1200);
+        });
+    });
+})();
