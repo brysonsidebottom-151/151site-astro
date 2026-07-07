@@ -21,6 +21,13 @@ const categories = defineCollection({
     title: z.string(),
     number: z.string().optional().default('99'),
     description: z.string().optional().default(''),
+    // Free-form "also available: ..." style cards shown at the end of this
+    // category's row on the menu page (e.g. the plain-soda list on Dirty
+    // Pop). Editable and addable per-category in the Visual Editor.
+    extraCards: z.preprocess((v) => (v == null ? [] : v), z.array(z.object({
+      label: z.string().optional().default(''),
+      items: z.preprocess((v) => (v == null ? [] : v), z.array(z.string())).default([]),
+    }))).default([]),
   }),
 });
 

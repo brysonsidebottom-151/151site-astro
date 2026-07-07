@@ -247,7 +247,7 @@
 }
 
 .drink-card.cat-active,
-.soda-timeline-card.cat-active {
+.descriptor-card.cat-active {
     border-color: rgba(255,255,255,0.5);
     box-shadow: 0 0 0 1px rgba(255,255,255,0.18), 0 10px 30px rgba(0,0,0,0.38);
 }
@@ -345,8 +345,11 @@
     flex: 1;
 }
 
-/* ─── Soda Timeline Card ─── */
-.soda-timeline-card {
+/* ─── Descriptor Card ─── */
+/* A free-form "also available: ..." style list card. Any category can have
+   any number of these (see the category's extraCards field, editable in the
+   Visual Editor) -- the soda list on Dirty Pop is just the first example. */
+.descriptor-card {
     flex: 0 0 auto;
     width: 280px;
     background: linear-gradient(165deg, rgba(28,22,23,0.62) 0%, rgba(18,14,15,0.48) 100%);
@@ -363,7 +366,7 @@
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.soda-also {
+.descriptor-label {
     font-family: 'Inter', sans-serif;
     font-size: 0.65rem;
     font-weight: 700;
@@ -373,13 +376,13 @@
     margin: 0;
 }
 
-.soda-list {
+.descriptor-list {
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
 }
 
-.soda-list span {
+.descriptor-list span {
     font-family: 'Inter', sans-serif;
     font-size: 0.82rem;
     font-weight: 500;
@@ -389,7 +392,7 @@
     white-space: nowrap;
 }
 
-.soda-list span:last-child {
+.descriptor-list span:last-child {
     border-bottom: none;
 }
 
@@ -888,7 +891,7 @@
     .drink-info p { font-size: 0.72rem; }
 
     /* Full-width helper cards */
-    .soda-timeline-card { flex: 0 0 100%; width: 100%; }
+    .descriptor-card { flex: 0 0 100%; width: 100%; }
     .timeline-empty-state { width: 100%; min-width: 0; }
     .timeline-end-spacer { display: none; }
 
