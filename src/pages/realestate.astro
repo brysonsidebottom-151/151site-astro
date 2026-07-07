@@ -31,8 +31,8 @@ const p = entry!.data as any;
     .re-stat:hover { border-color: rgba(230,57,70,0.35); }
     .re-stat-num { font-size: 1.9rem; font-weight: 900; color: var(--red); line-height: 1; margin-bottom: 0.3rem; }
     .re-stat-label { font-family: 'Inter', sans-serif; font-size: 0.78rem; color: rgba(255,255,255,0.50); font-weight: 600; letter-spacing: 0.04em; }
-    .re-map-img { border-radius: var(--radius); overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); position: relative; background: #1a1a1a; min-height: 380px; display: flex; align-items: center; justify-content: center; }
-    .re-map-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .re-map-img { border-radius: var(--radius); overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); position: relative; background: #1a1a1a; min-height: 380px; }
+    .re-map-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
     .re-map-img::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); pointer-events: none; }
     .re-criteria { background: #161616; padding: var(--section-pad); }
     .re-criteria .section-header h1 { color: #fff; }
