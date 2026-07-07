@@ -1,9 +1,11 @@
-﻿type: Drink
-name: "Irish Sin"
+type: Drink
+name: Irish Sin
 category: src/content/categories/coffee.yaml
-subtitle: "Irish Cream"
-description: "A smooth espresso drink with the creamy, slightly sweet flavor of Irish cream. Rich and velvety - dangerously easy to drink."
-image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+subtitle: Irish Cream
+description: >-
+  A smooth espresso drink with the creamy, slightly sweet flavor of Irish cream.
+  Rich and velvety - dangerously easy to drink.
+image: /images/caramel-blondie.webp
 tags:
-  - "Irish Creme"
+  - Irish Creme
 menuOrder: 99

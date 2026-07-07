@@ -1,10 +1,12 @@
-﻿type: Drink
-name: "Pomekazi"
+type: Drink
+name: Pomekazi
 category: src/content/categories/teas.yaml
-subtitle: "Pomegranate & Peach"
-description: "Tea with a twist - pomegranate and peach join forces in a bright, fruity iced tea that's refreshing from first sip to last."
-image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+subtitle: Pomegranate & Peach
+description: >-
+  Tea with a twist - pomegranate and peach join forces in a bright, fruity iced
+  tea that's refreshing from first sip to last.
+image: /images/georgia-peach-2.webp
 tags:
-  - "Pomegranate"
-  - "Peach"
+  - Pomegranate
+  - Peach
 menuOrder: 99

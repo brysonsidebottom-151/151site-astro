@@ -1,10 +1,12 @@
-﻿type: Drink
-name: "Butter Brew"
+type: Drink
+name: Butter Brew
 category: src/content/categories/dirtypop.yaml
-subtitle: "Root Beer - Butterscotch & Vanilla Cream"
-description: "Root beer floats aside - this one levels up with butterscotch syrup and vanilla cream. Rich, nostalgic, and dangerously smooth."
-image: "images/drinks/energy/151 Blue Energy Hand (1).png"
+subtitle: Root Beer - Butterscotch & Vanilla Cream
+description: >-
+  Root beer floats aside - this one levels up with butterscotch syrup and
+  vanilla cream. Rich, nostalgic, and dangerously smooth.
+image: /images/dr-feel-good.webp
 tags:
-  - "Butterscotch"
-  - "Vanilla Bean"
+  - Butterscotch
+  - Vanilla Bean
 menuOrder: 99

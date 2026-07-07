@@ -1,8 +1,10 @@
-﻿type: Drink
-name: "Hot Cider"
+type: Drink
+name: Hot Cider
 category: src/content/categories/kids.yaml
-subtitle: "Warm Apple Cider"
-description: "Warm, spiced apple cider that feels like a hug in a cup. Perfect for cooler mornings when the kids want something cozy."
-image: "images/drinks/energy/151 Blue Energy Hand (1).png"
-tags:
+subtitle: Warm Apple Cider
+description: >-
+  Warm, spiced apple cider that feels like a hug in a cup. Perfect for cooler
+  mornings when the kids want something cozy.
+image: /images/hot-cider.webp
+tags: null
 menuOrder: 99
