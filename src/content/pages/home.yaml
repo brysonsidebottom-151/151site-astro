@@ -34,7 +34,7 @@ menuSection:
       href: /menu
       label: Drink Menu
     - title: Food Menu
-      subtitle: Select Locations Only!
+      subtitle: Select Locations Only
       image: /images/food1.webp
       href: /menu#hotfood
       label: Food Menu
