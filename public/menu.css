@@ -855,6 +855,11 @@
         flex-wrap: wrap;
         justify-content: flex-start;
         align-items: stretch;
+        /* Without this, flex's default align-content:stretch distributes any
+           leftover height (e.g. from a stale min-height lock, or simply few
+           rows left after filtering) across the visible rows, stretching
+           cards to abnormal heights instead of folding away cleanly. */
+        align-content: flex-start;
         overflow-x: visible;
         overflow-y: visible;
         left: auto;

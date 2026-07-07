@@ -311,11 +311,21 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
         var mi = 0;
         tCards.forEach(function(card) { animateIn(card, mi++ * 30); });
         drinkCards.forEach(function(card) { animateIn(card, mi++ * 18); });
-        setTimeout(function() { if (timelineWrap) timelineWrap.style.minHeight = ''; scroll.style.minHeight = ''; }, 600);
+        if (!isMobile()) {
+          setTimeout(function() { if (timelineWrap) timelineWrap.style.minHeight = ''; scroll.style.minHeight = ''; }, 600);
+        }
         return;
       }
-      if (timelineWrap) timelineWrap.style.minHeight = timelineWrap.offsetHeight + 'px';
-      scroll.style.minHeight = scroll.offsetHeight + 'px';
+      // The min-height lock stops the horizontal desktop timeline from
+      // jittering mid-fade. On mobile the timeline is a wrapping vertical
+      // grid whose natural height varies a lot with how many cards match,
+      // so locking it (especially re-measuring an already-locked height on
+      // every subsequent filter click) stretches the remaining rows to
+      // fill stale leftover space instead of folding away — skip it there.
+      if (!isMobile()) {
+        if (timelineWrap) timelineWrap.style.minHeight = timelineWrap.offsetHeight + 'px';
+        scroll.style.minHeight = scroll.offsetHeight + 'px';
+      }
       scroll.classList.add('has-filter');
       if (sodaCard) animateOut(sodaCard);
       var matchedCats = new Set();
