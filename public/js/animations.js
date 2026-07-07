@@ -70,7 +70,22 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
 
-    targets.forEach(el => revealIO.observe(el));
+    // A direct link to an in-page anchor (e.g. a footer link to "/#contact")
+    // lands the browser on that section immediately, racing this script's
+    // observer setup -- the section can end up already in view before it's
+    // ever observed, so it never crosses the "entering the viewport"
+    // threshold the observer watches for and stays invisible forever.
+    // Reveal anything already on-screen at setup time instead of relying
+    // solely on that async transition.
+    const vh = window.innerHeight;
+    targets.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < vh) {
+        el.classList.add('in');
+      } else {
+        revealIO.observe(el);
+      }
+    });
   }
 
   // Failsafe: content must never be left invisible. Shortly after load, force
