@@ -122,7 +122,6 @@ export default defineStackbitConfig({
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
             ]},
-            { name: 'dirtypopExtra', type: 'string' },
             { name: 'customize', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'flavorLabel', type: 'string' },
@@ -133,7 +132,6 @@ export default defineStackbitConfig({
               { name: 'sfFlavors', type: 'list', items: { type: 'string' } },
             ]},
             { name: 'labels', type: 'object', label: 'Menu UI labels', fields: [
-              { name: 'sodaAlso', type: 'string' },
               { name: 'emptyHeading', type: 'string' },
               { name: 'emptySub', type: 'string' },
             ]},
@@ -367,6 +365,13 @@ export default defineStackbitConfig({
             { name: 'title', type: 'string', required: true, default: 'New Category' },
             { name: 'number', type: 'string', label: 'Display order (e.g. 01, 02)' },
             { name: 'description', type: 'string' },
+            { name: 'extraCards', type: 'list', label: 'Extra info cards (e.g. "Also available plain: ...")',
+              description: 'Shown at the end of this category\'s row on the menu page. Add as many as you like.',
+              items: { type: 'object', labelField: 'label', fields: [
+                { name: 'label', type: 'string', label: 'Card heading', default: 'Also available:' },
+                { name: 'items', type: 'list', label: 'List items', items: { type: 'string' } },
+              ]},
+            },
           ],
         },
         {

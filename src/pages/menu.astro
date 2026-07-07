@@ -29,6 +29,7 @@ const CATEGORIES = categoryEntries
     num: e.data.number,
     title: e.data.title,
     desc: e.data.description,
+    extraCards: e.data.extraCards ?? [],
   }))
   .sort((a: any, b: any) => (parseInt(a.num) || 99) - (parseInt(b.num) || 99));
 
@@ -46,9 +47,6 @@ const drinksDataObj: Record<string, { tags: string[]; catSlug: string }> = {};
 for (const d of allDrinks) {
   drinksDataObj[d.slug] = { tags: d.tags ?? [], catSlug: catSlug(d) };
 }
-
-const dirtypopSodas: string[] = (p.dirtypopExtra ?? '')
-  .split(',').map((s: string) => s.trim()).filter(Boolean);
 
 const drinksJson = JSON.stringify(drinksDataObj);
 
@@ -113,14 +111,14 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
                 </div>
               </a>
             ))}
-            {cat.tab === 'dirtypop' && (
-              <div class="soda-timeline-card" data-cat="dirtypop">
-                <p class="soda-also" data-sb-field-path="labels.sodaAlso">{p.labels?.sodaAlso ?? 'Also available plain:'}</p>
-                <div class="soda-list" data-sb-field-path="dirtypopExtra">
-                  {dirtypopSodas.map((s: string) => <span>{s}</span>)}
+            {cat.extraCards.map((card: any, cardIndex: number) => (
+              <div class="descriptor-card" data-cat={cat.tab} data-sb-object-id={cat.refId}>
+                <p class="descriptor-label" data-sb-field-path={`extraCards.${cardIndex}.label`}>{card.label}</p>
+                <div class="descriptor-list" data-sb-field-path={`extraCards.${cardIndex}.items`}>
+                  {(card.items ?? []).map((item: string) => <span>{item}</span>)}
                 </div>
               </div>
-            )}
+            ))}
           </>
         );
       })}
@@ -264,7 +262,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
     var activeFilter = null;
     var filterHint = document.getElementById('czFilterHint');
     var emptyState = document.getElementById('timelineEmpty');
-    var sodaCard = scroll.querySelector('.soda-timeline-card');
+    var descriptorCards = Array.from(scroll.querySelectorAll('.descriptor-card'));
 
     function animateOut(el) {
       el.classList.remove('filter-animating-in'); el.classList.add('filter-animating-out');
@@ -283,7 +281,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
       var tCards = Array.from(scroll.querySelectorAll('.cat-title-card'));
       if (!flavor) {
         scroll.classList.remove('has-filter');
-        if (sodaCard) animateIn(sodaCard, 0);
+        descriptorCards.forEach(function(c) { animateIn(c, 0); });
         if (emptyState) emptyState.classList.remove('visible');
         document.querySelectorAll('.cpill--filter').forEach(function(p) { p.classList.remove('cpill--active'); });
         if (filterHint) filterHint.textContent = '';
@@ -306,7 +304,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
         scroll.style.minHeight = scroll.offsetHeight + 'px';
       }
       scroll.classList.add('has-filter');
-      if (sodaCard) animateOut(sodaCard);
+      descriptorCards.forEach(function(c) { animateOut(c); });
       var matchedCats = new Set();
       drinkCards.forEach(function(card) {
         var id = (card.getAttribute('href') || '').replace('/drinks/', '');

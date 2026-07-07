@@ -9,7 +9,6 @@ hero:
   subheading: "Thousands of flavor combinations. One perfect drink, every time."
 
 labels:
-  sodaAlso: "Also available plain:"
   emptyHeading: "Nothing here yet."
   emptySub: "But we're always working on something good."
 
@@ -19,8 +18,6 @@ drinkPage:
   viewMenuLabel: "View Full Menu"
   flavorsHeading: "Flavors"
   sugarFreeHeading: "Sugar Free"
-
-dirtypopExtra: "Also available plain: Coca-Cola, Coke Zero, Pepsi, Diet Pepsi, Dr. Pepper, Diet Dr. Pepper, Mug Root Beer, Sprite, Sprite Zero, Mountain Dew, Fanta"
 
 customize:
   heading: "Customize Your Drink, Your Way"
