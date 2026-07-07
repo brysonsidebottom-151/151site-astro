@@ -195,6 +195,15 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
       return active || (titleCards[0] && titleCards[0].dataset.cat);
     }
     function applyActiveCat(cat) {
+      // While a flavor filter is active most category cards are hidden
+      // (display:none), which breaks the "leftmost card" position heuristic
+      // below -- and a highlighted category doesn't mean anything in filter
+      // view anyway, so just show none.
+      if (activeFilter) {
+        catLinks.forEach(function(btn) { btn.classList.remove('active'); });
+        scroll.querySelectorAll('[data-cat]').forEach(function(el) { el.classList.remove('cat-active'); });
+        return;
+      }
       catLinks.forEach(function(btn) { btn.classList.toggle('active', btn.dataset.tab === cat); });
       scroll.querySelectorAll('[data-cat]').forEach(function(el) { el.classList.toggle('cat-active', el.dataset.cat === cat); });
     }
@@ -204,6 +213,10 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
     catLinks.forEach(function(btn) {
       btn.addEventListener('click', function() {
         stopAutoScroll();
+        // A category is hidden by the current flavor filter, so clicking it
+        // wouldn't visibly go anywhere -- clear the filter first so every
+        // category (and this click) actually does something.
+        if (activeFilter) clearFilter();
         var target = document.getElementById('cat-' + btn.dataset.tab);
         if (!target) return;
         if (isMobile()) {
@@ -304,6 +317,9 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
         scroll.style.minHeight = scroll.offsetHeight + 'px';
       }
       scroll.classList.add('has-filter');
+      // No category is meaningfully "selected" while filtering by flavor.
+      catLinks.forEach(function(btn) { btn.classList.remove('active'); });
+      scroll.querySelectorAll('[data-cat]').forEach(function(el) { el.classList.remove('cat-active'); });
       descriptorCards.forEach(function(c) { animateOut(c); });
       var matchedCats = new Set();
       drinkCards.forEach(function(card) {
@@ -326,10 +342,16 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
       if (filterHint) filterHint.textContent = 'Showing drinks with: ' + flavor + ' - tap again to clear';
     }
 
+    function clearFilter() {
+      activeFilter = null;
+      document.querySelectorAll('.cpill--filter').forEach(function(p) { p.classList.remove('cpill--active'); });
+      applyFilter(null);
+    }
+
     document.querySelectorAll('.cpill--filter').forEach(function(pill) {
       pill.addEventListener('click', function() {
         var flavor = pill.dataset.flavor;
-        if (activeFilter === flavor) { activeFilter = null; applyFilter(null); }
+        if (activeFilter === flavor) { clearFilter(); }
         else {
           activeFilter = flavor;
           document.querySelectorAll('.cpill--filter').forEach(function(p) { p.classList.remove('cpill--active'); });
