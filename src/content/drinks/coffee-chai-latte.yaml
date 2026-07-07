@@ -1,6 +1,5 @@
 type: Drink
 name: Chai Latte
-category: src/content/categories/coffee.yaml
 subtitle: Spiced Chai & Milk
 description: >-
   A warming blend of spiced chai and steamed milk. Notes of cinnamon, ginger,
