@@ -316,6 +316,19 @@
     animation: drink-shake 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) 0.15s 1 forwards;
 }
 
+/* Hot Food and Treats photos are plated/product shots, not cups -- the
+   raise-and-wiggle reads oddly on them, so just scale smoothly instead. */
+.drink-card[data-cat="hotfood"] .drink-img-wrap img,
+.drink-card[data-cat="treats"] .drink-img-wrap img {
+    transition: transform 0.35s ease;
+}
+
+.drink-card[data-cat="hotfood"]:hover .drink-img-wrap img,
+.drink-card[data-cat="treats"]:hover .drink-img-wrap img {
+    transform: scale(1.12);
+    animation: none;
+}
+
 /* ─── Drink Info ─── */
 .drink-info {
     padding: 1rem 1.1rem 1.25rem;
