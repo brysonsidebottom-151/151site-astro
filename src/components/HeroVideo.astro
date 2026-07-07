@@ -16,6 +16,10 @@ const raw = (src && src.trim()) ? src.trim() : fallback;
 
 const ytMatch = raw.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
 const vimeoMatch = ytMatch ? null : raw.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+// The Visual Editor's hero field is easy to mistake for a plain "background
+// image" field -- if it's a static image URL, render it as one instead of
+// handing it to <video>, which can't play a jpg/png/webp.
+const isImage = !ytMatch && !vimeoMatch && /\.(jpe?g|png|webp|avif|gif)(\?.*)?$/i.test(raw);
 
 let embedUrl: string | null = null;
 if (ytMatch) {
@@ -37,6 +41,8 @@ if (ytMatch) {
       allowfullscreen
     ></iframe>
   </div>
+) : isImage ? (
+  <img class={videoClass} src={raw} alt="" aria-hidden="true" />
 ) : (
   <video muted loop playsinline preload="none" class={videoClass} data-hero-video data-src={raw} aria-hidden="true"></video>
 )}
