@@ -29,7 +29,7 @@ menuSection:
   heading: Check Out Our Menu
   cards:
     - title: Drink Menu
-      subtitle: Over 43,000 Flavor Combinations
+      subtitle: 43,000+ Flavor Combinations
       image: /images/drinks1.webp
       href: /menu
       label: Drink Menu
