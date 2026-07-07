@@ -3,10 +3,10 @@ name: Snickerdoodle
 category: src/content/categories/treats.yaml
 subtitle: Cinnamon Sugar Classic
 description: >-
-  Soft and perfectly spiced with cinnamon sugar - the snickerdoodle is the
-  cookie that always disappears first. You already know.
+  Soft and perfectly spiced with cinnamon sugar. The snickerdoodle is the cookie
+  that always disappears first. You already know.
 image: /images/snickerdoodle.webp
 tags:
   - Cinnamon
 menuOrder: 99
-badge: "Select Locations"
+badge: Select Locations
