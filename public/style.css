@@ -968,17 +968,11 @@ nav.nav-scrolled .nav-container {
     box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
-.pricing-card.featured,
-.pricing-card.featured1,
-.pricing-card.featured2,
-.pricing-card.featured3 {
+.pricing-card.featured {
     border-color: rgba(230,57,70,0.35);
 }
 
-.pricing-card.featured::before,
-.pricing-card.featured1::before,
-.pricing-card.featured2::before,
-.pricing-card.featured3::before {
+.review-location {
     position: absolute;
     top: -13px;
     left: 50%;
@@ -993,12 +987,8 @@ nav.nav-scrolled .nav-container {
     letter-spacing: 0.12em;
     text-transform: uppercase;
     box-shadow: 0 4px 12px rgba(230,57,70,0.3);
+    white-space: nowrap;
 }
-
-.pricing-card.featured::before  { content: 'Irving, TX'; }
-.pricing-card.featured1::before { content: 'Plano, TX'; }
-.pricing-card.featured2::before { content: 'Lewisville, TX'; }
-.pricing-card.featured3::before { content: 'Coppell, TX'; }
 
 .pricing-card:hover {
     transform: translateY(-6px);

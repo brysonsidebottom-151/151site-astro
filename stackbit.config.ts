@@ -70,9 +70,10 @@ export default defineStackbitConfig({
             ]},
             { name: 'reviews', type: 'object', fields: [
               { name: 'heading', type: 'string' },
-              { name: 'items', type: 'list', items: { type: 'object', fields: [
+              { name: 'items', type: 'list', items: { type: 'object', labelField: 'name', fields: [
                 { name: 'quote', type: 'string' },
                 { name: 'name', type: 'string' },
+                { name: 'location', type: 'string', label: 'City, State (e.g. "Keller, TX")' },
               ]}},
             ]},
             { name: 'investment', type: 'object', fields: [

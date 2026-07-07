@@ -51,12 +51,16 @@ reviews:
   items:
     - quote: "Love 151 Coffee! My order is always the caramel blondie! It comes out perfect every time! Love the efficiency of the staff as well!"
       name: "Asha J."
+      location: "Keller, TX"
     - quote: "2nd time coming back and coffee has been awesome! The service from the team members was very friendly and they offered some awesome recommendations."
       name: "Alejandro C."
+      location: "Plano, TX"
     - quote: "Always friendly and efficient service. My pumpkin pie latte was perfectly made, and this reliable drive-thru spot continues to impress."
       name: "Irene V."
+      location: "Lewisville, TX"
     - quote: "Fast service good drinks. Peach smoothie and Carmel macchiato are the best on a hot day. Usually a line but they are fast to take orders outside."
       name: "Clark P."
+      location: "Coppell, TX"
 
 investment:
   heading: "brewing the next billion-dollar coffee brand"
