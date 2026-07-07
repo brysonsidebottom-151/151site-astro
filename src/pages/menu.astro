@@ -46,29 +46,6 @@ for (const d of allDrinks) {
 const dirtypopSodas: string[] = (p.dirtypopExtra ?? '')
   .split(',').map((s: string) => s.trim()).filter(Boolean);
 
-const KIDS_ICONS: Record<string, string> = {
-  'kids-hot-cocoa': '☕', 'kids-chocolate-milk': '🥛', 'kids-apple-juice': '🧃', 'kids-hot-cider': '🍎',
-};
-const HOTFOOD_ICONS: Record<string, string> = {
-  'hotfood-chorizo-burrito': '🌯', 'hotfood-ultimate-burrito': '🌯', 'hotfood-everything-bagel': '🥯',
-  'hotfood-maple-waffle': '🧇', 'hotfood-jalapeno-biscuit': '🥐', 'hotfood-sticky-bun-coffee-cake': '🍰',
-  'hotfood-egg-white-frittata': '🥚', 'hotfood-bacon-cheddar-egg-bites': '🥚',
-};
-const TREATS_ICONS: Record<string, string> = {
-  'treats-sea-salt-chocolate-chip': '🍪', 'treats-peanut-butter': '🍪', 'treats-snickerdoodle': '🍪',
-  'treats-hippie-gf-cookie': '🌿', 'treats-whookie-gf-cookie': '🖤', 'treats-banana-walnut-bread': '🍌',
-  'treats-pumpkin-spice-bread': '🎃', 'treats-lemon-pound-cake': '🍋', 'treats-cinnamon-chip-crumbcake': '🧁',
-  'treats-blueberry-lemon-muffin-top': '🫐', 'treats-cake-pops': '🍭',
-};
-
-function isIconCat(slug: string) { return ['kids','hotfood','treats'].includes(slug); }
-function getIcon(slug: string, cat: string) {
-  if (cat === 'kids') return KIDS_ICONS[slug] ?? '🧃';
-  if (cat === 'hotfood') return HOTFOOD_ICONS[slug] ?? '🍽';
-  if (cat === 'treats') return TREATS_ICONS[slug] ?? '🍪';
-  return '';
-}
-
 const drinksJson = JSON.stringify(drinksDataObj);
 
 const milks: string[] = p.customize?.milks ?? [];
@@ -120,12 +97,10 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
                 data-cat={cat.tab} href={`/drinks/${drink.slug}`}
                 data-sb-object-id={`src/content/drinks/${drink.slug}.yaml`}>
                 {drink.badge && <span class="drink-badge" data-sb-field-path="badge">{drink.badge}</span>}
-                <div class={`drink-img-wrap${isIconCat(cat.tab) ? ' kids-img-wrap' : ''}`}>
-                  {isIconCat(cat.tab)
-                    ? <span class="kids-icon">{drink.icon || getIcon(drink.slug, cat.tab)}</span>
-                    : drink.image
-                      ? <img loading="lazy" decoding="async" src={drink.image.startsWith('/') ? drink.image : '/' + drink.image} alt={drink.name} data-sb-field-path="image" />
-                      : <img loading="lazy" decoding="async" src="/images/drinks/energy/151 Blue Energy Hand (1).png" alt={drink.name} data-sb-field-path="image" />
+                <div class="drink-img-wrap">
+                  {drink.image
+                    ? <img loading="lazy" decoding="async" src={drink.image.startsWith('/') ? drink.image : '/' + drink.image} alt={drink.name} data-sb-field-path="image" />
+                    : <img loading="lazy" decoding="async" src="/images/drinks/energy/151 Blue Energy Hand (1).png" alt={drink.name} data-sb-field-path="image" />
                   }
                 </div>
                 <div class="drink-info">
