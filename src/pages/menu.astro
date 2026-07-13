@@ -24,6 +24,9 @@ const LOCATIONS = locationEntries
     slug: e.id,
     refId: e.filePath ?? `src/content/locations/${e.id}.yaml`,
     name: e.data.name,
+    // "151 Coffee" is implied by the whole page -- repeating it on every
+    // single location button is just noise, so strip it for display only.
+    shortName: (e.data.name as string).replace(/^151 Coffee\s*/i, '') || e.data.name,
     city: e.data.city,
     state: e.data.state,
     order: e.data.displayOrder ?? 99,
@@ -77,9 +80,9 @@ for (const cat of CATEGORIES) {
   categoriesMetaObj[cat.tab] = { hiddenByDefault: cat.hiddenByDefault, unavailableAt: cat.unavailableAt };
 }
 
-const locationsMetaObj: Record<string, { name: string; city: string; state: string }> = {};
+const locationsMetaObj: Record<string, { name: string; shortName: string; city: string; state: string }> = {};
 for (const loc of LOCATIONS) {
-  locationsMetaObj[loc.slug] = { name: loc.name, city: loc.city, state: loc.state };
+  locationsMetaObj[loc.slug] = { name: loc.name, shortName: loc.shortName, city: loc.city, state: loc.state };
 }
 
 const drinksJson = JSON.stringify(drinksDataObj);
@@ -142,7 +145,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
               <p class="loc-modal-state-label">{state}</p>
               {locs.map((loc: any) => (
                 <button type="button" class="loc-modal-item" data-store={loc.slug}>
-                  {loc.name}
+                  {loc.shortName}
                 </button>
               ))}
             </div>
@@ -490,7 +493,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
 
     function updateTriggerUI() {
       var loc = selectedStore && LOCATIONS_META[selectedStore];
-      locationTriggerLabel.textContent = loc ? loc.name : 'Select Your Location';
+      locationTriggerLabel.textContent = loc ? loc.shortName : 'Select Your Location';
       locationTrigger.classList.toggle('has-location', !!loc);
       document.querySelectorAll('.loc-modal-item').forEach(function(btn) {
         btn.classList.toggle('active', (btn.dataset.store || '') === (selectedStore || ''));
