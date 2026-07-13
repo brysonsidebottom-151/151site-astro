@@ -8,3 +8,6 @@ hiddenByDefault: true
 unavailableAt:
   - src/content/locations/151-coffee-flower-mound.yaml
   - src/content/locations/151-coffee-north-richland-hills.yaml
+  - src/content/locations/151-coffee-lawrence.yaml
+  - src/content/locations/151-coffee-manhattan.yaml
+  - src/content/locations/151-coffee-overland-park.yaml
