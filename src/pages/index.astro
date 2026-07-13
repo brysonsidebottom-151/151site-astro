@@ -60,9 +60,6 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
       <div class="featured-visual">
         <div class="featured-glow"></div>
         <div class="featured-ring"></div>
-        <div class="featured-confetti" aria-hidden="true">
-          {Array.from({ length: 16 }).map(() => <span></span>)}
-        </div>
         <img src={p.featuredDrink?.image} alt={p.featuredDrink?.imageAlt} class="featured-img" data-sb-field-path="featuredDrink.image" />
       </div>
       <div class="featured-text">

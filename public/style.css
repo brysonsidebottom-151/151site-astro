@@ -536,49 +536,6 @@ nav.nav-scrolled .nav-container {
     z-index: 0;
 }
 
-/* Rainbow confetti sprinkles scattered around the featured drink */
-.featured-confetti {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.featured-confetti span {
-    position: absolute;
-    width: 7px;
-    height: 16px;
-    border-radius: 3px;
-    opacity: 0.9;
-    animation: confetti-float 3.6s ease-in-out infinite;
-}
-
-.featured-confetti span:nth-child(1)  { top: 6%;  left: 48%; background: #e63946; rotate: 12deg;  animation-delay: 0s; }
-.featured-confetti span:nth-child(2)  { top: 14%; left: 18%; background: #ffb703; rotate: -18deg; animation-delay: .2s; }
-.featured-confetti span:nth-child(3)  { top: 10%; left: 78%; background: #2ec4b6; rotate: 24deg;  animation-delay: .4s; }
-.featured-confetti span:nth-child(4)  { top: 26%; left: 8%;  background: #8ecae6; rotate: -8deg;  animation-delay: .6s; }
-.featured-confetti span:nth-child(5)  { top: 22%; left: 88%; background: #ff70a6; rotate: 16deg;  animation-delay: .8s; }
-.featured-confetti span:nth-child(6)  { top: 40%; left: 2%;  background: #ffd166; rotate: -22deg; animation-delay: 1s; }
-.featured-confetti span:nth-child(7)  { top: 38%; left: 94%; background: #06d6a0; rotate: 30deg;  animation-delay: 1.2s; }
-.featured-confetti span:nth-child(8)  { top: 58%; left: 4%;  background: #e63946; rotate: 10deg;  animation-delay: 1.4s; }
-.featured-confetti span:nth-child(9)  { top: 56%; left: 92%; background: #ffb703; rotate: -14deg; animation-delay: 1.6s; }
-.featured-confetti span:nth-child(10) { top: 74%; left: 12%; background: #2ec4b6; rotate: 20deg;  animation-delay: 1.8s; }
-.featured-confetti span:nth-child(11) { top: 76%; left: 84%; background: #8ecae6; rotate: -26deg; animation-delay: 2s; }
-.featured-confetti span:nth-child(12) { top: 90%; left: 30%; background: #ff70a6; rotate: 8deg;   animation-delay: 2.2s; }
-.featured-confetti span:nth-child(13) { top: 90%; left: 66%; background: #ffd166; rotate: -12deg; animation-delay: 2.4s; }
-.featured-confetti span:nth-child(14) { top: 4%;  left: 32%; background: #06d6a0; rotate: -30deg; animation-delay: 2.6s; }
-.featured-confetti span:nth-child(15) { top: 4%;  left: 64%; background: #ff70a6; rotate: 26deg;  animation-delay: 2.8s; }
-.featured-confetti span:nth-child(16) { top: 48%; left: 96%; background: #ffb703; rotate: -16deg; animation-delay: 3s; }
-
-@keyframes confetti-float {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-14px); }
-}
-
-@media (max-width: 768px) {
-    .featured-confetti span { width: 5px; height: 12px; }
-}
-
 .featured-img {
     position: relative;
     z-index: 1;
