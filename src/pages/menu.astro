@@ -5,16 +5,38 @@ import Footer from '../components/Footer.astro';
 import HeroVideo from '../components/HeroVideo.astro';
 import { getEntry, getCollection } from 'astro:content';
 
-const [menuEntry, drinksEntries, categoryEntries] = await Promise.all([
+const [menuEntry, drinksEntries, categoryEntries, locationEntries] = await Promise.all([
   getEntry('pages', 'menu'),
   getCollection('drinks'),
   getCollection('categories'),
+  getCollection('locations'),
 ]);
 
 const p = menuEntry!.data as any;
 const allDrinks = drinksEntries
   .map(e => ({ slug: e.id, ...(e.data as any) }))
   .sort((a: any, b: any) => (a.menuOrder ?? 99) - (b.menuOrder ?? 99));
+
+// Locations are their own content collection too; drinks/categories reference
+// them by file path (same pattern as the category reference below).
+const LOCATIONS = locationEntries
+  .map((e: any) => ({
+    slug: e.id,
+    refId: e.filePath ?? `src/content/locations/${e.id}.yaml`,
+    name: e.data.name,
+    city: e.data.city,
+    state: e.data.state,
+    order: e.data.displayOrder ?? 99,
+  }))
+  .sort((a: any, b: any) => a.order - b.order || a.name.localeCompare(b.name));
+
+const LOCATION_REFID_TO_SLUG: Record<string, string> = Object.fromEntries(
+  LOCATIONS.map((loc: any) => [loc.refId, loc.slug])
+);
+
+function toLocationSlugs(refs: string[] | undefined): string[] {
+  return (refs ?? []).map((r) => LOCATION_REFID_TO_SLUG[r]).filter(Boolean);
+}
 
 // Categories are their own content collection (add / remove / edit in the Visual Editor).
 // One file per category; each drink's `category` field references that file's path.
@@ -30,6 +52,8 @@ const CATEGORIES = categoryEntries
     title: e.data.title,
     desc: e.data.description,
     extraCards: e.data.extraCards ?? [],
+    hiddenByDefault: !!e.data.hiddenByDefault,
+    unavailableAt: toLocationSlugs(e.data.unavailableAt),
   }))
   .sort((a: any, b: any) => (parseInt(a.num) || 99) - (parseInt(b.num) || 99));
 
@@ -42,13 +66,31 @@ function catSlug(drink: any): string {
   return REFID_TO_SLUG[drink.category] ?? '';
 }
 
-// Build DRINKS data object for flavor filter JS
-const drinksDataObj: Record<string, { tags: string[]; catSlug: string }> = {};
+// Build DRINKS data object for the flavor + location filter JS
+const drinksDataObj: Record<string, { tags: string[]; catSlug: string; unavailableAt: string[] }> = {};
 for (const d of allDrinks) {
-  drinksDataObj[d.slug] = { tags: d.tags ?? [], catSlug: catSlug(d) };
+  drinksDataObj[d.slug] = { tags: d.tags ?? [], catSlug: catSlug(d), unavailableAt: toLocationSlugs(d.unavailableAt) };
+}
+
+const categoriesMetaObj: Record<string, { hiddenByDefault: boolean; unavailableAt: string[] }> = {};
+for (const cat of CATEGORIES) {
+  categoriesMetaObj[cat.tab] = { hiddenByDefault: cat.hiddenByDefault, unavailableAt: cat.unavailableAt };
+}
+
+const locationsMetaObj: Record<string, { name: string; city: string; state: string }> = {};
+for (const loc of LOCATIONS) {
+  locationsMetaObj[loc.slug] = { name: loc.name, city: loc.city, state: loc.state };
 }
 
 const drinksJson = JSON.stringify(drinksDataObj);
+const categoriesMetaJson = JSON.stringify(categoriesMetaObj);
+const locationsMetaJson = JSON.stringify(locationsMetaObj);
+
+// Group locations by state for the "Select Your Location" popup.
+const locationsByState: Record<string, typeof LOCATIONS> = {};
+for (const loc of LOCATIONS) {
+  (locationsByState[loc.state] ??= []).push(loc);
+}
 
 const milks: string[] = p.customize?.milks ?? [];
 const flavors: string[] = p.customize?.flavors ?? [];
@@ -66,16 +108,49 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
     <div class="menu-hero-content">
       <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Our Menu'}</h1>
       <p data-sb-field-path="hero.subheading">{p.hero?.subheading ?? 'Thousands of flavor combinations. One perfect drink, every time.'}</p>
+      <button type="button" class="location-trigger" id="locationTrigger">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z" stroke="currentColor" stroke-width="1.8"/>
+          <circle cx="12" cy="9" r="2.3" stroke="currentColor" stroke-width="1.8"/>
+        </svg>
+        <span id="locationTriggerLabel">Select Your Location</span>
+      </button>
     </div>
     <div class="cat-nav" id="catNav">
       <div class="cat-nav-inner">
         {CATEGORIES.map((cat: any, i: number) => (
           <button class={`cat-link${i === 0 ? ' active' : ''}`} data-tab={cat.tab}
+            data-visible={cat.hiddenByDefault ? 'false' : undefined}
             data-sb-object-id={cat.refId} data-sb-field-path="title">{cat.title}</button>
         ))}
       </div>
     </div>
   </section>
+
+  <div id="locationModal" class="modal">
+    <div class="modal-content loc-modal-content">
+      <button type="button" class="modal-close" id="closeLocationModal" aria-label="Close">&times;</button>
+      <div class="loc-modal-inner">
+        <h2>Select Your Location</h2>
+        <p>See only what's available at your store. You can change this anytime.</p>
+        <div class="loc-modal-list">
+          <button type="button" class="loc-modal-item loc-modal-item--all" data-store="">
+            All Locations <span class="loc-modal-item-sub">Show the full menu</span>
+          </button>
+          {Object.entries(locationsByState).map(([state, locs]: [string, any]) => (
+            <div class="loc-modal-state">
+              <p class="loc-modal-state-label">{state}</p>
+              {locs.map((loc: any) => (
+                <button type="button" class="loc-modal-item" data-store={loc.slug}>
+                  {loc.name} <span class="loc-modal-item-sub">{loc.city}, {loc.state}</span>
+                </button>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
 
   <section class="timeline-wrap">
     <div class="timeline-scroll" id="timelineScroll">
@@ -84,6 +159,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
         return (
           <>
             <div class="cat-title-card" id={`cat-${cat.tab}`} data-cat={cat.tab}
+              data-visible={cat.hiddenByDefault ? 'false' : undefined}
               data-sb-object-id={cat.refId}>
               <div class="cat-title-inner">
                 <span class="cat-num" data-sb-field-path="number">{cat.num}</span>
@@ -97,6 +173,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
             {drinks.map((drink: any) => (
               <a class={`drink-card${drink.slug === 'coldbrew-nitro-brew' ? ' nitro-card' : ''}`}
                 data-cat={cat.tab} href={`/drinks/${drink.slug}`}
+                data-visible={cat.hiddenByDefault ? 'false' : undefined}
                 data-sb-object-id={`src/content/drinks/${drink.slug}.yaml`}>
                 {drink.badge && <span class="drink-badge" data-sb-field-path="badge">{drink.badge}</span>}
                 <div class="drink-img-wrap">
@@ -112,7 +189,9 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
               </a>
             ))}
             {cat.extraCards.map((card: any, cardIndex: number) => (
-              <div class="descriptor-card" data-cat={cat.tab} data-sb-object-id={cat.refId}>
+              <div class="descriptor-card" data-cat={cat.tab}
+                data-visible={cat.hiddenByDefault ? 'false' : undefined}
+                data-sb-object-id={cat.refId}>
                 <p class="descriptor-label" data-sb-field-path={`extraCards.${cardIndex}.label`}>{card.label}</p>
                 <div class="descriptor-list" data-sb-field-path={`extraCards.${cardIndex}.items`}>
                   {(card.items ?? []).map((item: string) => <span>{item}</span>)}
@@ -162,14 +241,21 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
 
   <Footer />
 
-  <script define:vars={{ drinksJson }} is:inline>
+  <script define:vars={{ drinksJson, categoriesMetaJson, locationsMetaJson }} is:inline>
     window.DRINKS = JSON.parse(drinksJson);
+    window.CATEGORIES_META = JSON.parse(categoriesMetaJson);
+    window.LOCATIONS_META = JSON.parse(locationsMetaJson);
   </script>
   <script is:inline>
   (function () {
     var scroll = document.getElementById('timelineScroll');
     var catLinks = document.querySelectorAll('.cat-link');
     var titleCards = document.querySelectorAll('.cat-title-card');
+    var descriptorCards = Array.from(scroll.querySelectorAll('.descriptor-card'));
+    var drinkCards = Array.from(scroll.querySelectorAll('a.drink-card'));
+    var timelineWrap = document.querySelector('.timeline-wrap');
+    var filterHint = document.getElementById('czFilterHint');
+    var emptyState = document.getElementById('timelineEmpty');
 
     var mobileMq = window.matchMedia('(max-width: 768px)');
     function isMobile() { return mobileMq.matches; }
@@ -189,10 +275,15 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
       var threshold = scroll.getBoundingClientRect().width * 0.35;
       var active = null;
       titleCards.forEach(function(card) {
+        if (card.offsetParent === null) return; // hidden by a flavor/location filter
         var left = card.offsetLeft - scroll.scrollLeft;
         if (left <= threshold) active = card.dataset.cat;
       });
-      return active || (titleCards[0] && titleCards[0].dataset.cat);
+      if (active) return active;
+      for (var i = 0; i < titleCards.length; i++) {
+        if (titleCards[i].offsetParent !== null) return titleCards[i].dataset.cat;
+      }
+      return null;
     }
     function applyActiveCat(cat) {
       // While a flavor filter is active most category cards are hidden
@@ -272,11 +363,6 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
       });
     }
 
-    var activeFilter = null;
-    var filterHint = document.getElementById('czFilterHint');
-    var emptyState = document.getElementById('timelineEmpty');
-    var descriptorCards = Array.from(scroll.querySelectorAll('.descriptor-card'));
-
     function animateOut(el) {
       el.classList.remove('filter-animating-in'); el.classList.add('filter-animating-out');
       setTimeout(function() { el.classList.remove('filter-animating-out'); el.style.display = 'none'; }, 180);
@@ -287,65 +373,98 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
       el.classList.add('filter-animating-in');
       el.addEventListener('animationend', function() { el.classList.remove('filter-animating-in'); el.style.animationDelay = ''; }, { once: true });
     }
-    var timelineWrap = document.querySelector('.timeline-wrap');
+    // Only actually animates elements whose visibility changed since the
+    // last refresh -- otherwise every store/flavor change would re-trigger
+    // the entrance animation on cards that were already showing.
+    // data-visible is the single source of truth for whether an element is
+    // shown -- both the CSS default-hide rule and this change-tracking key
+    // off it, so an element only re-animates when it actually flips state.
+    // Absent = visible (matches everything that isn't hidden-by-default).
+    function setVisible(el, visible, delay) {
+      var was = el.dataset.visible !== 'false';
+      el.dataset.visible = visible ? 'true' : 'false';
+      if (was === visible) return false;
+      if (visible) animateIn(el, delay || 0); else animateOut(el);
+      return true;
+    }
 
-    function applyFilter(flavor) {
-      var drinkCards = Array.from(scroll.querySelectorAll('a.drink-card'));
-      var tCards = Array.from(scroll.querySelectorAll('.cat-title-card'));
-      if (!flavor) {
-        scroll.classList.remove('has-filter');
-        descriptorCards.forEach(function(c) { animateIn(c, 0); });
-        if (emptyState) emptyState.classList.remove('visible');
-        document.querySelectorAll('.cpill--filter').forEach(function(p) { p.classList.remove('cpill--active'); });
-        if (filterHint) filterHint.textContent = '';
-        var mi = 0;
-        tCards.forEach(function(card) { animateIn(card, mi++ * 30); });
-        drinkCards.forEach(function(card) { animateIn(card, mi++ * 18); });
-        if (!isMobile()) {
-          setTimeout(function() { if (timelineWrap) timelineWrap.style.minHeight = ''; scroll.style.minHeight = ''; }, 600);
-        }
-        return;
-      }
-      // The min-height lock stops the horizontal desktop timeline from
-      // jittering mid-fade. On mobile the timeline is a wrapping vertical
-      // grid whose natural height varies a lot with how many cards match,
-      // so locking it (especially re-measuring an already-locked height on
-      // every subsequent filter click) stretches the remaining rows to
-      // fill stale leftover space instead of folding away — skip it there.
+    // ── Combined flavor + location filtering ──
+    var activeFilter = null;   // flavor string, or null
+    var selectedStore = null;  // location slug, or null (= no location picked)
+
+    function categoryVisible(tab) {
+      var meta = CATEGORIES_META[tab];
+      if (!meta) return true;
+      if (!selectedStore) return !meta.hiddenByDefault;
+      return meta.unavailableAt.indexOf(selectedStore) === -1;
+    }
+    function drinkVisible(slug) {
+      var d = DRINKS[slug];
+      if (!d) return false;
+      if (!categoryVisible(d.catSlug)) return false;
+      if (selectedStore && d.unavailableAt.indexOf(selectedStore) !== -1) return false;
+      if (activeFilter && (!d.tags || d.tags.indexOf(activeFilter) === -1)) return false;
+      return true;
+    }
+    function drinkSlug(card) { return (card.getAttribute('href') || '').replace('/drinks/', ''); }
+
+    function refresh() {
+      var filtering = !!activeFilter || !!selectedStore;
+
       if (!isMobile()) {
         if (timelineWrap) timelineWrap.style.minHeight = timelineWrap.offsetHeight + 'px';
         scroll.style.minHeight = scroll.offsetHeight + 'px';
       }
-      scroll.classList.add('has-filter');
-      // No category is meaningfully "selected" while filtering by flavor.
-      catLinks.forEach(function(btn) { btn.classList.remove('active'); });
-      scroll.querySelectorAll('[data-cat]').forEach(function(el) { el.classList.remove('cat-active'); });
-      descriptorCards.forEach(function(c) { animateOut(c); });
-      var matchedCats = new Set();
-      drinkCards.forEach(function(card) {
-        var id = (card.getAttribute('href') || '').replace('/drinks/', '');
-        var drink = DRINKS[id];
-        if (drink && drink.tags && drink.tags.includes(flavor)) matchedCats.add(drink.catSlug);
+      scroll.classList.toggle('has-filter', filtering);
+      if (activeFilter) {
+        catLinks.forEach(function(btn) { btn.classList.remove('active'); });
+        scroll.querySelectorAll('[data-cat]').forEach(function(el) { el.classList.remove('cat-active'); });
+      }
+
+      catLinks.forEach(function(btn) {
+        // The [data-visible="false"] CSS rule is what actually hides this
+        // (same mechanism as setVisible) -- a plain style.display toggle
+        // would be overridden by that rule the moment it's cleared, since
+        // clearing an inline style just falls back to the stylesheet.
+        btn.dataset.visible = categoryVisible(btn.dataset.tab) ? 'true' : 'false';
       });
-      tCards.forEach(function(card) { animateOut(card); });
-      drinkCards.forEach(function(card) { animateOut(card); });
-      setTimeout(function() {
-        tCards.forEach(function(card) { if (matchedCats.has(card.dataset.cat)) animateIn(card, 0); });
-        var mi2 = 0;
-        drinkCards.forEach(function(card) {
-          var id = (card.getAttribute('href') || '').replace('/drinks/', '');
-          var drink = DRINKS[id];
-          if (drink && drink.tags && drink.tags.includes(flavor)) animateIn(card, mi2++ * 45);
-        });
-        if (emptyState) emptyState.classList.toggle('visible', matchedCats.size === 0);
-      }, 200);
-      if (filterHint) filterHint.textContent = 'Showing drinks with: ' + flavor + ' - tap again to clear';
+
+      var visibleCatSet = {};
+      drinkCards.forEach(function(card) {
+        var d = DRINKS[drinkSlug(card)];
+        if (d && drinkVisible(drinkSlug(card))) visibleCatSet[d.catSlug] = true;
+      });
+
+      descriptorCards.forEach(function(c) {
+        setVisible(c, categoryVisible(c.dataset.cat) && !activeFilter, 0);
+      });
+
+      var mi = 0;
+      titleCards.forEach(function(card) {
+        var tab = card.dataset.cat;
+        var visible = categoryVisible(tab) && (!activeFilter || visibleCatSet[tab]);
+        if (setVisible(card, visible, mi * 30) && visible) mi++;
+      });
+
+      var mi2 = 0, totalVisible = 0;
+      drinkCards.forEach(function(card) {
+        var visible = drinkVisible(drinkSlug(card));
+        if (visible) totalVisible++;
+        if (setVisible(card, visible, mi2 * 18) && visible) mi2++;
+      });
+
+      if (emptyState) emptyState.classList.toggle('visible', filtering && totalVisible === 0);
+      if (filterHint) filterHint.textContent = activeFilter ? ('Showing drinks with: ' + activeFilter + ' - tap again to clear') : '';
+
+      if (!isMobile()) {
+        setTimeout(function() { if (timelineWrap) timelineWrap.style.minHeight = ''; scroll.style.minHeight = ''; }, 600);
+      }
     }
 
     function clearFilter() {
       activeFilter = null;
       document.querySelectorAll('.cpill--filter').forEach(function(p) { p.classList.remove('cpill--active'); });
-      applyFilter(null);
+      refresh();
     }
 
     document.querySelectorAll('.cpill--filter').forEach(function(pill) {
@@ -356,11 +475,58 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
           activeFilter = flavor;
           document.querySelectorAll('.cpill--filter').forEach(function(p) { p.classList.remove('cpill--active'); });
           document.querySelectorAll('.cpill--filter[data-flavor="' + flavor + '"]').forEach(function(p) { p.classList.add('cpill--active'); });
-          applyFilter(flavor);
+          refresh();
           document.querySelector('.timeline-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
     });
+
+    // ── "Select Your Location" popup ──
+    var LOCATION_KEY = '151_selected_location';
+    var locationModal = document.getElementById('locationModal');
+    var locationTrigger = document.getElementById('locationTrigger');
+    var locationTriggerLabel = document.getElementById('locationTriggerLabel');
+    var closeLocationModal = document.getElementById('closeLocationModal');
+
+    function updateTriggerUI() {
+      var loc = selectedStore && LOCATIONS_META[selectedStore];
+      locationTriggerLabel.textContent = loc ? loc.name : 'Select Your Location';
+      locationTrigger.classList.toggle('has-location', !!loc);
+      document.querySelectorAll('.loc-modal-item').forEach(function(btn) {
+        btn.classList.toggle('active', (btn.dataset.store || '') === (selectedStore || ''));
+      });
+    }
+    function openLocationModal() { locationModal.classList.add('active'); }
+    function closeModal() { locationModal.classList.remove('active'); }
+
+    function selectStore(slug) {
+      selectedStore = (slug && LOCATIONS_META[slug]) ? slug : null;
+      try {
+        if (selectedStore) localStorage.setItem(LOCATION_KEY, selectedStore);
+        else localStorage.removeItem(LOCATION_KEY);
+      } catch (e) {}
+      updateTriggerUI();
+      refresh();
+      closeModal();
+    }
+
+    locationTrigger.addEventListener('click', openLocationModal);
+    closeLocationModal.addEventListener('click', closeModal);
+    locationModal.addEventListener('click', function(e) { if (e.target === locationModal) closeModal(); });
+    document.querySelectorAll('.loc-modal-item').forEach(function(btn) {
+      btn.addEventListener('click', function() { selectStore(btn.dataset.store); });
+    });
+
+    var storedStore = null;
+    try { storedStore = localStorage.getItem(LOCATION_KEY); } catch (e) {}
+    if (storedStore && LOCATIONS_META[storedStore]) {
+      selectedStore = storedStore;
+      updateTriggerUI();
+      refresh();
+    } else {
+      // First visit (no saved preference) -- invite them to pick a location.
+      setTimeout(openLocationModal, 700);
+    }
   })();
   </script>
 </Layout>

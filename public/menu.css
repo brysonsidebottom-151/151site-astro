@@ -965,3 +965,129 @@
         padding: 0.35rem 0.8rem;
     }
 }
+
+/* ─── Location filtering ─── */
+/* Elements start with data-visible="false" server-side when their category
+   is hidden-by-default (Hot Food, Treats), so there's no flash of content
+   that then disappears. The location-filter script keeps this attribute in
+   sync from then on as the single source of truth for visibility -- it's
+   what setVisible()'s change-tracking reads/writes, not just a CSS hook. */
+[data-visible="false"] {
+    display: none;
+}
+
+.location-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.25);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 0.6rem 1.1rem;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.location-trigger:hover {
+    background: rgba(255,255,255,0.16);
+    border-color: rgba(255,255,255,0.45);
+}
+
+.location-trigger svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+.location-trigger.has-location {
+    background: var(--red);
+    border-color: var(--red);
+}
+
+.location-trigger.has-location:hover { background: var(--red-soft); }
+
+/* ─── "Select Your Location" modal ─── */
+.loc-modal-content {
+    max-width: 640px;
+    padding: 2.5rem 2rem;
+}
+
+.loc-modal-inner h2 {
+    font-size: 1.8rem;
+    color: var(--black);
+    margin-bottom: 0.4rem;
+}
+
+.loc-modal-inner > p {
+    color: var(--light-gray);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    margin-bottom: 1.5rem;
+}
+
+.loc-modal-list {
+    max-height: 55vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding-right: 0.25rem;
+}
+
+.loc-modal-state { margin-top: 0.5rem; }
+
+.loc-modal-state-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.35);
+    margin: 0.75rem 0 0.4rem;
+}
+
+.loc-modal-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    width: 100%;
+    text-align: left;
+    background: var(--concrete);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 0.85rem 1.1rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--black);
+    cursor: pointer;
+    transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.loc-modal-item:hover {
+    border-color: var(--red);
+    background: rgba(230,57,70,0.05);
+}
+
+.loc-modal-item.active {
+    border-color: var(--red);
+    background: rgba(230,57,70,0.08);
+}
+
+.loc-modal-item-sub {
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: var(--light-gray);
+}
+
+.loc-modal-item--all {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 520px) {
+    .loc-modal-content { padding: 2rem 1.25rem; }
+    .location-trigger { margin-top: 1.1rem; font-size: 0.76rem; }
+}

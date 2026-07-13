@@ -4,3 +4,4 @@ number: '10'
 description: >-
   Real food made for the morning rush. Burritos, bagels, biscuits, and more.
   Fresh, hot, and ready to go.
+hiddenByDefault: true

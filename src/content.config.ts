@@ -12,6 +12,10 @@ const drinks = defineCollection({
     badge: z.string().optional().default(''),
     tags: z.preprocess((v) => (v == null ? [] : v), z.array(z.string())).default([]),
     menuOrder: z.number().optional().default(99),
+    // References to Location entries where this drink is NOT available.
+    // Empty (the default) means available at every location, including any
+    // opened later -- editors only need to touch this for the exceptions.
+    unavailableAt: z.preprocess((v) => (v == null ? [] : v), z.array(z.string())).default([]),
   }),
 });
 
@@ -28,6 +32,14 @@ const categories = defineCollection({
       label: z.string().optional().default(''),
       items: z.preprocess((v) => (v == null ? [] : v), z.array(z.string())).default([]),
     }))).default([]),
+    // Mirrors Drink.unavailableAt, but at the whole-category level (e.g. a
+    // store with no kitchen can hide Hot Food entirely).
+    unavailableAt: z.preprocess((v) => (v == null ? [] : v), z.array(z.string())).default([]),
+    // If true, this category is hidden on the default (no location picked)
+    // menu view -- it only appears once a visitor selects a location that
+    // doesn't have it in `unavailableAt`. Used for Hot Food / Treats, which
+    // aren't served at every store.
+    hiddenByDefault: z.boolean().optional().default(false),
   }),
 });
 

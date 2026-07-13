@@ -4,3 +4,4 @@ number: '11'
 description: >-
   House-baked cookies and fresh breads. The kind of thing you add to your order
   and don't regret.
+hiddenByDefault: true
