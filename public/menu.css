@@ -1010,7 +1010,7 @@
 
 /* ─── "Select Your Location" modal ─── */
 .loc-modal-content {
-    max-width: 640px;
+    max-width: 700px;
     padding: 2.5rem 2rem;
 }
 
@@ -1027,16 +1027,22 @@
     margin-bottom: 1.5rem;
 }
 
+/* Same pill treatment as the flavor filters (.filter-pill), just in the
+   modal's light color context -- everything visible at once, no inner
+   scroll, wraps like any other pill group. */
 .loc-modal-list {
-    max-height: 55vh;
-    overflow-y: auto;
     display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    padding-right: 0.25rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
-.loc-modal-state { margin-top: 0.5rem; }
+.loc-modal-state {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
 
 .loc-modal-state-label {
     font-family: 'Inter', sans-serif;
@@ -1045,49 +1051,47 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: rgba(0,0,0,0.35);
-    margin: 0.75rem 0 0.4rem;
+    width: 100%;
+    margin: 0.75rem 0 0;
 }
 
+.loc-modal-state:first-of-type .loc-modal-state-label { margin-top: 0.25rem; }
+
 .loc-modal-item {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-    width: 100%;
-    text-align: left;
-    background: var(--concrete);
-    border: 1.5px solid var(--border);
-    border-radius: 12px;
-    padding: 0.85rem 1.1rem;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    background: #F0F0F0;
+    border: 1px solid rgba(0,0,0,0.1);
     color: var(--black);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 0.5rem 1.15rem;
+    border-radius: var(--radius-pill);
     cursor: pointer;
-    transition: border-color 0.18s ease, background 0.18s ease;
+    white-space: nowrap;
+    transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
 }
 
 .loc-modal-item:hover {
     border-color: var(--red);
-    background: rgba(230,57,70,0.05);
+    color: var(--red);
 }
 
 .loc-modal-item.active {
+    background: var(--red);
     border-color: var(--red);
-    background: rgba(230,57,70,0.08);
-}
-
-.loc-modal-item-sub {
-    font-weight: 400;
-    font-size: 0.8rem;
-    color: var(--light-gray);
+    color: var(--white);
 }
 
 .loc-modal-item--all {
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
 }
 
 @media (max-width: 520px) {
     .loc-modal-content { padding: 2rem 1.25rem; }
     .location-trigger { margin-top: 1.1rem; font-size: 0.76rem; }
+    .loc-modal-item { font-size: 0.8rem; padding: 0.45rem 1rem; }
 }
