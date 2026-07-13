@@ -5,3 +5,6 @@ description: >-
   Real food made for the morning rush. Burritos, bagels, biscuits, and more.
   Fresh, hot, and ready to go.
 hiddenByDefault: true
+unavailableAt:
+  - src/content/locations/151-coffee-north-richland-hills.yaml
+  - src/content/locations/151-coffee-flower-mound.yaml
