@@ -54,6 +54,9 @@ const locations = defineCollection({
     lat: z.number(),
     lng: z.number(),
     displayOrder: z.number().optional().default(99),
+    image: z.string().optional().default(''),
+    // Leave blank to fall back to the sitewide hours in Settings > Global.
+    hours: z.string().optional().default(''),
   }),
 });
 

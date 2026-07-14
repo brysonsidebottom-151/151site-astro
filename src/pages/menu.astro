@@ -520,9 +520,15 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
       btn.addEventListener('click', function() { selectStore(btn.dataset.store); });
     });
 
+    // A location's "See This Store's Menu" button links here with
+    // ?store=<slug> -- honor that over anything already saved.
+    var queryStore = new URLSearchParams(window.location.search).get('store');
     var storedStore = null;
     try { storedStore = localStorage.getItem(LOCATION_KEY); } catch (e) {}
-    if (storedStore && LOCATIONS_META[storedStore]) {
+
+    if (queryStore && LOCATIONS_META[queryStore]) {
+      selectStore(queryStore);
+    } else if (storedStore && LOCATIONS_META[storedStore]) {
       selectedStore = storedStore;
       updateTriggerUI();
       refresh();

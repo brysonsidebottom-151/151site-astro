@@ -401,6 +401,8 @@ export default defineStackbitConfig({
             { name: 'lat', type: 'number' },
             { name: 'lng', type: 'number' },
             { name: 'displayOrder', type: 'number' },
+            { name: 'image', type: 'image', label: 'Store photo' },
+            { name: 'hours', type: 'string', label: 'Hours (leave blank to use the sitewide hours in Settings > Global)' },
           ],
         },
         {
