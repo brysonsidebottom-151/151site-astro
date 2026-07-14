@@ -35,7 +35,7 @@ menuSection:
       label: Drink Menu
     - title: Food Menu
       subtitle: Select Locations Only
-      image: /images/food1.webp
+      image: /images/Burritos - Green Chile.JPG
       href: /menu#hotfood
       label: Food Menu
 locationsSection:
