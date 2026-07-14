@@ -81,9 +81,14 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
               {locs.map((loc: any) => (
                 <div
                   class="loc-card"
-                  style={`background-image:url('${loc.image ? (loc.image.startsWith('/') ? loc.image : '/' + loc.image) : '/images/store1.jpg'}')`}
+                  data-store-card
+                  data-href={`/locations/${loc.slug}`}
                   data-sb-object-id={`src/content/locations/${loc.slug}.yaml`}
                 >
+                  <div
+                    class="loc-card-photo"
+                    style={`background-image:url('${loc.image ? (loc.image.startsWith('/') ? loc.image : '/' + loc.image) : '/images/store1.jpg'}')`}
+                  ></div>
                   <div class="loc-card-overlay"></div>
                   <div class="loc-card-body">
                     <div class="loc-card-city" data-sb-field-path="city">{loc.city}</div>
@@ -122,4 +127,17 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
     window.COFFEE151_LOCATOR = { hours, phone };
   </script>
   <script src="/js/locator-loader.js" is:inline></script>
+  <script is:inline>
+    // Whole card navigates to that store's info page, but clicks on either
+    // real link inside (Get Directions / Store Info) still behave normally
+    // -- Get Directions opens Google Maps in a new tab instead of also
+    // navigating this page.
+    document.querySelectorAll('[data-store-card]').forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        if (e.target.closest('a')) return;
+        var href = card.dataset.href;
+        if (href) window.location.href = href;
+      });
+    });
+  </script>
 </Layout>

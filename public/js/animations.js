@@ -38,7 +38,7 @@
     '.re-locations .section-header', '.re-location-tag',
     '.re-contact .section-header',
     // locations
-    '.loc-hero-content', '.loc-state-label', '.loc-card',
+    '.loc-hero-content', '.loc-state-label',
     // merch + privacy policy (shared page hero) and privacy content
     '.page-hero-content', '.legal-content'
   ].join(',');
