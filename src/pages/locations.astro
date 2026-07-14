@@ -78,25 +78,39 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
               {STATE_NAMES[stateCode] ?? stateCode} - {locs.length} Location{locs.length !== 1 ? 's' : ''}
             </div>
             <div class="loc-cards">
-              {locs.map((loc) => (
-                <a
+              {locs.map((loc: any) => (
+                <div
                   class="loc-card"
-                  href={`https://www.google.com/maps/dir/?api=1&destination=${loc.lat},${loc.lng}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  style={`background-image:url('${loc.image ? (loc.image.startsWith('/') ? loc.image : '/' + loc.image) : '/images/store1.jpg'}')`}
                   data-sb-object-id={`src/content/locations/${loc.slug}.yaml`}
                 >
-                  <div class="loc-card-city" data-sb-field-path="city">{loc.city}</div>
-                  <div class="loc-card-addr">
-                    <span data-sb-field-path="address">{loc.address}</span><br />{loc.city}, {loc.state} {loc.zip}
+                  <div class="loc-card-overlay"></div>
+                  <div class="loc-card-body">
+                    <div class="loc-card-city" data-sb-field-path="city">{loc.city}</div>
+                    <div class="loc-card-addr">
+                      <span data-sb-field-path="address">{loc.address}</span><br />{loc.city}, {loc.state} {loc.zip}
+                    </div>
+                    <div class="loc-card-actions">
+                      <a
+                        class="loc-card-cta"
+                        href={`https://www.google.com/maps/dir/?api=1&destination=${loc.lat},${loc.lng}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {p.directionsLabel ?? 'Get Directions'}
+                        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </a>
+                      <a class="loc-card-cta loc-card-cta--info" href={`/locations/${loc.slug}`}>
+                        Store Info
+                        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </a>
+                    </div>
                   </div>
-                  <span class="loc-card-cta">
-                    {p.directionsLabel ?? 'Get Directions'}
-                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                  </span>
-                </a>
+                </div>
               ))}
             </div>
           </div>

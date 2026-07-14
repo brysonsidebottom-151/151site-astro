@@ -1627,25 +1627,45 @@ footer {
 }
 .loc-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(230px, 100%), 1fr));
     gap: 1rem;
 }
 .loc-card {
-    background: linear-gradient(165deg, rgba(32,24,25,0.90) 0%, rgba(20,15,16,0.75) 100%);
+    position: relative;
+    background-size: cover;
+    background-position: center;
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 14px;
-    padding: 1.5rem 1.4rem 1.25rem;
+    overflow: hidden;
+    min-height: 220px;
+    display: flex;
+    transition: border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.loc-card:hover { border-color: rgba(230,57,70,0.45); box-shadow: 0 8px 28px rgba(230,57,70,0.10); }
+.loc-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(18,13,14,0.35) 0%, rgba(15,11,12,0.72) 55%, rgba(12,9,10,0.92) 100%);
+}
+.loc-card-body {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    transition: border-color 0.22s ease, box-shadow 0.22s ease;
-    text-decoration: none;
+    padding: 1.5rem 1.4rem 1.25rem;
+    width: 100%;
+    margin-top: auto;
 }
-.loc-card:hover { border-color: rgba(230,57,70,0.45); box-shadow: 0 8px 28px rgba(230,57,70,0.10); }
 .loc-card-city { font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.15rem; }
-.loc-card-addr { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: rgba(255,255,255,0.48); line-height: 1.55; flex: 1; }
-.loc-card-cta {
+.loc-card-addr { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: rgba(255,255,255,0.72); line-height: 1.55; }
+.loc-card-actions {
     margin-top: 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.1rem;
+}
+.loc-card-cta {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
@@ -1654,12 +1674,14 @@ footer {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.09em;
-    color: rgba(255,255,255,0.7);
+    color: rgba(255,255,255,0.85);
     text-decoration: none;
     transition: gap 0.2s ease, color 0.2s ease;
     width: fit-content;
 }
 .loc-card-cta:hover { gap: 0.6rem; color: #fff; }
+.loc-card-cta--info { color: var(--red-soft); }
+.loc-card-cta--info:hover { color: #fff; }
 .loc-card-cta svg { width: 13px; height: 13px; flex-shrink: 0; }
 .loc-divider { background: none; padding: 0 0 1rem; }
 .loc-divider hr { border: none; border-top: 1px solid rgba(255,255,255,0.18); margin: 0; }
