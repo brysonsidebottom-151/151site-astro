@@ -3,10 +3,18 @@ import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const locations = await getCollection('locations');
-  return locations.map(loc => ({
-    params: { store: loc.id.replace(/^151-coffee-/, '') },
-    props: { slug: loc.id, name: (loc.data as any).name },
-  }));
+  const paths = [];
+  for (const loc of locations) {
+    const props = { slug: loc.id, name: (loc.data as any).name };
+    // Name-based slug (e.g. /menu/keller) for internal links (Store Info
+    // pages, etc.), plus the numbered short URL (e.g. /menu/8) that matches
+    // the QR codes already printed for each store -- displayOrder is that
+    // same 1-15 numbering (see Location content/Stackbit field).
+    paths.push({ params: { store: loc.id.replace(/^151-coffee-/, '') }, props });
+    const order = (loc.data as any).displayOrder;
+    if (order != null) paths.push({ params: { store: String(order) }, props });
+  }
+  return paths;
 }
 
 const { slug, name } = Astro.props as { slug: string; name: string };
