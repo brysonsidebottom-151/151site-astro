@@ -1658,7 +1658,6 @@ footer {
     margin-top: auto;
 }
 .loc-card-city { font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.15rem; }
-.loc-card-addr { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: rgba(255,255,255,0.72); line-height: 1.55; }
 .loc-card-actions {
     margin-top: 0.85rem;
     display: flex;
