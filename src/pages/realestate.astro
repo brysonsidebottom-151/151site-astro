@@ -34,6 +34,12 @@ const p = entry!.data as any;
     .re-map-img { border-radius: var(--radius); overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); position: relative; background: #1a1a1a; min-height: 380px; }
     .re-map-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
     .re-map-img::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); pointer-events: none; }
+    .re-map-grid { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 0.6rem; min-height: 380px; }
+    .re-map-grid .re-map-img { min-height: 0; border-radius: 14px; }
+    .re-map-grid .re-map-img::after { border-radius: 14px; }
+    @media (max-width: 600px) {
+      .re-map-grid { grid-template-columns: 1fr 1fr; min-height: 260px; }
+    }
     .re-criteria { background: #161616; padding: var(--section-pad); }
     .re-criteria .section-header h1 { color: #fff; }
     .re-criteria .section-header p { font-family: 'Inter', sans-serif; font-size: 1rem; color: rgba(255,255,255,0.55); margin-top: 0.75rem; max-width: 600px; margin-left: auto; margin-right: auto; }
@@ -52,7 +58,8 @@ const p = entry!.data as any;
     .ideal-check { flex-shrink: 0; width: 22px; height: 22px; background: rgba(255,255,255,0.22); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 0.1rem; }
     .ideal-check svg { width: 12px; height: 12px; stroke: #fff; stroke-width: 2.5; fill: none; }
     .ideal-item p { font-family: 'Inter', sans-serif; font-size: 0.9rem; line-height: 1.55; color: rgba(255,255,255,0.88); margin: 0; }
-    .re-locations { background: var(--black); padding: var(--section-pad); }
+    .re-locations { position: relative; padding: var(--section-pad); background: linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.82)), url('/images/store1.jpg') center / cover no-repeat; }
+    .re-locations .container { position: relative; z-index: 1; }
     .re-locations .section-header h1 { color: #fff; }
     .re-locations .section-header p { font-family: 'Inter', sans-serif; font-size: 1rem; color: rgba(255,255,255,0.52); margin-top: 0.75rem; }
     .re-location-tags { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 2.5rem; justify-content: center; }
@@ -112,12 +119,21 @@ const p = entry!.data as any;
             ))}
           </div>
         </div>
-        <div class="re-map-img">
-          <img loading="lazy" decoding="async"
-            src={p.overview?.image ?? '/images/store1.jpg'}
-            alt={p.overview?.imageAlt ?? '151 Coffee store exterior'}
-            data-sb-field-path="overview.image"
-          />
+        <div class="re-map-grid">
+          {(p.overview?.images ?? [
+            { image: p.overview?.image ?? '/images/store1.jpg', imageAlt: p.overview?.imageAlt ?? '151 Coffee store exterior' },
+            { image: '/images/store1.jpg', imageAlt: '151 Coffee store exterior' },
+            { image: '/images/store1.jpg', imageAlt: '151 Coffee store exterior' },
+            { image: '/images/store1.jpg', imageAlt: '151 Coffee store exterior' },
+          ]).map((photo: any, i: number) => (
+            <div class="re-map-img" data-sb-field-path={`overview.images.${i}`}>
+              <img loading="lazy" decoding="async"
+                src={photo.image}
+                alt={photo.imageAlt}
+                data-sb-field-path="image"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -204,21 +220,11 @@ const p = entry!.data as any;
               <h3 data-sb-field-path="contact.formHeading">{p.contact?.formHeading ?? 'Real Estate Inquiry'}</h3>
               <p data-sb-field-path="contact.formSubtext">{p.contact?.formSubtext ?? 'Contact Mark Wattles directly about site opportunities across our target markets.'}</p>
             </div>
-            <div class="form-row">
-              <div class="form-group"><label for="re-firstName" data-sb-field-path="contact.firstNameLabel">{p.contact?.firstNameLabel ?? 'First Name'}</label><input type="text" id="re-firstName" name="firstName" placeholder="First" required /></div>
-              <div class="form-group"><label for="re-lastName" data-sb-field-path="contact.lastNameLabel">{p.contact?.lastNameLabel ?? 'Last Name'}</label><input type="text" id="re-lastName" name="lastName" placeholder="Last" required /></div>
-            </div>
-            <div class="form-row">
-              <div class="form-group"><label for="re-email" data-sb-field-path="contact.emailLabel">{p.contact?.emailLabel ?? 'Email Address'}</label><input type="email" id="re-email" name="email" placeholder="you@company.com" required /></div>
-              <div class="form-group"><label for="re-phone" data-sb-field-path="contact.phoneLabel">{p.contact?.phoneLabel ?? 'Phone Number'}</label><input type="tel" id="re-phone" name="phone" placeholder="+1 (555) 123-4567" /></div>
-            </div>
             <div class="form-group full-width"><label for="re-site" data-sb-field-path="contact.propertyLabel">{p.contact?.propertyLabel ?? 'Property Address / Market'}</label><input type="text" id="re-site" name="property" placeholder="Address or city you're submitting" /></div>
             <div class="form-group full-width"><label for="re-message" data-sb-field-path="contact.detailsLabel">{p.contact?.detailsLabel ?? 'Site Details'}</label><textarea id="re-message" name="message" placeholder="Tell us about your site - size, traffic count, current use, deal structure..."></textarea></div>
             <button type="submit" class="form-submit"><span data-sb-field-path="contact.buttonLabel">{p.contact?.buttonLabel ?? 'Submit Inquiry'}</span></button>
           </form>
         </div>
-        <div class="re-contact-or" data-sb-field-path="contact.emailIntro">{p.contact?.emailIntro ?? 'or email us directly'}</div>
-        <a href={`mailto:${p.contact?.email ?? 'RealEstate@151Coffee.com'}`} class="re-contact-email" data-sb-field-path="contact.email">{p.contact?.email ?? 'RealEstate@151Coffee.com'}</a>
       </div>
     </div>
   </section>
