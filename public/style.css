@@ -1331,6 +1331,41 @@ footer {
     color: var(--light-gray);
 }
 
+.footer-web-design {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    gap: 0.2rem;
+    margin-top: 0.4rem;
+    line-height: 1;
+}
+
+.footer-web-design-logo {
+    display: block;
+    height: 2.2rem;
+    width: auto;
+}
+
+.footer-web-design-desktop {
+    display: flex;
+    margin-top: 0;
+}
+
+.footer-web-design-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .footer-web-design-desktop {
+        display: none;
+    }
+    .footer-web-design-mobile {
+        display: flex;
+    }
+}
+
 .social-links { display: flex; gap: 0.75rem; }
 
 .social-links a {
