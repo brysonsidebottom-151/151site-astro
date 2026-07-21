@@ -43,6 +43,7 @@ export default defineStackbitConfig({
               { name: 'videoUrl', type: 'string', label: 'Hero background video', description: 'Paste a YouTube or Vimeo link, or a direct .mp4 file URL. Leave blank for the default video.' },
             ]},
             { name: 'featuredDrink', type: 'object', fields: [
+              { name: 'visible', type: 'boolean', label: 'Show this section', description: 'Turn off to hide the featured/LTO drink banner from the homepage entirely.', default: true },
               { name: 'badge', type: 'string' },
               { name: 'name', type: 'string' },
               { name: 'nameBold', type: 'string' },

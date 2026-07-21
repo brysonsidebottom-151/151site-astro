@@ -55,21 +55,23 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
   </section>
 
   <!-- Featured Drink -->
-  <section class="featured-drink">
-    <div class="featured-inner">
-      <div class="featured-visual">
-        <div class="featured-glow"></div>
-        <div class="featured-ring"></div>
-        <img src={p.featuredDrink?.image} alt={p.featuredDrink?.imageAlt} class="featured-img" data-sb-field-path="featuredDrink.image" />
+  {p.featuredDrink?.visible !== false && (
+    <section class="featured-drink" data-sb-object-id="src/content/pages/home.yaml">
+      <div class="featured-inner">
+        <div class="featured-visual">
+          <div class="featured-glow"></div>
+          <div class="featured-ring"></div>
+          <img src={p.featuredDrink?.image} alt={p.featuredDrink?.imageAlt} class="featured-img" data-sb-field-path="featuredDrink.image" />
+        </div>
+        <div class="featured-text">
+          <span class="featured-badge" data-sb-field-path="featuredDrink.badge">{p.featuredDrink?.badge}</span>
+          <h2 data-sb-field-path="featuredDrink.name">{p.featuredDrink?.name}<br /><span data-sb-field-path="featuredDrink.nameBold">{p.featuredDrink?.nameBold}</span></h2>
+          <p data-sb-field-path="featuredDrink.description">{p.featuredDrink?.description}</p>
+          <a href={p.featuredDrink?.ctaHref} class="featured-cta" data-sb-field-path="featuredDrink.ctaLabel">{p.featuredDrink?.ctaLabel}</a>
+        </div>
       </div>
-      <div class="featured-text">
-        <span class="featured-badge" data-sb-field-path="featuredDrink.badge">{p.featuredDrink?.badge}</span>
-        <h2 data-sb-field-path="featuredDrink.name">{p.featuredDrink?.name}<br /><span data-sb-field-path="featuredDrink.nameBold">{p.featuredDrink?.nameBold}</span></h2>
-        <p data-sb-field-path="featuredDrink.description">{p.featuredDrink?.description}</p>
-        <a href={p.featuredDrink?.ctaHref} class="featured-cta" data-sb-field-path="featuredDrink.ctaLabel">{p.featuredDrink?.ctaLabel}</a>
-      </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   <!-- Menu Section -->
   <section class="features" id="features">
