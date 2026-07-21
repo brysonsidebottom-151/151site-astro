@@ -42,7 +42,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
   <!-- Hero -->
   <section class="hero">
     <div>
-      <HeroVideo src={p.hero?.videoUrl} videoClass="hero-video" />
+      <HeroVideo src={p.hero?.videoUrl} videoClass="hero-video" blurBackdrop />
     </div>
     <div class="container">
       <div class="hero-content">
@@ -125,7 +125,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
         {(p.reviews?.items ?? []).map((r: any, i: number) => (
           <div class="pricing-card featured" data-sb-field-path={`reviews.items.${i}`}>
             {r.location && <span class="review-location" data-sb-field-path="location">{r.location}</span>}
-            <div class="plan-price"><br /><br />&ldquo;<span class="price-amount" data-sb-field-path="quote">{r.quote}&rdquo;</span></div>
+            <div class="plan-price"><br /><br /><span class="price-amount" data-sb-field-path="quote">{r.quote}</span></div>
             <h3 class="plan-name" data-sb-field-path="name">{r.name}</h3>
           </div>
         ))}

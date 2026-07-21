@@ -9,8 +9,13 @@ interface Props {
   src?: string;
   videoClass?: string;
   fallback?: string;
+  // Adds a second, blurred/cover copy of the video behind the main one on
+  // mobile, so a contain-fit video (full frame visible, no cropping) isn't
+  // surrounded by bare letterbox bars. Desktop is unaffected -- the backdrop
+  // copy is hidden there and the activation script skips loading it entirely.
+  blurBackdrop?: boolean;
 }
-const { src, videoClass = '', fallback = '/videos/landing_bg.mp4' } = Astro.props;
+const { src, videoClass = '', fallback = '/videos/landing_bg.mp4', blurBackdrop = false } = Astro.props;
 
 const raw = (src && src.trim()) ? src.trim() : fallback;
 
@@ -44,16 +49,27 @@ if (ytMatch) {
 ) : isImage ? (
   <img class={videoClass} src={raw} alt="" aria-hidden="true" />
 ) : (
-  <video muted loop playsinline preload="none" class={videoClass} data-hero-video data-src={raw} aria-hidden="true"
-    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect width='1' height='1' fill='%23111111'/%3E%3C/svg%3E"></video>
+  <Fragment>
+    {blurBackdrop && (
+      <video muted loop playsinline preload="none" class={`${videoClass}-backdrop`} data-hero-video data-mobile-only aria-hidden="true"
+        data-src={raw}
+        poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect width='1' height='1' fill='%23111111'/%3E%3C/svg%3E"></video>
+    )}
+    <video muted loop playsinline preload="none" class={videoClass} data-hero-video data-src={raw} aria-hidden="true"
+      poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect width='1' height='1' fill='%23111111'/%3E%3C/svg%3E"></video>
+  </Fragment>
 )}
 
 <script>
   // Load hero backgrounds after the page is interactive and idle, so the
   // (large) video never competes with the content for bandwidth.
   (function () {
+    var isDesktop = window.matchMedia('(min-width: 769px)').matches;
     function activate() {
       document.querySelectorAll('video[data-hero-video]').forEach(function (v) {
+        // The blurred backdrop copy only exists to fill space around a
+        // contain-fit video on mobile -- don't fetch/decode it on desktop.
+        if (isDesktop && v.hasAttribute('data-mobile-only')) return;
         if (v.dataset.src && !v.src) {
           v.muted = true;
           v.setAttribute('autoplay', '');
