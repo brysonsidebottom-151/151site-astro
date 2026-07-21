@@ -85,10 +85,20 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
                   data-href={`/locations/${loc.slug}`}
                   data-sb-object-id={`src/content/locations/${loc.slug}.yaml`}
                 >
-                  <div
+                  <img
                     class="loc-card-photo"
-                    style={`background-image:url('${loc.image ? (loc.image.startsWith('/') ? loc.image : '/' + loc.image) : '/images/store1.jpg'}')`}
-                  ></div>
+                    src={(() => {
+                      const full = loc.image ? (loc.image.startsWith('/') ? loc.image : '/' + loc.image) : '/images/store1.jpg';
+                      // Cards render this at ~230px wide -- use the pre-generated
+                      // thumbnail instead of the full-size photo the location
+                      // detail page needs.
+                      const m = full.match(/^\/images\/locations\/(.+)\.webp$/);
+                      return m ? `/images/locations/${m[1]}-thumb.webp` : full;
+                    })()}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
                   <div class="loc-card-overlay"></div>
                   <div class="loc-card-body">
                     <div class="loc-card-city" data-sb-field-path="city">{loc.city}</div>

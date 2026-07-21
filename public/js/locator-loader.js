@@ -10,10 +10,16 @@
         if (loaded) return;
         loaded = true;
 
+        // media="print" + swap-to-"all" on load keeps this stylesheet from
+        // blocking render even though it's injected into <head> -- without
+        // this, the browser holds first paint until it downloads (a slow
+        // external unpkg.com round trip), no matter how "lazy" the loader is.
         var css = document.createElement('link');
         css.rel = 'stylesheet';
         css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
         css.crossOrigin = '';
+        css.media = 'print';
+        css.onload = function () { css.media = 'all'; };
         document.head.appendChild(css);
 
         var script = document.createElement('script');
@@ -34,7 +40,7 @@
                     observer.disconnect();
                 }
             });
-        }, { rootMargin: '600px 0px' });
+        }, { rootMargin: '200px 0px' });
         observer.observe(mapEl);
     } else {
         loadMap();

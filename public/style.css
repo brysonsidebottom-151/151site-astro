@@ -614,6 +614,18 @@ nav.nav-scrolled .nav-container {
 @media (max-width: 768px) {
     .hero { height: 46vh; }
 
+    /* On a narrow/short mobile hero, cover-fit scales a landscape video up
+       until it fills both dimensions -- cropping most of its width off
+       the sides. Switch to contain so the whole frame is visible instead
+       (letterboxed against the hero's own black background). */
+    .hero-video {
+        width: 100%;
+        height: 100%;
+        min-width: 0;
+        min-height: 0;
+        object-fit: contain;
+    }
+
     .featured-drink { padding: 3.5rem 0; }
 
     .featured-inner {
@@ -1058,7 +1070,16 @@ nav.nav-scrolled .nav-container {
     border: 1px solid rgba(230,57,70,0.4);
     border-radius: var(--radius);
     text-align: center;
+    width: 100%;
     max-width: 700px;
+    /* The horizontal auto margin (for desktop centering when the grid
+       track is wider than max-width) switches this grid item out of the
+       default stretch sizing and into shrink-to-fit, which was computing
+       wider than the actual grid column on narrow screens and overflowing
+       the whole page. Forcing width:100% (capped by max-width) makes it
+       fill the column instead. */
+    justify-self: stretch;
+    min-width: 0;
     box-shadow: 0 24px 60px rgba(0,0,0,0.5);
 }
 
@@ -1340,6 +1361,12 @@ footer {
     gap: 0.2rem;
     margin-top: 0.4rem;
     line-height: 1;
+}
+
+.footer-web-design span {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    color: var(--light-gray);
 }
 
 .footer-web-design-logo {
@@ -1684,8 +1711,10 @@ footer {
 .loc-card-photo {
     position: absolute;
     inset: 0;
-    background-size: cover;
-    background-position: center;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
     transition: transform 0.5s ease;
 }
 .loc-card:hover .loc-card-photo { transform: scale(1.08); }
