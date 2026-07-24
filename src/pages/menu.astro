@@ -146,7 +146,7 @@ const CATEGORY_PLACEHOLDER_IMAGE: Record<string, string> = {
           <path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z" stroke="currentColor" stroke-width="1.8"/>
           <circle cx="12" cy="9" r="2.3" stroke="currentColor" stroke-width="1.8"/>
         </svg>
-        <span id="locationTriggerLabel">Select Your Location</span>
+        <span id="locationTriggerLabel" data-sb-field-path="locationPicker.triggerLabel">{p.locationPicker?.triggerLabel ?? 'Select Your Location'}</span>
       </button>
     </div>
     <div class="cat-nav" id="catNav">
@@ -164,11 +164,11 @@ const CATEGORY_PLACEHOLDER_IMAGE: Record<string, string> = {
     <div class="modal-content loc-modal-content">
       <button type="button" class="modal-close" id="closeLocationModal" aria-label="Close">&times;</button>
       <div class="loc-modal-inner">
-        <h2>Select Your Location</h2>
-        <p>See only what's available at your store. You can change this anytime.</p>
+        <h2 data-sb-field-path="locationPicker.heading">{p.locationPicker?.heading ?? 'Select Your Location'}</h2>
+        <p data-sb-field-path="locationPicker.subtext">{p.locationPicker?.subtext ?? "See only what's available at your store. You can change this anytime."}</p>
         <div class="loc-modal-list">
-          <button type="button" class="loc-modal-item loc-modal-item--all" data-store="">
-            All Locations
+          <button type="button" class="loc-modal-item loc-modal-item--all" data-store="" data-sb-field-path="locationPicker.allLabel">
+            {p.locationPicker?.allLabel ?? 'All Locations'}
           </button>
           {Object.entries(locationsByState).map(([state, locs]: [string, any]) => (
             <div class="loc-modal-state">
@@ -261,10 +261,11 @@ const CATEGORY_PLACEHOLDER_IMAGE: Record<string, string> = {
 
   <Footer />
 
-  <script define:vars={{ drinksJson, categoriesMetaJson, locationsMetaJson }} is:inline>
+  <script define:vars={{ drinksJson, categoriesMetaJson, locationsMetaJson, locationTriggerDefault: p.locationPicker?.triggerLabel ?? 'Select Your Location' }} is:inline>
     window.DRINKS = JSON.parse(drinksJson);
     window.CATEGORIES_META = JSON.parse(categoriesMetaJson);
     window.LOCATIONS_META = JSON.parse(locationsMetaJson);
+    window.LOCATION_TRIGGER_DEFAULT = locationTriggerDefault;
   </script>
   <script is:inline>
   (function () {
@@ -510,7 +511,7 @@ const CATEGORY_PLACEHOLDER_IMAGE: Record<string, string> = {
 
     function updateTriggerUI() {
       var loc = selectedStore && LOCATIONS_META[selectedStore];
-      locationTriggerLabel.textContent = loc ? loc.shortName : 'Select Your Location';
+      locationTriggerLabel.textContent = loc ? loc.shortName : (window.LOCATION_TRIGGER_DEFAULT || 'Select Your Location');
       locationTrigger.classList.toggle('has-location', !!loc);
       document.querySelectorAll('.loc-modal-item').forEach(function(btn) {
         btn.classList.toggle('active', (btn.dataset.store || '') === (selectedStore || ''));

@@ -32,7 +32,7 @@
             popupAnchor: [0, -28]
         });
 
-        var map = L.map(mapEl, { scrollWheelZoom: false }).setView([store.lat, store.lng], 15);
+        var map = L.map(mapEl, { scrollWheelZoom: false, attributionControl: false }).setView([store.lat, store.lng], 15);
 
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
             maxZoom: 19,

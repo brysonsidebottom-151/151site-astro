@@ -12,6 +12,12 @@ labels:
   emptyHeading: "Nothing here yet."
   emptySub: "But we're always working on something good."
 
+locationPicker:
+  triggerLabel: "Select Your Location"
+  heading: "Select Your Location"
+  subtext: "See only what's available at your store. You can change this anytime."
+  allLabel: "All Locations"
+
 drinkPage:
   backLabel: "Back to Menu"
   flavorNotesLabel: "Flavor Notes"

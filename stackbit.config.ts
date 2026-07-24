@@ -68,6 +68,10 @@ export default defineStackbitConfig({
               { name: 'body', type: 'string' },
               { name: 'ctaLabel', type: 'string' },
               { name: 'ctaHref', type: 'string' },
+              { name: 'backImage', type: 'image', label: 'Back photo (behind)' },
+              { name: 'frontImage', type: 'image', label: 'Front photo' },
+              { name: 'frontImageAlt', type: 'string', label: 'Front photo alt text' },
+              { name: 'signature', type: 'string', label: 'Handwritten caption (e.g. "Keller Team")' },
             ]},
             { name: 'reviews', type: 'object', fields: [
               { name: 'heading', type: 'string' },
@@ -135,6 +139,12 @@ export default defineStackbitConfig({
             { name: 'labels', type: 'object', label: 'Menu UI labels', fields: [
               { name: 'emptyHeading', type: 'string' },
               { name: 'emptySub', type: 'string' },
+            ]},
+            { name: 'locationPicker', type: 'object', label: 'Location picker', fields: [
+              { name: 'triggerLabel', type: 'string', label: 'Button label (before a store is picked)' },
+              { name: 'heading', type: 'string', label: 'Popup heading' },
+              { name: 'subtext', type: 'string', label: 'Popup subtext' },
+              { name: 'allLabel', type: 'string', label: '"All Locations" option label' },
             ]},
             { name: 'drinkPage', type: 'object', label: 'Drink detail page labels', fields: [
               { name: 'backLabel', type: 'string' },
@@ -267,8 +277,12 @@ export default defineStackbitConfig({
                 { name: 'number', type: 'string' },
                 { name: 'label', type: 'string' },
               ]}},
-              { name: 'image', type: 'image' },
+              { name: 'image', type: 'image', label: 'Legacy single image (fallback)' },
               { name: 'imageAlt', type: 'string' },
+              { name: 'images', type: 'list', label: 'Photo grid (shows 4)', items: { type: 'object', labelField: 'imageAlt', fields: [
+                { name: 'image', type: 'image' },
+                { name: 'imageAlt', type: 'string' },
+              ]}},
             ]},
             { name: 'criteria', type: 'object', fields: [
               { name: 'heading', type: 'string' },
@@ -317,7 +331,16 @@ export default defineStackbitConfig({
               { name: 'countSuffix', type: 'string' },
             ]},
             { name: 'searchPlaceholder', type: 'string' },
-            { name: 'directionsLabel', type: 'string' },
+            { name: 'directionsLabel', type: 'string', label: '"Get Directions" label (on cards)' },
+            { name: 'storeInfoLabel', type: 'string', label: '"Store Info" label (on cards)' },
+            { name: 'storeDetail', type: 'object', label: 'Store detail page labels', fields: [
+              { name: 'backLabel', type: 'string' },
+              { name: 'hoursLabel', type: 'string' },
+              { name: 'phoneLabel', type: 'string' },
+              { name: 'addressLabel', type: 'string' },
+              { name: 'menuButtonLabel', type: 'string' },
+              { name: 'directionsButtonLabel', type: 'string' },
+            ]},
             { name: 'stateNames', type: 'list', label: 'State code to full name', items: { type: 'object', labelField: 'name', fields: [
               { name: 'code', type: 'string' },
               { name: 'name', type: 'string' },
@@ -438,6 +461,10 @@ export default defineStackbitConfig({
               ]}},
               { name: 'socialHeading', type: 'string' },
               { name: 'supportHeading', type: 'string' },
+              { name: 'contactLabel', type: 'string', label: 'Support: Contact link' },
+              { name: 'callLabel', type: 'string', label: 'Support: Call Us link' },
+              { name: 'supportLabel', type: 'string', label: 'Support: Support link' },
+              { name: 'giftCardCheckLabel', type: 'string', label: 'Support: Check Gift Card link' },
               { name: 'giftCardButtonLabel', type: 'string' },
             ]},
           ],

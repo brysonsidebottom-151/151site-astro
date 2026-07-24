@@ -50,6 +50,10 @@ cta:
     "it's a good day to have a good day."
   ctaLabel: See Career Openings
   ctaHref: /careers
+  backImage: /images/nowhiring.webp
+  frontImage: /images/july-social.jpg
+  frontImageAlt: The 151 Coffee team
+  signature: Keller Team
 reviews:
   heading: Hear it from our customers!
   items:

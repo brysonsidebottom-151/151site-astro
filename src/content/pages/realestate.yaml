@@ -38,6 +38,15 @@ overview:
       label: Building Footprint
   image: /images/locations/151-coffee-burleson.webp
   imageAlt: 151 Coffee store exterior
+  images:
+    - image: /images/locations/151-coffee-burleson.webp
+      imageAlt: 151 Coffee Burleson drive-thru
+    - image: /images/locations/151-coffee-keller.webp
+      imageAlt: 151 Coffee Keller drive-thru
+    - image: /images/locations/151-coffee-coppell.webp
+      imageAlt: 151 Coffee Coppell drive-thru
+    - image: /images/locations/151-coffee-flower-mound.webp
+      imageAlt: 151 Coffee Flower Mound drive-thru
 criteria:
   heading: Property Site Criteria
   subheading: >-

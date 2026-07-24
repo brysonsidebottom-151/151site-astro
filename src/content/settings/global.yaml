@@ -40,4 +40,8 @@ footer:
       href: "/privacy-policy"
   socialHeading: "Social"
   supportHeading: "Support"
+  contactLabel: "Contact"
+  callLabel: "Call Us"
+  supportLabel: "Support"
+  giftCardCheckLabel: "Check Gift Card"
   giftCardButtonLabel: "Check Gift Card Balance"

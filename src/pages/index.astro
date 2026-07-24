@@ -61,7 +61,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
         <div class="featured-visual">
           <div class="featured-card">
             <div class="drink-img-wrap">
-              <img src="/images/v5/coffee.jpg" alt={p.featuredDrink?.imageAlt} />
+              <img src={p.featuredDrink?.image ?? '/images/v5/coffee.jpg'} alt={p.featuredDrink?.imageAlt} data-sb-field-path="featuredDrink.image#@src featuredDrink.imageAlt#@alt" />
             </div>
           </div>
         </div>
@@ -122,11 +122,11 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
         </div>
         <div class="cta-photo-stack">
           <div class="cta-photo cta-photo--back">
-            <img loading="lazy" decoding="async" src="/images/nowhiring.webp" alt="" />
+            <img loading="lazy" decoding="async" src={p.cta?.backImage ?? '/images/nowhiring.webp'} alt="" data-sb-field-path="cta.backImage#@src" />
           </div>
           <div class="cta-photo cta-photo--front">
-            <img loading="lazy" decoding="async" src="/images/july-social.jpg" alt="The 151 Coffee team" />
-            <div class="cta-signature">Keller Team</div>
+            <img loading="lazy" decoding="async" src={p.cta?.frontImage ?? '/images/july-social.jpg'} alt={p.cta?.frontImageAlt ?? 'The 151 Coffee team'} data-sb-field-path="cta.frontImage#@src cta.frontImageAlt#@alt" />
+            <div class="cta-signature" data-sb-field-path="cta.signature">{p.cta?.signature ?? 'Keller Team'}</div>
           </div>
         </div>
       </div>

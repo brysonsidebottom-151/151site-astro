@@ -13,6 +13,14 @@ hero:
   countSuffix: Locations Open
 searchPlaceholder: Search by city, state, or zip...
 directionsLabel: Get Directions
+storeInfoLabel: Store Info
+storeDetail:
+  backLabel: Back to Locations
+  hoursLabel: Hours
+  phoneLabel: Phone
+  addressLabel: Address
+  menuButtonLabel: See This Store's Menu
+  directionsButtonLabel: Get Directions
 stateNames:
   - code: TX
     name: Texas

@@ -8,8 +8,11 @@ const drinks = defineCollection({
     subtitle: z.string().optional().default(''),
     description: z.string().optional().default(''),
     image: z.string().optional().default(''),
+    badge: z.string().optional().default(''),
     tags: z.array(z.string()).optional().default([]),
     menuOrder: z.number().optional().default(99),
+    // Location file paths this drink is NOT served at (set in the Visual Editor).
+    unavailableAt: z.array(z.string()).optional().default([]),
   }),
 });
 
@@ -24,6 +27,8 @@ const locations = defineCollection({
     lat: z.number(),
     lng: z.number(),
     displayOrder: z.number().optional().default(99),
+    image: z.string().optional().default(''),
+    hours: z.string().optional().default(''),
   }),
 });
 

@@ -110,7 +110,7 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
                         </svg>
                       </a>
                       <a class="loc-card-cta loc-card-cta--info" href={`/locations/${loc.slug}`}>
-                        Store Info
+                        {p.storeInfoLabel ?? 'Store Info'}
                         <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>

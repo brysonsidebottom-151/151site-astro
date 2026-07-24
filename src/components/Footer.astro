@@ -41,10 +41,10 @@ const igAppUrl = igUsername ? `instagram://user?username=${igUsername}` : undefi
       <div class="footer-section">
         <h4 data-sb-field-path="footer.supportHeading">{f.supportHeading ?? 'Support'}</h4>
         <ul>
-          <li><a href={`mailto:${s.email ?? 'Contact@151Coffee.com'}`}>Contact</a></li>
-          <li><a href={`tel:${(s.phone ?? '').replace(/\D/g,'')}`}>Call Us</a></li>
-          <li><a href={`mailto:${s.email ?? 'Contact@151Coffee.com'}`}>Support</a></li>
-          <li><button type="button" id="giftCardFooterSupportBtn">Check Gift Card</button></li>
+          <li><a href={`mailto:${s.email ?? 'Contact@151Coffee.com'}`} data-sb-field-path="footer.contactLabel">{f.contactLabel ?? 'Contact'}</a></li>
+          <li><a href={`tel:${(s.phone ?? '').replace(/\D/g,'')}`} data-sb-field-path="footer.callLabel">{f.callLabel ?? 'Call Us'}</a></li>
+          <li><a href={`mailto:${s.email ?? 'Contact@151Coffee.com'}`} data-sb-field-path="footer.supportLabel">{f.supportLabel ?? 'Support'}</a></li>
+          <li><button type="button" id="giftCardFooterSupportBtn" data-sb-field-path="footer.giftCardCheckLabel">{f.giftCardCheckLabel ?? 'Check Gift Card'}</button></li>
         </ul>
       </div>
     </div>
