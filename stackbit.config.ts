@@ -127,7 +127,6 @@ export default defineStackbitConfig({
             { name: 'customize', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'flavorLabel', type: 'string' },
-              { name: 'flavorTip', type: 'string' },
               { name: 'sfLabel', type: 'string' },
               { name: 'milks', type: 'list', items: { type: 'string' } },
               { name: 'flavors', type: 'list', items: { type: 'string' } },

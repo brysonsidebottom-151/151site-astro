@@ -11,6 +11,18 @@
     margin-top: 58px;
 }
 
+/* Desktop/tablet: the nav bar (58px), hero, and the timeline's own intrinsic
+   height (~520px -- driven by the fixed-size category cards/drink photos)
+   are sized to add up to exactly one viewport, so clicking "Menu" shows the
+   whole hero AND the whole first row of the timeline with zero scrolling.
+   max() keeps the hero from collapsing into nothing on very short screens. */
+@media (min-width: 769px) {
+    .menu-hero {
+        height: max(320px, calc(100vh - 58px - 515.67px));
+        min-height: max(320px, calc(100vh - 58px - 515.67px));
+    }
+}
+
 .menu-hero .hero-bg {
     position: absolute;
     top: 50%;
@@ -99,14 +111,23 @@
     border-color: var(--red);
 }
 
+/* ═══ V5: GALLERY OVERHAUL — drinks as the hero, everything else quiet ═══ */
+
 /* ─── Timeline Wrap ─── */
+/* Light studio backdrop: same idea as before (photo texture pushed way
+   down so it reads as ambience, not competition) but bright/warm instead
+   of near-black. */
 .timeline-wrap {
-    background-color: #e63946;
-    background-image: radial-gradient(rgba(255,255,255,0.18) 2px, transparent 2.5px);
-    background-size: 26px 26px;
+    background-color: #f4efe9;
+    background-image:
+        linear-gradient(rgba(244,239,233,0.94), rgba(244,239,233,0.94)),
+        url('/images/background1.webp');
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
     position: relative;
     z-index: 2;
-    padding: 5rem 0;
+    padding: 3.25rem 0 1.25rem;
     overflow-x: clip;
 }
 
@@ -115,10 +136,10 @@
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(120% 55% at 50% 0%,    rgba(255,255,255,0.24) 0%, transparent 60%),
-        radial-gradient(120% 60% at 50% 100%,  rgba(255,255,255,0.14) 0%, transparent 55%),
-        radial-gradient(60%  100% at 0%   50%, rgba(255,255,255,0.10) 0%, transparent 55%),
-        radial-gradient(60%  100% at 100% 50%, rgba(255,255,255,0.10) 0%, transparent 55%);
+        radial-gradient(120% 60% at 50% 0%,   rgba(230,57,70,0.08) 0%, transparent 60%),
+        radial-gradient(120% 60% at 50% 100%, rgba(230,57,70,0.06) 0%, transparent 60%),
+        radial-gradient(60% 100% at 0% 50%,   rgba(230,57,70,0.06) 0%, transparent 55%),
+        radial-gradient(60% 100% at 100% 50%, rgba(230,57,70,0.06) 0%, transparent 55%);
     pointer-events: none;
 }
 
@@ -127,12 +148,11 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    gap: 1.25rem;
+    gap: 3.5rem;
     overflow-x: auto;
-    /* top/bottom padding must be large enough to contain hover lift + shadow spread */
-    padding: 4rem 2rem 5rem;
-    margin-top: -4rem;
-    margin-bottom: -5rem;
+    padding: 2rem 3rem 3rem;
+    margin-top: -2rem;
+    margin-bottom: -3rem;
     scroll-behavior: smooth;
     scrollbar-width: none;
     cursor: grab;
@@ -159,20 +179,30 @@
 }
 
 /* ─── Category Title Card ─── */
+/* No box at all — just a slim red rule and big quiet typography, so it
+   reads as a chapter marker rather than another product tile. */
 .cat-title-card {
+    position: relative;
     flex: 0 0 auto;
-    width: 280px;
+    width: 220px;
     min-height: 420px;
-    background: linear-gradient(160deg, rgba(14,10,11,0.78) 0%, rgba(22,14,15,0.60) 100%);
-    backdrop-filter: blur(20px) saturate(160%);
-    -webkit-backdrop-filter: blur(20px) saturate(160%);
-    border: 1px solid rgba(255,255,255,0.14);
-    border-radius: var(--radius);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.32);
+    background: transparent;
     display: flex;
     align-items: stretch;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
     margin-left: 1.5rem; /* extra separation from previous category */
+}
+
+/* Dividing rule -- pseudo-element instead of a border so it can run 40px
+   taller than the card box itself, past the top edge. */
+.cat-title-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -40px;
+    bottom: 0;
+    width: 3px;
+    background: var(--red);
 }
 
 /* First title card has no extra left margin */
@@ -185,7 +215,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 2rem 1.75rem 4rem;
+    padding: 0 0 4rem 1.75rem;
     width: 100%;
 }
 
@@ -195,102 +225,86 @@
     left: 1.75rem;
 }
 
-.cat-title-inner .cat-num {
-    position: absolute;
-    top: 1.75rem;
-    left: 1.75rem;
-}
-
-.cat-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 0.2em;
-    color: var(--red);
-    opacity: 0.85;
-}
-
 .cat-title-text {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(1.9rem, 4vw, 3.4rem);
-    letter-spacing: 0.04em;
-    color: #fff;
-    line-height: 1.0;
+    font-size: clamp(2.3rem, 4.8vw, 4.1rem);
+    letter-spacing: 0.03em;
+    color: #1a1512;
+    line-height: 0.95;
     margin: 0;
-    text-shadow: 0 4px 24px rgba(0,0,0,0.5);
 }
 
 .cat-title-desc {
-    font-size: 0.88rem;
-    color: rgba(255,255,255,0.55);
-    line-height: 1.55;
-    margin: 0.2rem 0 0;
-    max-width: 38ch;
+    font-size: 0.95rem;
+    color: rgba(20,17,14,0.55);
+    line-height: 1.6;
+    margin: 0.7rem 0 0;
+    max-width: 30ch;
     font-weight: 400;
 }
 
 .cat-arrow {
-    width: 48px;
+    width: 72px;
     height: auto;
-    color: rgba(255,255,255,0.35);
+    color: rgba(20,17,14,0.35);
     flex-shrink: 0;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 /* Active state — title card + all cards in that category */
 .cat-title-card.cat-active {
-    border-color: rgba(255,255,255,0.5);
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.18), 0 10px 40px rgba(0,0,0,0.38);
+    border-left-color: #1a1512;
 }
 
 .cat-title-card.cat-active .cat-arrow {
-    color: rgba(255,255,255,0.75);
-}
-
-.drink-card.cat-active,
-.descriptor-card.cat-active {
-    border-color: rgba(255,255,255,0.5);
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.18), 0 10px 30px rgba(0,0,0,0.38);
+    color: var(--red);
 }
 
 /* ─── Drink Card ─── */
+/* No container at all — the photo floats on its own soft ground-shadow,
+   like a studio product shot. Name sits large and confident underneath. */
 .drink-card {
     position: relative;
     flex: 0 0 auto;
-    background: linear-gradient(165deg, rgba(28,22,23,0.62) 0%, rgba(18,14,15,0.48) 100%);
-    backdrop-filter: blur(16px) saturate(160%);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
-    border: 1px solid rgba(255,255,255,0.14);
-    border-radius: var(--radius);
-    overflow: visible;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.32);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+    width: 260px;
+    background: transparent;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    align-items: center;
     text-decoration: none;
     color: inherit;
 }
 
 /* ─── Drink Image ─── */
+/* A clean white container -- future product shots will come with their
+   own backgrounds, so this masks them into a consistent, tidy tile
+   instead of relying on transparent cutouts. */
 .drink-img-wrap {
-    background: transparent;
+    background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.25rem 0.75rem 0;
-    overflow: visible;
+    padding: 0;
+    overflow: hidden;
     position: relative;
-    border-radius: var(--radius) var(--radius) 0 0;
-    flex: 1;
+    width: 100%;
+    height: 340px;
+    border-radius: 22px;
+    box-shadow: 0 18px 40px rgba(20,17,14,0.16);
+    transition: box-shadow 0.35s ease;
 }
 
 .drink-img-wrap img {
-    width: auto;
-    height: 340px;
-    max-width: 380px;
+    width: 100%;
+    height: 100%;
+    max-width: none;
     display: block;
-    transform-origin: center bottom;
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), rotate 0.3s ease;
+    object-fit: cover;
+    border-radius: 22px;
+    transform-origin: center center;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     position: relative;
     z-index: 2;
 }
@@ -305,61 +319,49 @@
     100% { rotate: 0deg; }
 }
 
-/* Hot Food and Treats photos are plated/product shots, not cups -- the
-   raise-and-wiggle reads oddly on them, so just scale smoothly instead. */
-.drink-card[data-cat="hotfood"] .drink-img-wrap img,
-.drink-card[data-cat="treats"] .drink-img-wrap img {
-    transition: transform 0.35s ease;
-}
-
-/* Hover-only lift/scale/shake effects -- gated to real pointer devices so a
+/* Hover-only lift/scale effects -- gated to real pointer devices so a
    tap on mobile doesn't trigger and stick a "hover" state. */
 @media (hover: hover) and (pointer: fine) {
     .drink-card:hover {
-        transform: translateY(-6px);
-        background: linear-gradient(165deg, rgba(38,28,30,0.72) 0%, rgba(24,18,20,0.58) 100%);
-        box-shadow: 0 20px 48px rgba(0,0,0,0.42);
+        transform: translateY(-10px);
+    }
+
+    .drink-card:hover .drink-img-wrap {
+        box-shadow: 0 24px 50px rgba(20,17,14,0.22);
     }
 
     .drink-card:hover .drink-img-wrap img {
-        transform: scale(1.18) translateY(-6%);
-        animation: drink-shake 0.7s cubic-bezier(0.36, 0.07, 0.19, 0.97) 0.15s 1 forwards;
-    }
-
-    .drink-card[data-cat="hotfood"]:hover .drink-img-wrap img,
-    .drink-card[data-cat="treats"]:hover .drink-img-wrap img {
-        transform: scale(1.12);
-        animation: none;
+        transform: scale(1.06);
     }
 }
 
 /* ─── Drink Info ─── */
 .drink-info {
-    padding: 1rem 1.1rem 1.25rem;
+    padding: 1.25rem 0.5rem 0;
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.35rem;
     background: transparent;
-    border-top: none;
-    border-radius: 0 0 var(--radius) var(--radius);
     position: relative;
     z-index: 1;
     text-align: center;
 }
 
 .drink-info h3 {
-    color: #fff;
-    font-size: 1.3rem;
-    line-height: 1.2;
-    letter-spacing: 0.02em;
+    font-family: 'Bebas Neue', sans-serif;
+    color: #1a1512;
+    font-size: 1.7rem;
+    line-height: 1.1;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
 }
 
 .drink-info p {
-    color: rgba(255,255,255,0.65);
-    font-size: 0.78rem;
+    color: rgba(20,17,14,0.55);
+    font-size: 0.76rem;
     line-height: 1.5;
     margin: 0;
-    flex: 1;
+    letter-spacing: 0.02em;
 }
 
 /* ─── Descriptor Card ─── */
@@ -367,20 +369,27 @@
    any number of these (see the category's extraCards field, editable in the
    Visual Editor) -- the soda list on Dirty Pop is just the first example. */
 .descriptor-card {
+    position: relative;
     flex: 0 0 auto;
-    width: 280px;
-    background: linear-gradient(165deg, rgba(28,22,23,0.62) 0%, rgba(18,14,15,0.48) 100%);
-    backdrop-filter: blur(16px) saturate(160%);
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
-    border: 1px solid rgba(255,255,255,0.14);
-    border-radius: var(--radius);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.32);
+    width: 240px;
+    background: transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 1.5rem;
-    gap: 0.75rem;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    gap: 0.9rem;
+}
+
+/* Dividing rule -- pseudo-element instead of a border so it can run 40px
+   taller than the card box itself, past the top edge. */
+.descriptor-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -40px;
+    bottom: 0;
+    width: 3px;
+    background: rgba(20,17,14,0.15);
 }
 
 .descriptor-label {
@@ -389,49 +398,46 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    color: rgba(255,255,255,0.4);
+    color: rgba(20,17,14,0.45);
     margin: 0;
 }
 
 .descriptor-list {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.4rem;
 }
 
 .descriptor-list span {
     font-family: 'Inter', sans-serif;
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    color: rgba(255,255,255,0.78);
-    padding: 0.3rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    color: rgba(20,17,14,0.8);
+    padding: 0.2rem 0;
     white-space: nowrap;
 }
 
-.descriptor-list span:last-child {
-    border-bottom: none;
-}
-
 /* ─── Customize Section ─── */
+/* The timeline above is the light studio backdrop; this section goes dark
+   again (matching the rest of the site) instead of stacking two bright
+   sections back to back. */
 .customize-section {
-    background-color: #111111;
+    background-color: #2b2521;
     background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 48px 48px;
+        linear-gradient(rgba(38,32,28,0.82), rgba(38,32,28,0.82)),
+        url('/images/background1.webp');
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
     position: relative;
-    padding: 4rem 0 5rem;
+    padding: 3rem 0 3.5rem;
 }
 
 .customize-section::before {
     content: '';
     position: absolute;
     inset: 0;
-    background:
-        radial-gradient(90% 45% at 50% 0%, rgba(230,57,70,0.14) 0%, transparent 65%),
-        radial-gradient(50% 50% at 0% 100%, rgba(230,57,70,0.06) 0%, transparent 60%),
-        radial-gradient(50% 50% at 100% 100%, rgba(230,57,70,0.06) 0%, transparent 60%);
+    background: radial-gradient(80% 50% at 50% 0%, rgba(230,57,70,0.1) 0%, transparent 65%);
     pointer-events: none;
 }
 
@@ -442,65 +448,65 @@
     padding: 0 2.5rem;
 }
 
+.cz-row {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius);
+    padding: 1.75rem 2.25rem;
+}
+
 .cz-heading {
-    text-align: center;
-    margin-bottom: 2.5rem;
+    text-align: left;
+    flex: 0 0 auto;
+    max-width: 280px;
+    padding-right: 2rem;
+    border-right: 1px solid rgba(255,255,255,0.1);
 }
 
 .cz-heading h2 {
-    font-size: clamp(2rem, 4.5vw, 3.2rem);
-    color: #fff;
-    font-weight: 800;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 3.2vw, 2.4rem);
+    letter-spacing: 0.03em;
+    color: #f5efe8;
+    font-weight: 400;
     margin: 0;
-    text-shadow: 0 2px 24px rgba(230,57,70,0.35);
 }
 
 .cz-heading h2 span { color: #e63946; }
 
-.cz-layout {
-    display: flex;
-    gap: 1.5rem;
-    align-items: start;
-}
-
-.cz-left {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-}
-
-.cz-block {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: var(--radius);
-    padding: 1.5rem;
+.cz-flavor-block {
+    flex: 1;
+    min-width: 0;
 }
 
 .cz-label {
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     color: #e63946;
-    margin: 0 0 1rem;
+    margin: 0 0 0.75rem;
 }
 
 .cz-pills {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.4rem;
 }
 
 .cpill {
     display: inline-flex;
     align-items: center;
     gap: 0;
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: rgba(255,255,255,0.82);
-    font-size: 0.82rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.78);
+    font-size: 0.78rem;
     font-weight: 500;
-    padding: 0.38rem 0.9rem;
+    padding: 0.32rem 0.8rem;
     border-radius: 999px;
     transition: background 0.2s, border-color 0.2s, color 0.2s;
     white-space: nowrap;
@@ -514,61 +520,7 @@
     }
 }
 
-.cz-right {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-}
-
-/* Sugar Free block — cooler, more muted tone */
-.cz-block--sf {
-    background: rgba(255,255,255,0.015);
-    border-color: rgba(255,255,255,0.06);
-}
-
-.cz-label--sf {
-    color: rgba(255,255,255,0.45);
-}
-
-.cpill--sf {
-    background: rgba(255,255,255,0.04);
-    border-color: rgba(255,255,255,0.08);
-    color: rgba(255,255,255,0.55);
-}
-
-/* Sugar-free pills are informational only -- not clickable filters like the
-   regular flavor pills, so they shouldn't look interactive either. */
-.cpill--sf {
-    cursor: default;
-}
-
-.cpill--sf:hover {
-    background: rgba(255,255,255,0.04);
-    border-color: rgba(255,255,255,0.08);
-    color: rgba(255,255,255,0.55);
-}
-
-.cz-flavor-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.cz-flavor-header .cz-label { margin: 0; }
-
-.cz-sf-legend {
-    font-size: 0.74rem;
-    color: rgba(255,255,255,0.38);
-    white-space: nowrap;
-}
-
-.cz-sf-legend strong { color: rgba(255,255,255,0.7); font-weight: 700; }
-.cz-sf-dot { color: #e63946; margin-right: 0.2rem; }
-
-.cz-pills--flavors { gap: 0.45rem; }
+.cz-pills--flavors { gap: 0.4rem; }
 
 .cpill-dot {
     color: #e63946;
@@ -755,15 +707,10 @@
 }
 
 .cpill--filter.cpill--active {
-    background: #fff;
-    color: #111;
+    background: var(--red);
+    color: #fff;
     border-color: transparent;
     box-shadow: 0 2px 10px rgba(0,0,0,0.25);
-}
-
-.cpill--sf.cpill--filter.cpill--active {
-    background: rgba(255,255,255,0.9);
-    color: #111;
 }
 
 @keyframes filter-card-in {
@@ -914,12 +861,19 @@
         min-width: 0 !important;
     }
 
-    .drink-img-wrap { padding: 1rem 0.5rem 0; }
-    .drink-img-wrap img {
-        height: 150px;
-        max-width: 100%;
+    /* v5 card = photo fills a white container edge-to-edge; on the 2-up
+       mobile grid the container just needs a shorter, tighter height. */
+    .drink-img-wrap {
+        padding: 0;
+        height: 190px;
+        border-radius: 16px;
     }
-    .drink-info { padding: 0.75rem 0.75rem 1rem; }
+    .drink-img-wrap img {
+        height: 100%;
+        max-width: none;
+        border-radius: 16px;
+    }
+    .drink-info { padding: 0.75rem 0.5rem 0; }
     .drink-info h3 { font-size: 1.05rem; }
     .drink-info p { font-size: 0.72rem; }
 
@@ -928,17 +882,44 @@
     .timeline-empty-state { width: 100%; min-width: 0; }
     .timeline-end-spacer { display: none; }
 
-    /* Category nav is dropped on mobile -- with 11 categories it either
-       overlays the hero or eats a lot of vertical space; the vertical
-       timeline below already lets you scroll straight to everything. */
+    /* Category nav on mobile: a horizontally-scrolling pill bar at the base
+       of the hero. Natural-width pills (not the squished full-width desktop
+       distribution), so all 11 categories stay discoverable and tappable to
+       jump straight to a section (JS handles the scroll + active highlight). */
     .cat-nav {
-        display: none;
+        display: block;
+        position: static;
+        background: none;
+        padding: 0.85rem 0 0.25rem;
+        -webkit-overflow-scrolling: touch;
+    }
+    .cat-nav-inner {
+        width: max-content;
+        padding: 0 1rem;
+        gap: 0.5rem;
+    }
+    .cat-link {
+        flex: 0 0 auto;
+        font-size: 0.72rem;
+        padding: 0.7rem 1rem;
+        margin: 0;
     }
 }
 
 @media (max-width: 900px) {
-    .cz-layout {
-        grid-template-columns: 1fr;
+    .cz-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.25rem;
+        padding: 1.5rem 1.5rem 1.75rem;
+    }
+    .cz-heading {
+        max-width: none;
+        padding-right: 0;
+        padding-bottom: 1.25rem;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        width: 100%;
     }
     .cz-inner {
         padding: 0 1.25rem;
@@ -966,7 +947,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    margin-top: 1.5rem;
+    margin-top: 0.25rem;
     background: rgba(255,255,255,0.08);
     border: 1.5px solid rgba(255,255,255,0.25);
     color: var(--white);
@@ -1084,6 +1065,6 @@
 
 @media (max-width: 520px) {
     .loc-modal-content { padding: 2rem 1.25rem; }
-    .location-trigger { margin-top: 1.1rem; font-size: 0.76rem; }
+    .location-trigger { margin-top: 0.25rem; font-size: 0.76rem; }
     .loc-modal-item { font-size: 0.8rem; padding: 0.45rem 1rem; }
 }

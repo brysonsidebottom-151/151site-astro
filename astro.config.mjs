@@ -5,4 +5,7 @@ export default defineConfig({
   output: 'static',
   site: 'https://www.151coffee.com',
   integrations: [sitemap()],
+  server: {
+    host: true,
+  },
 });

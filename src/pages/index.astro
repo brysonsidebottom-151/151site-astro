@@ -59,9 +59,11 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
     <section class="featured-drink" data-sb-object-id="src/content/pages/home.yaml">
       <div class="featured-inner">
         <div class="featured-visual">
-          <div class="featured-glow"></div>
-          <div class="featured-ring"></div>
-          <img src={p.featuredDrink?.image} alt={p.featuredDrink?.imageAlt} class="featured-img" data-sb-field-path="featuredDrink.image" />
+          <div class="featured-card">
+            <div class="drink-img-wrap">
+              <img src="/images/v5/coffee.jpg" alt={p.featuredDrink?.imageAlt} />
+            </div>
+          </div>
         </div>
         <div class="featured-text">
           <span class="featured-badge" data-sb-field-path="featuredDrink.badge">{p.featuredDrink?.badge}</span>
@@ -72,36 +74,6 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
       </div>
     </section>
   )}
-
-  <!-- Menu Section -->
-  <section class="features" id="features">
-    <div class="container">
-      <div class="section-header"><h1 data-sb-field-path="menuSection.heading">{p.menuSection?.heading}</h1></div>
-      <div class="features-grid">
-        {(p.menuSection?.cards ?? []).map((card: any, i: number) => (
-          <div class="feature-card" style={`background-image:url('${card.image}')`} data-sb-field-path={`menuSection.cards.${i}`}>
-            <div class="card-content">
-              <h3 data-sb-field-path="title">{card.title}<p style={i===1?{color:'var(--red)'}:{}} data-sb-field-path="subtitle">{card.subtitle}</p></h3>
-              <a href={card.href} class="menu-btn" data-sb-field-path="label">{card.label}</a>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta">
-    <div class="container" style="z-index:1;">
-      <div class="cta-content">
-        <h2 data-sb-field-path="cta.heading">{p.cta?.heading}</h2>
-        <p data-sb-field-path="cta.body">{p.cta?.body}</p>
-        <div class="cta-buttons">
-          <a href={p.cta?.ctaHref} class="btn-primary" data-sb-field-path="cta.ctaLabel">{p.cta?.ctaLabel}</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Locations -->
   <section class="spaces" id="spaces">
@@ -119,42 +91,65 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
     </div>
   </section>
 
+  <!-- Menu Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header"><h1 data-sb-field-path="menuSection.heading">{p.menuSection?.heading}</h1></div>
+      <div class="features-grid">
+        {(p.menuSection?.cards ?? []).map((card: any, i: number) => (
+          <a href={card.href} class="feature-card" data-sb-field-path={`menuSection.cards.${i}`}>
+            <div class="feature-card-img" style={`background-image:url('${card.image}')`}></div>
+            <div class="card-content">
+              <h3 data-sb-field-path="title">{card.title}<p style={i===1?{color:'var(--red)'}:{}} data-sb-field-path="subtitle">{card.subtitle}</p></h3>
+              <span class="menu-btn" data-sb-field-path="label">{card.label}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta-inner">
+        <div class="cta-content">
+          <h2 data-sb-field-path="cta.heading">{p.cta?.heading}</h2>
+          <p data-sb-field-path="cta.body">{p.cta?.body}</p>
+          <div class="cta-buttons">
+            <a href={p.cta?.ctaHref} class="btn-primary" data-sb-field-path="cta.ctaLabel">{p.cta?.ctaLabel}</a>
+          </div>
+        </div>
+        <div class="cta-photo-stack">
+          <div class="cta-photo cta-photo--back">
+            <img loading="lazy" decoding="async" src="/images/nowhiring.webp" alt="" />
+          </div>
+          <div class="cta-photo cta-photo--front">
+            <img loading="lazy" decoding="async" src="/images/july-social.jpg" alt="The 151 Coffee team" />
+            <div class="cta-signature">Keller Team</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Reviews -->
   <section class="pricing" id="pricing">
     <div class="container">
       <div class="section-header"><h1 data-sb-field-path="reviews.heading">{p.reviews?.heading}</h1></div>
       <div class="pricing-grid">
         {(p.reviews?.items ?? []).map((r: any, i: number) => (
-          <div class="pricing-card featured" data-sb-field-path={`reviews.items.${i}`}>
-            {r.location && <span class="review-location" data-sb-field-path="location">{r.location}</span>}
-            <div class="plan-price"><br /><br /><span class="price-amount" data-sb-field-path="quote">{r.quote}</span></div>
-            <h3 class="plan-name" data-sb-field-path="name">{r.name}</h3>
+          <div class="pricing-card" data-sb-field-path={`reviews.items.${i}`}>
+            <p class="plan-price" data-sb-field-path="quote">{r.quote}</p>
+            <div class="review-byline">
+              <span class="review-avatar">{(r.name ?? '?').charAt(0)}</span>
+              <div class="review-byline-text">
+                <h3 class="plan-name" data-sb-field-path="name">{r.name}</h3>
+                {r.location && <span class="review-location" data-sb-field-path="location">{r.location}</span>}
+              </div>
+            </div>
           </div>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Investment -->
-  <section class="amenities" id="amenities">
-    <div class="container">
-      <div class="section-header">
-        <h2 style="font-size:3rem;" data-sb-field-path="investment.heading">{p.investment?.heading}</h2>
-      </div>
-      <div class="amenities-grid">
-        <div class="special-pricing">
-          <h2 data-sb-field-path="investment.subheading">{p.investment?.subheading}</h2><br />
-          <p data-sb-field-path="investment.body">{p.investment?.body}</p>
-          <div class="special-features">
-            {(p.investment?.stats ?? []).map((stat: any, i: number) => (
-              <div class="special-feature" data-sb-field-path={`investment.stats.${i}`}>
-                <span class="special-feature-number" data-sb-field-path="number">{stat.number}</span>
-                <span class="special-feature-label" data-sb-field-path="label">{stat.label}</span>
-              </div>
-            ))}
-          </div>
-          <div><br /><a href={p.investment?.ctaHref} class="btn-primary" data-sb-field-path="investment.ctaLabel">{p.investment?.ctaLabel}</a></div>
-        </div>
       </div>
     </div>
   </section>
@@ -208,4 +203,16 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
     window.COFFEE151_LOCATOR = { hours, phone };
   </script>
   <script src="/js/locator-loader.js" is:inline></script>
+  <script is:inline>
+    (function () {
+      var sig = document.querySelector('.cta-signature');
+      if (!sig) return;
+      var rotate = -10 + Math.random() * 14;
+      var left = 42 + Math.random() * 16;
+      var bottom = 0.7 + Math.random() * 1;
+      sig.style.left = left + '%';
+      sig.style.bottom = bottom + 'rem';
+      sig.style.transform = 'translateX(-50%) rotate(' + rotate.toFixed(1) + 'deg)';
+    })();
+  </script>
 </Layout>

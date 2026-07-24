@@ -115,11 +115,27 @@
     max-width: 55ch;
 }
 
-/* Body section */
-.dk-body {
-    background: #111;
+/* Drink info: image/detail + customize, one continuous section/background */
+.dk-info {
+    background: #f4efe9;
     padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
 }
+
+.dk-info::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(120% 60% at 50% 0%,   rgba(230,57,70,0.08) 0%, transparent 60%),
+        radial-gradient(120% 60% at 50% 100%, rgba(230,57,70,0.06) 0%, transparent 60%),
+        radial-gradient(60% 100% at 0% 50%,   rgba(230,57,70,0.06) 0%, transparent 55%),
+        radial-gradient(60% 100% at 100% 50%, rgba(230,57,70,0.06) 0%, transparent 55%);
+    pointer-events: none;
+}
+
+.dk-body-inner { position: relative; z-index: 1; }
 
 .dk-body-inner {
     max-width: 1280px;
@@ -127,69 +143,26 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
-    align-items: center;
+    align-items: stretch;
 }
 
-/* Image column */
+/* Image column -- sized to match the combined height of the detail
+   card + customize cards beside it. object-fit:cover on the img means
+   any photo (regardless of its own aspect ratio) fills this evenly. */
 .dk-img-col {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
 }
 
-.dk-img-wrap {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 420px;
+.dk-img-col .featured-card {
     width: 100%;
+    height: 100%;
 }
 
-.dk-img-glow {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 50% 45%,
-        rgba(230,57,70,0.55) 0%,
-        rgba(214,150,158,0.28) 38%,
-        transparent 70%);
-    filter: blur(12px);
-    z-index: 0;
-    animation: dk-pulse 6s ease-in-out infinite;
-}
-
-.dk-img-ring {
-    position: absolute;
-    width: 320px;
-    height: 320px;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.12);
-    box-shadow: inset 0 0 60px rgba(255,255,255,0.05);
-    z-index: 0;
-}
-
-.dk-img-wrap img {
-    position: relative;
-    z-index: 1;
-    width: auto;
-    height: 480px;
-    max-width: 100%;
-    object-fit: contain;
-    filter: drop-shadow(0 30px 45px rgba(0,0,0,0.55));
-    transform-origin: center bottom;
-    animation: dk-bob 4.5s ease-in-out infinite;
-}
-
-@keyframes dk-bob {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-16px); }
-}
-
-@keyframes dk-pulse {
-    0%, 100% { opacity: 0.85; transform: scale(1); }
-    50%      { opacity: 1;    transform: scale(1.06); }
+.dk-img-col .featured-card .drink-img-wrap {
+    width: 100%;
+    height: 100%;
 }
 
 /* Detail column */
@@ -200,13 +173,14 @@
 }
 
 .dk-detail-card {
-    background: rgba(255,255,255,0.03);
+    background: #333333;
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 1.25rem;
     padding: 2.5rem 2rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
 }
 
 .dk-detail-name {
@@ -275,67 +249,32 @@
         gap: 2.5rem;
     }
 
-    .dk-img-wrap {
-        min-height: 320px;
-    }
-
-    .dk-img-wrap img {
-        height: 360px;
-    }
-
-    .dk-img-glow {
-        width: 300px;
-        height: 300px;
-    }
-
-    .dk-img-ring {
-        width: 240px;
-        height: 240px;
-    }
-
 }
 
-/* Customize section */
-.dk-customize {
-    background-color: #111111;
-    background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 48px 48px;
-    position: relative;
-    padding: 4rem 2rem 5rem;
-}
-
-.dk-customize::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(90% 45% at 50% 0%, rgba(230,57,70,0.14) 0%, transparent 65%),
-        radial-gradient(50% 50% at 0% 100%, rgba(230,57,70,0.06) 0%, transparent 60%),
-        radial-gradient(50% 50% at 100% 100%, rgba(230,57,70,0.06) 0%, transparent 60%);
-    pointer-events: none;
-}
-
-.dk-customize-inner {
-    position: relative;
-    z-index: 1;
-    max-width: 1280px;
-    margin: 0 auto;
-}
-
+/* Customize section — background/glow now come from the shared .dk-info
+   wrapper above; this is just a second content block within it. */
 .dk-customize-heading {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    color: #fff;
+    font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+    color: var(--red);
     letter-spacing: 0.02em;
-    margin: 0 0 2.5rem;
+    text-align: left;
+    margin: 0;
 }
 
 .dk-customize-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 1.25rem;
+    flex: 1;
+}
+
+.dk-customize-col {
+    background: #333333;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 1.25rem;
+    padding: 2rem 1.75rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
 }
 
 .dk-customize-col h3 {
@@ -392,22 +331,5 @@
         padding: 1.75rem 1.25rem;
     }
 
-    .dk-img-wrap {
-        min-height: 260px;
-    }
-
-    .dk-img-wrap img {
-        height: 280px;
-    }
-
-    .dk-img-glow {
-        width: 240px;
-        height: 240px;
-    }
-
-    .dk-img-ring {
-        width: 190px;
-        height: 190px;
-    }
 }
 

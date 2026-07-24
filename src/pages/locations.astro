@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
-import HeroVideo from '../components/HeroVideo.astro';
 import { getCollection, getEntry } from 'astro:content';
 
 const [locationsEntries, settingsEntry, pageEntry] = await Promise.all([
@@ -45,18 +44,14 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
 
   <Nav active="locations" />
 
-  <section class="loc-hero">
-    <HeroVideo src={p.heroVideo} videoClass="hero-bg" />
-    <div class="loc-hero-content container">
-      <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Find Your 151'}</h1>
-      <p data-sb-field-path="hero.subheading">{p.hero?.subheading ?? 'Texas & Kansas - more coming soon.'}</p>
-      <span class="loc-count">{locations.length} <span data-sb-field-path="hero.countSuffix">{p.hero?.countSuffix ?? 'Locations Open'}</span></span>
-    </div>
-  </section>
-
   <div class="loc-bg">
     <section class="loc-map-section">
       <div class="container">
+        <div class="loc-hero-content">
+          <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Find Your 151'}</h1>
+          <p data-sb-field-path="hero.subheading">{p.hero?.subheading ?? 'Texas & Kansas - more coming soon.'}</p>
+          <span class="loc-count">{locations.length} <span data-sb-field-path="hero.countSuffix">{p.hero?.countSuffix ?? 'Locations Open'}</span></span>
+        </div>
         <div class="locator">
           <div class="locator__panel">
             <div class="locator__search">

@@ -20,9 +20,8 @@ drinkPage:
   sugarFreeHeading: "Sugar Free"
 
 customize:
-  heading: "Customize Your Drink, Your Way"
-  flavorLabel: "Add a Flavor"
-  flavorTip: "- tap to filter the menu"
+  heading: "Sort by Flavor"
+  flavorLabel: "Tap to Filter the Menu"
   sfLabel: "Also Available Sugar Free"
   milks:
     - Almond

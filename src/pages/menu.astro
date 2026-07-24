@@ -96,8 +96,39 @@ for (const loc of LOCATIONS) {
 }
 
 const milks: string[] = p.customize?.milks ?? [];
-const flavors: string[] = p.customize?.flavors ?? [];
+const allFlavors: string[] = p.customize?.flavors ?? [];
 const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
+
+// The flavor pills filter the menu by tag -- a flavor no drink currently
+// carries would just filter to an empty menu, so hide its selector. Food
+// items (Hot Food, Treats) are excluded from this check: their tags (e.g.
+// "Cinnamon" on a coffee cake) aren't real drink flavors, so they shouldn't
+// keep a flavor selector alive on their own. Keep each flavor's original
+// index (not its position in this filtered list) so its data-sb-field-path
+// still points at the right item in the Visual Editor.
+const FOOD_CATS = new Set(['hotfood', 'treats']);
+const FLAVORS_WITH_DRINKS = new Set(
+  allDrinks.filter((d: any) => !FOOD_CATS.has(catSlug(d))).flatMap((d: any) => d.tags ?? [])
+);
+const flavors: { value: string; index: number }[] = allFlavors
+  .map((f: string, index: number) => ({ value: f, index }))
+  .filter(({ value }: any) => FLAVORS_WITH_DRINKS.has(value));
+
+// Temporary placeholder: one representative stock photo per category,
+// standing in until real per-drink product shots are ready. Swap this out
+// for drink.image once photography exists for the new card layout.
+const CATEGORY_PLACEHOLDER_IMAGE: Record<string, string> = {
+  coffee: '/images/v5/coffee.jpg',
+  coldbrew: '/images/v5/coldbrew.jpg',
+  'Misc.': '/images/v5/misc.jpg',
+  misc: '/images/v5/misc.jpg',
+  energy: '/images/v5/energy.jpg',
+  dirtypop: '/images/v5/dirtypop.jpg',
+  refreshers: '/images/v5/refreshers.jpg',
+  smoothies: '/images/v5/smoothies.jpg',
+  teas: '/images/v5/teas.jpg',
+  kids: '/images/v5/kids.jpg',
+};
 ---
 <Layout title={p.seo?.title ?? 'Menu | 151 Coffee - Coffee, Cold Brew, Energy & Dirty Pop'} description={p.seo?.description ?? 'Explore the full 151 Coffee menu. Signature espresso drinks, cold brew, blended energy, Dirty Pop sodas, refreshers, smoothies, teas, and more.'} ogImage={p.seo?.ogImage}>
   <Fragment slot="head">
@@ -110,7 +141,6 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
     <HeroVideo src={p.heroVideo} videoClass="hero-bg" />
     <div class="menu-hero-content">
       <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Our Menu'}</h1>
-      <p data-sb-field-path="hero.subheading">{p.hero?.subheading ?? 'Thousands of flavor combinations. One perfect drink, every time.'}</p>
       <button type="button" class="location-trigger" id="locationTrigger">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z" stroke="currentColor" stroke-width="1.8"/>
@@ -165,11 +195,11 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
               data-visible={cat.hiddenByDefault ? 'false' : undefined}
               data-sb-object-id={cat.refId}>
               <div class="cat-title-inner">
-                <span class="cat-num" data-sb-field-path="number">{cat.num}</span>
                 <h2 class="cat-title-text" data-sb-field-path="title">{cat.title}</h2>
                 <p class="cat-title-desc" data-sb-field-path="description">{cat.desc}</p>
-                <svg class="cat-arrow" viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2 12h36M26 2l12 10-12 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg class="cat-arrow" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="4" y1="4" x2="28" y2="16" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="28" y1="16" x2="4" y2="28" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
                 </svg>
               </div>
             </div>
@@ -180,10 +210,7 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
                 data-sb-object-id={`src/content/drinks/${drink.slug}.yaml`}>
                 {drink.badge && <span class="drink-badge" data-sb-field-path="badge">{drink.badge}</span>}
                 <div class="drink-img-wrap">
-                  {drink.image
-                    ? <img loading="lazy" decoding="async" src={drink.image.startsWith('/') ? drink.image : '/' + drink.image} alt={drink.name} data-sb-field-path="image" />
-                    : <img loading="lazy" decoding="async" src="/images/drinks/energy/151 Blue Energy Hand (1).png" alt={drink.name} data-sb-field-path="image" />
-                  }
+                  <img loading="lazy" decoding="async" src={CATEGORY_PLACEHOLDER_IMAGE[cat.tab] ?? '/images/v5/coffee.jpg'} alt={drink.name} />
                 </div>
                 <div class="drink-info">
                   <h3 data-sb-field-path="name">{drink.name}</h3>
@@ -215,27 +242,17 @@ const sfFlavors: string[] = p.customize?.sfFlavors ?? [];
 
   <section class="customize-section">
     <div class="cz-inner">
-      <div class="cz-heading">
-        <h2 data-sb-field-path="customize.heading">{p.customize?.heading ?? 'Customize Your Drink, Your Way'}</h2>
-        <p class="cz-filter-hint" id="czFilterHint" aria-live="polite"></p>
-      </div>
-      <div class="cz-layout">
-        <div class="cz-right" style="width:100%;max-width:100%;flex:1">
-          <div class="cz-block">
-            <p class="cz-label"><span data-sb-field-path="customize.flavorLabel">{p.customize?.flavorLabel ?? 'Add a Flavor'}</span> <span class="cz-filter-tip" data-sb-field-path="customize.flavorTip">{p.customize?.flavorTip ?? '- tap to filter the menu'}</span></p>
-            <div class="cz-pills cz-pills--flavors" id="czFlavorPills" data-sb-field-path="customize.flavors">
-              {flavors.map((f: string, i: number) => (
-                <span class="cpill cpill--filter" data-flavor={f} data-sb-field-path={`.${i}`}>{f}</span>
-              ))}
-            </div>
-          </div>
-          <div class="cz-block cz-block--sf">
-            <p class="cz-label cz-label--sf" data-sb-field-path="customize.sfLabel">{p.customize?.sfLabel ?? 'Also Available Sugar Free'}</p>
-            <div class="cz-pills cz-pills--flavors" data-sb-field-path="customize.sfFlavors">
-              {sfFlavors.map((f: string, i: number) => (
-                <span class="cpill cpill--sf" data-sb-field-path={`.${i}`}>{f}</span>
-              ))}
-            </div>
+      <div class="cz-row">
+        <div class="cz-heading">
+          <h2 data-sb-field-path="customize.heading">{p.customize?.heading ?? 'Sort by Flavor'}</h2>
+          <p class="cz-filter-hint" id="czFilterHint" aria-live="polite"></p>
+        </div>
+        <div class="cz-block cz-flavor-block">
+          <p class="cz-label" data-sb-field-path="customize.flavorLabel">{p.customize?.flavorLabel ?? 'Tap to Filter the Menu'}</p>
+          <div class="cz-pills cz-pills--flavors" id="czFlavorPills" data-sb-field-path="customize.flavors">
+            {flavors.map(({ value: f, index: i }: any) => (
+              <span class="cpill cpill--filter" data-flavor={f} data-sb-field-path={`.${i}`}>{f}</span>
+            ))}
           </div>
         </div>
       </div>
