@@ -115,7 +115,7 @@
     max-width: 55ch;
 }
 
-/* Drink info: image/detail + customize, one continuous section/background */
+/* Drink info: photo + one unified detail card */
 .dk-info {
     background: #f4efe9;
     padding: 5rem 2rem;
@@ -135,28 +135,41 @@
     pointer-events: none;
 }
 
-.dk-body-inner { position: relative; z-index: 1; }
-
 .dk-body-inner {
-    max-width: 1280px;
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 3.5rem;
     align-items: stretch;
 }
 
-/* Image column -- sized to match the combined height of the detail
-   card + customize cards beside it. object-fit:cover on the img means
-   any photo (regardless of its own aspect ratio) fills this evenly. */
+/* Image column -- stretches to match the detail card's full height */
 .dk-img-col {
     display: flex;
-    align-items: stretch;
-    justify-content: center;
+}
+
+.dk-photo-frame {
+    position: relative;
+    width: 100%;
+}
+
+.dk-photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: -1.75rem;
+    background: radial-gradient(70% 70% at 50% 40%, rgba(230,57,70,0.14) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
 }
 
 .dk-img-col .featured-card {
+    position: relative;
+    z-index: 1;
     width: 100%;
+    max-width: none;
     height: 100%;
 }
 
@@ -166,26 +179,24 @@
 }
 
 /* Detail column */
-.dk-detail-col {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
+.dk-detail-col { display: flex; flex-direction: column; }
 
 .dk-detail-card {
-    background: #333333;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 1.25rem;
-    padding: 2.5rem 2rem;
+    background:
+        radial-gradient(120% 100% at 100% 0%, rgba(230,57,70,0.16) 0%, transparent 55%),
+        linear-gradient(160deg, #242424 0%, #161616 100%);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 1.5rem;
+    padding: 3rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    gap: 1.1rem;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.22);
 }
 
 .dk-detail-name {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
     color: #fff;
     line-height: 1;
     letter-spacing: 0.02em;
@@ -193,16 +204,17 @@
 }
 
 .dk-detail-desc {
-    font-size: 1rem;
-    color: rgba(255,255,255,0.7);
+    font-size: 1.02rem;
+    color: rgba(255,255,255,0.68);
     line-height: 1.7;
     margin: 0;
+    max-width: 52ch;
 }
 
 .dk-divider {
     height: 1px;
     background: rgba(255,255,255,0.08);
-    margin: 0.25rem 0;
+    margin: 0.35rem 0;
 }
 
 .dk-flavor-label {
@@ -223,68 +235,53 @@
 
 .dk-menu-link {
     display: inline-block;
-    background: #e63946;
+    background: linear-gradient(135deg, var(--red) 0%, var(--red-soft) 100%);
     color: #fff;
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     text-decoration: none;
-    padding: 0.85rem 1.75rem;
+    padding: 0.9rem 1.9rem;
     border-radius: 100px;
-    transition: background 0.2s ease, transform 0.15s ease;
-    margin-top: 0.5rem;
+    box-shadow: 0 4px 16px rgba(230,57,70,0.28);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    margin-top: 0.6rem;
     align-self: flex-start;
 }
 
 .dk-menu-link:hover {
-    background: #c0303b;
-    transform: translateY(-1px);
+    filter: brightness(1.07);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(230,57,70,0.35);
 }
 
-/* Responsive */
-@media (max-width: 900px) {
-    .dk-body-inner {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-    }
-
-}
-
-/* Customize section — background/glow now come from the shared .dk-info
-   wrapper above; this is just a second content block within it. */
+/* Customize -- stacked rows inside the same card (Flavors, then Sugar
+   Free below), each row spanning the full card width so the tag cloud
+   has room to wrap. */
 .dk-customize-heading {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(1.4rem, 2.4vw, 1.8rem);
+    font-size: clamp(1.15rem, 1.8vw, 1.4rem);
     color: var(--red);
     letter-spacing: 0.02em;
     text-align: left;
     margin: 0;
 }
 
-.dk-customize-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+.dk-customize-rows {
+    display: flex;
+    flex-direction: column;
     gap: 1.25rem;
-    flex: 1;
 }
 
-.dk-customize-col {
-    background: #333333;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 1.25rem;
-    padding: 2rem 1.75rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.18);
-}
-
-.dk-customize-col h3 {
+.dk-customize-row h4 {
     font-family: 'Inter', sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: rgba(255,255,255,0.35);
-    margin: 0 0 1rem;
+    margin: 0 0 0.65rem;
 }
 
 .dk-customize-tags {
@@ -311,10 +308,24 @@
     background: rgba(230,57,70,0.06);
 }
 
-@media (max-width: 768px) {
-    .dk-customize-grid {
+/* Responsive */
+@media (max-width: 900px) {
+    .dk-body-inner {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 2.5rem;
+    }
+
+    .dk-img-col .featured-card {
+        height: auto;
+    }
+
+    .dk-img-col .featured-card .drink-img-wrap {
+        height: 380px;
+    }
+
+    .dk-img-col {
+        max-width: 380px;
+        margin: 0 auto;
     }
 }
 
@@ -323,13 +334,12 @@
         padding: 2.5rem 1.25rem 2.5rem;
     }
 
-    .dk-body {
+    .dk-info {
         padding: 3rem 1.25rem;
     }
 
     .dk-detail-card {
-        padding: 1.75rem 1.25rem;
+        padding: 2rem 1.5rem;
     }
-
 }
 

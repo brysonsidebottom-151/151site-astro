@@ -64,19 +64,21 @@ const ogImage = drink.image
     </div>
   </section>
 
-  <!-- Drink info: image + detail card, then customize options — one continuous background -->
+  <!-- Drink info: photo + one unified detail card -->
   <section class="dk-info">
     <div class="dk-body-inner">
       <div class="dk-img-col">
-        <div class="featured-card">
-          <div class="drink-img-wrap">
-            {drink.badge && <span class="drink-badge" data-sb-field-path="badge">{drink.badge}</span>}
-            {(() => {
-              const src = drink.image
-                ? (drink.image.startsWith('/') ? drink.image : '/' + drink.image)
-                : '/images/drinks/energy/151 Blue Energy Hand (1).png';
-              return <img src={src} alt={drink.name} data-sb-field-path="image" />;
-            })()}
+        <div class="dk-photo-frame">
+          <div class="featured-card">
+            <div class="drink-img-wrap">
+              {drink.badge && <span class="drink-badge" data-sb-field-path="badge">{drink.badge}</span>}
+              {(() => {
+                const src = drink.image
+                  ? (drink.image.startsWith('/') ? drink.image : '/' + drink.image)
+                  : '/images/drinks/energy/151 Blue Energy Hand (1).png';
+                return <img src={src} alt={drink.name} data-sb-field-path="image" />;
+              })()}
+            </div>
           </div>
         </div>
       </div>
@@ -94,27 +96,30 @@ const ogImage = drink.image
               <p class="dk-flavor-val">{drink.tags.join(', ')}</p>
             </>
           )}
-          <a href="/menu" class="dk-menu-link" data-sb-object-id="src/content/pages/menu.yaml" data-sb-field-path="drinkPage.viewMenuLabel">{m.drinkPage?.viewMenuLabel ?? 'View Full Menu'}</a>
-        </div>
 
-        <h3 class="dk-customize-heading" data-sb-object-id="src/content/pages/menu.yaml" data-sb-field-path="customize.heading">{m.customize?.heading ?? 'Customize Your Drink, Your Way'}</h3>
-        <div class="dk-customize-grid">
-          <div class="dk-customize-col">
-            <h3 data-sb-field-path="drinkPage.flavorsHeading">{m.drinkPage?.flavorsHeading ?? 'Flavors'}</h3>
-            <div class="dk-customize-tags" data-sb-field-path="customize.flavors">
-              {(m.customize?.flavors ?? []).map((f: string, i: number) => (
-                <span class="dk-customize-tag" data-sb-field-path={`.${i}`}>{f}</span>
-              ))}
+          <div class="dk-divider"></div>
+
+          <h3 class="dk-customize-heading" data-sb-object-id="src/content/pages/menu.yaml" data-sb-field-path="customize.heading">{m.customize?.heading ?? 'Customize Your Drink, Your Way'}</h3>
+          <div class="dk-customize-rows">
+            <div class="dk-customize-row">
+              <h4 data-sb-field-path="drinkPage.flavorsHeading">{m.drinkPage?.flavorsHeading ?? 'Flavors'}</h4>
+              <div class="dk-customize-tags" data-sb-field-path="customize.flavors">
+                {(m.customize?.flavors ?? []).map((f: string, i: number) => (
+                  <span class="dk-customize-tag" data-sb-field-path={`.${i}`}>{f}</span>
+                ))}
+              </div>
+            </div>
+            <div class="dk-customize-row">
+              <h4 data-sb-field-path="drinkPage.sugarFreeHeading">{m.drinkPage?.sugarFreeHeading ?? 'Sugar Free'}</h4>
+              <div class="dk-customize-tags" data-sb-field-path="customize.sfFlavors">
+                {(m.customize?.sfFlavors ?? []).map((f: string, i: number) => (
+                  <span class="dk-customize-tag sf" data-sb-field-path={`.${i}`}>{f}</span>
+                ))}
+              </div>
             </div>
           </div>
-          <div class="dk-customize-col">
-            <h3 data-sb-field-path="drinkPage.sugarFreeHeading">{m.drinkPage?.sugarFreeHeading ?? 'Sugar Free'}</h3>
-            <div class="dk-customize-tags" data-sb-field-path="customize.sfFlavors">
-              {(m.customize?.sfFlavors ?? []).map((f: string, i: number) => (
-                <span class="dk-customize-tag sf" data-sb-field-path={`.${i}`}>{f}</span>
-              ))}
-            </div>
-          </div>
+
+          <a href="/menu" class="dk-menu-link" data-sb-object-id="src/content/pages/menu.yaml" data-sb-field-path="drinkPage.viewMenuLabel">{m.drinkPage?.viewMenuLabel ?? 'View Full Menu'}</a>
         </div>
       </div>
     </div>
