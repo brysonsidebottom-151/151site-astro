@@ -143,3 +143,5 @@ contact:
   phoneLabel: Phone Number
   messageLabel: Message
   submitLabel: Submit
+sections:
+  - type: PromoBanner
