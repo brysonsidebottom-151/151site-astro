@@ -1,0 +1,44 @@
+---
+// Loops over a page's `sections` array (each entry: { type, ...fields })
+// and renders the matching block component. Add a new block type by
+// creating its component and adding one line to this map -- the Visual
+// Editor side (stackbit.config.ts) needs a matching model added too so
+// editors can pick it from the "Add Section" list.
+import PromoBanner from './PromoBanner.astro';
+import SplitFeature from './SplitFeature.astro';
+import CtaSection from './CtaSection.astro';
+import TestimonialGrid from './TestimonialGrid.astro';
+import StatStrip from './StatStrip.astro';
+import FaqAccordion from './FaqAccordion.astro';
+import CardGrid from './CardGrid.astro';
+
+const BLOCK_COMPONENTS: Record<string, any> = {
+  PromoBanner,
+  SplitFeature,
+  CtaSection,
+  TestimonialGrid,
+  StatStrip,
+  FaqAccordion,
+  CardGrid,
+};
+
+interface Props {
+  sections?: Array<Record<string, any>>;
+  // The content file this `sections` array lives on (e.g.
+  // "src/content/pages/home.yaml") -- needed to point the Visual Editor's
+  // click-to-select at the right document + field path per block.
+  objectId: string;
+}
+const { sections = [], objectId } = Astro.props as Props;
+---
+{sections.map((section, i) => {
+  const Component = section?.type && BLOCK_COMPONENTS[section.type];
+  if (!Component) return null;
+  return (
+    <Component
+      {...section}
+      data-sb-object-id={objectId}
+      data-sb-field-path={`sections.${i}`}
+    />
+  );
+})}

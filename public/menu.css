@@ -805,14 +805,35 @@
 
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
+    /* Just a still photo on mobile (no video to size around). Sized to the
+       photo's own 16:9 aspect ratio so object-fit:cover shows nearly the
+       whole frame instead of cropping big chunks off the sides. */
     .menu-hero {
-        min-height: 0;
-        display: block;
+        aspect-ratio: 16 / 9;
+        height: auto;
+        min-height: 220px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         padding-bottom: 0;
     }
 
+    /* The shared .hero-bg sizing (width/height:auto + min-width/height:100%)
+       only grows a source that's SMALLER than its container -- this photo
+       (1280x720) is larger than the mobile hero box in both dimensions, so
+       those mins are already satisfied and the browser renders it at full
+       native size, showing only a tiny native-pixel crop from the center.
+       Force real percentage sizing here so object-fit:cover actually scales
+       it down to fill the box instead. */
+    .menu-hero .hero-bg.hero-mobile-still {
+        width: 100%;
+        height: 100%;
+        min-width: 0;
+        min-height: 0;
+    }
+
     .menu-hero-content {
-        padding: 2.5rem 1.5rem 2rem;
+        padding: 2.5rem 1.5rem;
     }
 
     /* On mobile the horizontal timeline becomes a vertical, wrapping grid:

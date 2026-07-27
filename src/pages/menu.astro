@@ -138,7 +138,7 @@ const CATEGORY_PLACEHOLDER_IMAGE: Record<string, string> = {
   <Nav active="menu" />
 
   <section class="menu-hero">
-    <HeroVideo src={p.heroVideo} videoClass="hero-bg" />
+    <HeroVideo src={p.heroVideo} videoClass="hero-bg" mobileImage={p.heroMobileImage ?? '/images/splash1.jpg'} />
     <div class="menu-hero-content">
       <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Our Menu'}</h1>
       <button type="button" class="location-trigger" id="locationTrigger">

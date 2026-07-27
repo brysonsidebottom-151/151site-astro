@@ -14,8 +14,12 @@ interface Props {
   // surrounded by bare letterbox bars. Desktop is unaffected -- the backdrop
   // copy is hidden there and the activation script skips loading it entirely.
   blurBackdrop?: boolean;
+  // On phones, show this still photo instead of the video entirely -- the
+  // video never even loads on mobile when this is set (saves bandwidth).
+  // Desktop is unaffected and keeps playing the normal video.
+  mobileImage?: string;
 }
-const { src, videoClass = '', fallback = '/videos/landing_bg.mp4', blurBackdrop = false } = Astro.props;
+const { src, videoClass = '', fallback = '/videos/landing_bg.mp4', blurBackdrop = false, mobileImage } = Astro.props;
 
 const raw = (src && src.trim()) ? src.trim() : fallback;
 
@@ -55,8 +59,11 @@ if (ytMatch) {
         data-src={raw}
         poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect width='1' height='1' fill='%23111111'/%3E%3C/svg%3E"></video>
     )}
-    <video muted loop playsinline preload="none" class={videoClass} data-hero-video data-src={raw} aria-hidden="true"
+    <video muted loop playsinline preload="none" class={videoClass} data-hero-video data-src={raw} data-mobile-skip={mobileImage ? 'true' : undefined} aria-hidden="true"
       poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect width='1' height='1' fill='%23111111'/%3E%3C/svg%3E"></video>
+    {mobileImage && (
+      <img class={`${videoClass} hero-mobile-still`} src={mobileImage} alt="" aria-hidden="true" />
+    )}
   </Fragment>
 )}
 
@@ -70,6 +77,9 @@ if (ytMatch) {
         // The blurred backdrop copy only exists to fill space around a
         // contain-fit video on mobile -- don't fetch/decode it on desktop.
         if (isDesktop && v.hasAttribute('data-mobile-only')) return;
+        // A still photo replaces the video entirely on mobile -- never
+        // download the video there.
+        if (!isDesktop && v.hasAttribute('data-mobile-skip')) return;
         if (v.dataset.src && !v.src) {
           v.muted = true;
           v.setAttribute('autoplay', '');
@@ -89,6 +99,10 @@ if (ytMatch) {
 </script>
 
 <style>
+  .hero-mobile-still { display: none; }
+  @media (max-width: 768px) {
+    .hero-mobile-still { display: block; }
+  }
   .hero-embed-wrap { overflow: hidden; }
   .hero-embed {
     position: absolute;

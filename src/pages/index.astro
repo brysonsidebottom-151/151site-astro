@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import HeroVideo from '../components/HeroVideo.astro';
+import BlockRenderer from '../components/blocks/BlockRenderer.astro';
 import { getEntry, getCollection } from 'astro:content';
 
 const [homeEntry, settingsEntry, locationsEntries] = await Promise.all([
@@ -42,7 +43,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
   <!-- Hero -->
   <section class="hero">
     <div>
-      <HeroVideo src={p.hero?.videoUrl} videoClass="hero-video" blurBackdrop />
+      <HeroVideo src={p.hero?.videoUrl} videoClass="hero-video" />
     </div>
     <div class="container">
       <div class="hero-content">
@@ -59,6 +60,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
     <section class="featured-drink" data-sb-object-id="src/content/pages/home.yaml">
       <div class="featured-inner">
         <div class="featured-visual">
+          <h2 class="featured-mobile-name" data-sb-field-path="featuredDrink.name">{p.featuredDrink?.name} <span data-sb-field-path="featuredDrink.nameBold">{p.featuredDrink?.nameBold}</span></h2>
           <div class="featured-card">
             <div class="drink-img-wrap">
               <img src={p.featuredDrink?.image ?? '/images/v5/coffee.jpg'} alt={p.featuredDrink?.imageAlt ?? p.featuredDrink?.name ?? 'Featured drink'} width="480" height="480" decoding="async" data-sb-field-path="featuredDrink.image#@src featuredDrink.imageAlt#@alt" />
@@ -198,6 +200,8 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
       </div>
     </div>
   </section>
+
+  <BlockRenderer sections={p.sections} objectId="src/content/pages/home.yaml" />
 
   <Footer />
 

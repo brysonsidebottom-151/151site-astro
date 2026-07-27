@@ -114,6 +114,13 @@ export default defineStackbitConfig({
               { name: 'messageLabel', type: 'string' },
               { name: 'submitLabel', type: 'string' },
             ]},
+            { name: 'sections', type: 'list', label: 'Extra sections (add-on blocks)',
+              description: 'Appended after the fixed sections above, in order. Pick a block type and fill it in -- no code needed.',
+              items: { type: 'model', models: [
+                'PromoBannerBlock', 'SplitFeatureBlock', 'CtaSectionBlock',
+                'TestimonialGridBlock', 'StatStripBlock', 'FaqAccordionBlock', 'CardGridBlock',
+              ]},
+            },
           ],
         },
         {
@@ -124,6 +131,7 @@ export default defineStackbitConfig({
           fields: [
             seoField,
             { name: 'heroVideo', type: 'string', label: 'Hero background video', description: 'Paste a YouTube or Vimeo link, or a direct .mp4 file URL. Leave blank for the default video.' },
+            { name: 'heroMobileImage', type: 'image', label: 'Hero photo (mobile only)', description: 'On phones the hero shows a still photo instead of the video, to keep things fast and simple. Leave blank for the default photo.' },
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
@@ -366,11 +374,13 @@ export default defineStackbitConfig({
         },
         {
           name: 'Drink',
+          label: 'Products',
+          description: 'Everything on the menu -- drinks and food items alike.',
           type: 'data',
           labelField: 'name',
           filePath: 'src/content/drinks/{slug}.yaml',
           fields: [
-            { name: 'name', type: 'string', required: true, default: 'New Drink' },
+            { name: 'name', type: 'string', required: true, default: 'New Product' },
             { name: 'category', type: 'reference', required: true, models: ['Category'] },
             { name: 'subtitle', type: 'string', default: '' },
             { name: 'description', type: 'string', default: '' },
@@ -467,6 +477,128 @@ export default defineStackbitConfig({
               { name: 'giftCardCheckLabel', type: 'string', label: 'Support: Check Gift Card link' },
               { name: 'giftCardButtonLabel', type: 'string' },
             ]},
+          ],
+        },
+
+        // ── Add-on section blocks ──────────────────────────────────────
+        // Embedded (not standalone-file) models used by PageHome's `sections`
+        // list. Each mirrors the props of its matching Astro component in
+        // src/components/blocks/ -- add a new block by creating that
+        // component, adding it to BlockRenderer.astro's map, and adding its
+        // model here (then listing its name in the `sections` field above).
+        {
+          name: 'PromoBannerBlock',
+          type: 'object',
+          label: 'Section: Promo Banner',
+          description: 'Full-width red announcement strip with an optional button.',
+          labelField: 'heading',
+          fields: [
+            { name: 'type', type: 'string', hidden: true, default: 'PromoBanner' },
+            { name: 'eyebrow', type: 'string', label: 'Eyebrow tag (e.g. "Limited Time")' },
+            { name: 'heading', type: 'string' },
+            { name: 'body', type: 'string' },
+            { name: 'ctaLabel', type: 'string', label: 'Button text' },
+            { name: 'ctaHref', type: 'string', label: 'Button link' },
+          ],
+        },
+        {
+          name: 'SplitFeatureBlock',
+          type: 'object',
+          label: 'Section: Image + Text',
+          description: 'Photo on one side, heading/body/button on the other.',
+          labelField: 'heading',
+          fields: [
+            { name: 'type', type: 'string', hidden: true, default: 'SplitFeature' },
+            { name: 'heading', type: 'string' },
+            { name: 'headingSpan', type: 'string', label: 'Heading (red accent line, optional)' },
+            { name: 'body', type: 'string' },
+            { name: 'image', type: 'image' },
+            { name: 'imageAlt', type: 'string' },
+            { name: 'ctaLabel', type: 'string', label: 'Button text' },
+            { name: 'ctaHref', type: 'string', label: 'Button link' },
+            { name: 'imagePosition', type: 'enum', label: 'Photo side', options: ['left', 'right'], default: 'left' },
+            { name: 'background', type: 'enum', label: 'Background', options: ['light', 'dark'], default: 'light' },
+          ],
+        },
+        {
+          name: 'CtaSectionBlock',
+          type: 'object',
+          label: 'Section: CTA (centered)',
+          description: 'Centered heading/body with up to two buttons on a red background.',
+          labelField: 'heading',
+          fields: [
+            { name: 'type', type: 'string', hidden: true, default: 'CtaSection' },
+            { name: 'heading', type: 'string' },
+            { name: 'body', type: 'string' },
+            { name: 'primaryLabel', type: 'string', label: 'Primary button text' },
+            { name: 'primaryHref', type: 'string', label: 'Primary button link' },
+            { name: 'secondaryLabel', type: 'string', label: 'Secondary button text' },
+            { name: 'secondaryHref', type: 'string', label: 'Secondary button link' },
+          ],
+        },
+        {
+          name: 'TestimonialGridBlock',
+          type: 'object',
+          label: 'Section: Testimonial Grid',
+          description: 'A grid of quote cards, same style as the homepage reviews.',
+          labelField: 'heading',
+          fields: [
+            { name: 'type', type: 'string', hidden: true, default: 'TestimonialGrid' },
+            { name: 'heading', type: 'string' },
+            { name: 'items', type: 'list', label: 'Testimonials', items: { type: 'object', labelField: 'name', fields: [
+              { name: 'quote', type: 'string' },
+              { name: 'name', type: 'string' },
+              { name: 'location', type: 'string', label: 'City, State' },
+            ]}},
+          ],
+        },
+        {
+          name: 'StatStripBlock',
+          type: 'object',
+          label: 'Section: Stat Strip',
+          description: 'A row of big numbers with labels on a red background.',
+          labelField: 'heading',
+          fields: [
+            { name: 'type', type: 'string', hidden: true, default: 'StatStrip' },
+            { name: 'heading', type: 'string' },
+            { name: 'stats', type: 'list', items: { type: 'object', fields: [
+              { name: 'number', type: 'string' },
+              { name: 'label', type: 'string' },
+            ]}},
+          ],
+        },
+        {
+          name: 'FaqAccordionBlock',
+          type: 'object',
+          label: 'Section: FAQ Accordion',
+          description: 'A red-background FAQ list, same style as the homepage FAQ.',
+          labelField: 'heading',
+          fields: [
+            { name: 'type', type: 'string', hidden: true, default: 'FaqAccordion' },
+            { name: 'heading', type: 'string' },
+            { name: 'items', type: 'list', label: 'Questions', items: { type: 'object', labelField: 'question', fields: [
+              { name: 'question', type: 'string' },
+              { name: 'answer', type: 'string' },
+            ]}},
+          ],
+        },
+        {
+          name: 'CardGridBlock',
+          type: 'object',
+          label: 'Section: Card Grid',
+          description: 'A grid of image/title/link cards, same style as the homepage menu cards.',
+          labelField: 'heading',
+          fields: [
+            { name: 'type', type: 'string', hidden: true, default: 'CardGrid' },
+            { name: 'heading', type: 'string' },
+            { name: 'background', type: 'enum', label: 'Background', options: ['light', 'dark'], default: 'dark' },
+            { name: 'cards', type: 'list', items: { type: 'object', labelField: 'title', fields: [
+              { name: 'title', type: 'string' },
+              { name: 'subtitle', type: 'string' },
+              { name: 'image', type: 'image' },
+              { name: 'href', type: 'string' },
+              { name: 'label', type: 'string', label: 'Button text' },
+            ]}},
           ],
         },
       ],

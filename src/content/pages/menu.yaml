@@ -4,6 +4,7 @@ seo:
   description: "Explore the full 151 Coffee menu. Signature espresso drinks, cold brew, blended energy, Dirty Pop sodas, refreshers, smoothies, teas, and more."
   ogImage: "https://www.151coffee.com/images/splash1.jpg"
 heroVideo: "/videos/menu_bg.mp4"
+heroMobileImage: "/images/menu-hero-mobile-drinks.jpg"
 hero:
   heading: "Our Menu"
   subheading: "Thousands of flavor combinations. One perfect drink, every time."

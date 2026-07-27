@@ -12,7 +12,7 @@ hero:
   subheadingLine2: to have a good day
   ctaLabel: See Our Menu
   ctaHref: /menu
-  videoUrl: /videos/landing_bg.mp4
+  videoUrl: /videos/menu_bg.mp4
 featuredDrink:
   visible: true
   badge: Summer's Featured Drink
