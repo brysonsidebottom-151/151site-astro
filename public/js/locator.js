@@ -5,10 +5,13 @@
 // reflected here automatically, with nothing to keep in sync by hand.
 (function () {
     const mapEl = document.getElementById("locator-map");
+    // The results list is optional -- the locations page drops it (the state-
+    // grouped grid below already shows every location as a card), while the
+    // homepage still renders one. Map + search still work either way.
     const listEl = document.getElementById("locator-list");
     const searchEl = document.getElementById("locator-search");
     const STORES = window.COFFEE151_STORES || [];
-    if (!mapEl || !listEl || !searchEl || typeof L === "undefined" || !STORES.length) return;
+    if (!mapEl || !searchEl || typeof L === "undefined" || !STORES.length) return;
 
     // Store hours + phone come from global settings (editable), same for
     // every location today; swap to per-location fields or the Google
@@ -50,27 +53,38 @@
     // origin (optional) = [lat, lng] of the searched location; when present we
     // show each store's distance and assume `stores` is already sorted nearest-first.
     function renderList(stores, origin) {
+        if (!listEl) return;
         listEl.innerHTML = "";
         if (!stores.length) stores = STORES; // never leave the list empty
         stores.forEach((store) => {
             const originalIndex = STORES.indexOf(store);
             const item = document.createElement("div");
-            item.className = "locator__item";
+            // store.image/slug only exist on the locations page's store data
+            // (the homepage locator doesn't pass them) -- their presence is
+            // what turns this into a photo card with a "More Info" link.
+            item.className = store.image ? "locator__item locator-photo-card" : "locator__item";
             item.dataset.index = String(originalIndex);
             const dist = origin
                 ? `<span class="locator__dist">${haversineMiles(origin[0], origin[1], store.lat, store.lng).toFixed(1)} mi</span>`
                 : "";
+            const photo = store.image ? `<img class="locator__item-photo" src="${store.image}" alt="" loading="lazy" decoding="async">` : "";
+            const arrow = '<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+            const moreInfo = store.slug ? `<a class="locator__more-info" href="/locations/${store.slug}">More Info${arrow}</a>` : "";
             item.innerHTML = `
+                ${photo}
                 <div class="locator__item-info">
                     <h3>${store.name.replace("151 Coffee ", "")}${dist}</h3>
                     <p>${store.address}<br>${store.city}, ${store.state} ${store.zip}</p>
                     <p class="locator__hours">${HOURS}</p>
                     <a class="locator__phone" href="tel:+1${PHONE_TEL}">${PHONE}</a>
                 </div>
-                <a class="locator__directions" href="${directionsUrl(store)}" target="_blank" rel="noopener noreferrer">Directions</a>
+                <div class="locator__item-actions">
+                    <a class="locator__directions" href="${directionsUrl(store)}" target="_blank" rel="noopener noreferrer">Directions${photo ? arrow : ""}</a>
+                    ${moreInfo}
+                </div>
             `;
             item.addEventListener("click", (e) => {
-                if (e.target.closest(".locator__directions, .locator__phone")) return;
+                if (e.target.closest(".locator__directions, .locator__phone, .locator__more-info")) return;
                 setActive(originalIndex, false);
             });
             listEl.appendChild(item);
@@ -110,11 +124,13 @@
     }
 
     function setActive(index, fromMarker) {
-        listEl.querySelectorAll(".locator__item").forEach(el => el.classList.remove("active"));
-        const item = listEl.querySelector(`.locator__item[data-index="${index}"]`);
-        if (item) {
-            item.classList.add("active");
-            if (!fromMarker) item.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        if (listEl) {
+            listEl.querySelectorAll(".locator__item").forEach(el => el.classList.remove("active"));
+            const item = listEl.querySelector(`.locator__item[data-index="${index}"]`);
+            if (item) {
+                item.classList.add("active");
+                if (!fromMarker) item.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
         }
         const store = STORES[index];
         map.flyTo([store.lat, store.lng], 13, { duration: 0.6 });

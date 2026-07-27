@@ -63,7 +63,7 @@ export default defineStackbitConfig({
               { name: 'subheadingLine2', type: 'string' },
               { name: 'ctaLabel', type: 'string' },
               { name: 'ctaHref', type: 'string' },
-              { name: 'videoUrl', type: 'string', label: 'Hero background video', description: 'Paste a YouTube or Vimeo link, or a direct .mp4 file URL. Leave blank for the default video.' },
+              { name: 'videoUrl', type: 'file', label: 'Hero background video', description: 'Pick a video from your media library, or paste a YouTube/Vimeo link. Leave blank for the default video.', validations: { fileTypeGroups: ['video'] } },
             ]},
             { name: 'featuredDrink', type: 'object', fields: [
               { name: 'visible', type: 'boolean', label: 'Show this section', description: 'Turn off to hide the featured/LTO drink banner from the homepage entirely.', default: true },
@@ -155,7 +155,7 @@ export default defineStackbitConfig({
               { name: 'timeline', type: 'boolean', label: 'Show the drink timeline', default: true },
               { name: 'customize', type: 'boolean', label: 'Show "Sort by Flavor" section', default: true },
             ]},
-            { name: 'heroVideo', type: 'string', label: 'Hero background video', description: 'Paste a YouTube or Vimeo link, or a direct .mp4 file URL. Leave blank for the default video.' },
+            { name: 'heroVideo', type: 'file', label: 'Hero background video', description: 'Pick a video from your media library, or paste a YouTube/Vimeo link. Leave blank for the default video.', validations: { fileTypeGroups: ['video'] } },
             { name: 'heroMobileImage', type: 'image', label: 'Hero photo (mobile only)', description: 'On phones the hero shows a still photo instead of the video, to keep things fast and simple. Leave blank for the default photo.' },
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
@@ -257,7 +257,7 @@ export default defineStackbitConfig({
           urlPath: '/careers',
           fields: [
             seoField,
-            { name: 'heroVideo', type: 'string', label: 'Hero background video', description: 'Paste a YouTube or Vimeo link, or a direct .mp4 file URL. Leave blank for the default video.' },
+            { name: 'heroVideo', type: 'file', label: 'Hero background video', description: 'Pick a video from your media library, or paste a YouTube/Vimeo link. Leave blank for the default video.', validations: { fileTypeGroups: ['video'] } },
             { name: 'agegate', type: 'object', fields: [
               { name: 'eyebrow', type: 'string' },
               { name: 'heading', type: 'string' },
@@ -382,7 +382,7 @@ export default defineStackbitConfig({
               { name: 'map', type: 'boolean', label: 'Show search/map section', default: true },
               { name: 'grid', type: 'boolean', label: 'Show location cards grid', default: true },
             ]},
-            { name: 'heroVideo', type: 'string', label: 'Hero background video', description: 'Paste a YouTube or Vimeo link, or a direct .mp4 file URL. Leave blank for the default video.' },
+            { name: 'heroVideo', type: 'file', label: 'Hero background video', description: 'Pick a video from your media library, or paste a YouTube/Vimeo link. Leave blank for the default video.', validations: { fileTypeGroups: ['video'] } },
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },

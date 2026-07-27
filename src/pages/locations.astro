@@ -17,8 +17,12 @@ const locations = locationsEntries
   .map(e => ({ slug: e.id, ...(e.data as any) }))
   .sort((a, b) => (a.displayOrder ?? 99) - (b.displayOrder ?? 99));
 
-const storesJson = JSON.stringify(locations.map((l) => ({
+const storesJson = JSON.stringify(locations.map((l: any) => ({
   name: l.name, address: l.address, city: l.city, state: l.state, zip: l.zip, lat: l.lat, lng: l.lng,
+  // Only this page's locator needs these -- their presence is what tells
+  // locator.js to render a photo + "More Info" link on each list item.
+  slug: l.slug,
+  image: l.image ? (l.image.startsWith('/') ? l.image : '/' + l.image) : '/images/store1.jpg',
 })));
 
 // Group locations by state for the cards grid
@@ -56,14 +60,13 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
           <p data-sb-field-path="hero.subheading">{p.hero?.subheading ?? 'Texas & Kansas - more coming soon.'}</p>
           <span class="loc-count">{locations.length} <span data-sb-field-path="hero.countSuffix">{p.hero?.countSuffix ?? 'Locations Open'}</span></span>
         </div>
-        <div class="locator">
-          <div class="locator__panel">
-            <div class="locator__search">
-              <input type="text" id="locator-search" aria-label="Search locations" placeholder={p.searchPlaceholder ?? 'Search by city, state, or zip...'} />
-            </div>
-            <div class="locator__list" id="locator-list"></div>
+      </div>
+      <div class="locator locator--stacked">
+        <div class="locator__map" id="locator-map"></div>
+        <div class="locator__panel">
+          <div class="locator__search">
+            <input type="text" id="locator-search" aria-label="Search locations" placeholder={p.searchPlaceholder ?? 'Search by city, state, or zip...'} />
           </div>
-          <div class="locator__map" id="locator-map"></div>
         </div>
       </div>
     </section>
@@ -81,16 +84,16 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
             <div class="loc-cards">
               {locs.map((loc: any) => (
                 <div
-                  class="loc-card"
+                  class="locator__item locator-photo-card"
                   data-store-card
                   data-href={`/locations/${loc.slug}`}
                   data-sb-object-id={`src/content/locations/${loc.slug}.yaml`}
                 >
                   <img
-                    class="loc-card-photo"
+                    class="locator__item-photo"
                     src={(() => {
                       const full = loc.image ? (loc.image.startsWith('/') ? loc.image : '/' + loc.image) : '/images/store1.jpg';
-                      // Cards render this at ~230px wide -- use the pre-generated
+                      // Cards render this at ~260px wide -- use the pre-generated
                       // thumbnail instead of the full-size photo the location
                       // detail page needs.
                       const m = full.match(/^\/images\/locations\/(.+)\.webp$/);
@@ -100,28 +103,28 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
                     loading="lazy"
                     decoding="async"
                   />
-                  <div class="loc-card-overlay"></div>
-                  <div class="loc-card-body">
-                    <div class="loc-card-city" data-sb-field-path="city">{loc.city}</div>
-                    <div class="loc-card-actions">
-                      <a
-                        class="loc-card-cta"
-                        href={`https://www.google.com/maps/dir/?api=1&destination=${loc.lat},${loc.lng}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {p.directionsLabel ?? 'Get Directions'}
-                        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                      </a>
-                      <a class="loc-card-cta loc-card-cta--info" href={`/locations/${loc.slug}`}>
-                        {p.storeInfoLabel ?? 'Store Info'}
-                        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                      </a>
-                    </div>
+                  <div class="locator__item-info">
+                    <h3 data-sb-field-path="city">{loc.city}</h3>
+                    <p>{loc.address}<br />{loc.city}, {loc.state} {loc.zip}</p>
+                  </div>
+                  <div class="locator__item-actions">
+                    <a
+                      class="locator__directions"
+                      href={`https://www.google.com/maps/dir/?api=1&destination=${loc.lat},${loc.lng}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {p.directionsLabel ?? 'Get Directions'}
+                      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </a>
+                    <a class="locator__more-info" href={`/locations/${loc.slug}`}>
+                      {p.storeInfoLabel ?? 'Store Info'}
+                      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </a>
                   </div>
                 </div>
               ))}
