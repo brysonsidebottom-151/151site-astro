@@ -147,4 +147,6 @@ sections:
   - type: CardGridBlock
     background: dark
     heading: kgjhfiuyouhvg
+    cards:
+      - {}
 markdown_content: ''
