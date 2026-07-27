@@ -143,5 +143,6 @@ contact:
   phoneLabel: Phone Number
   messageLabel: Message
   submitLabel: Submit
-sections: []
+sections:
+  - type: PromoBannerBlock
 markdown_content: ''
