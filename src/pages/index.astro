@@ -55,6 +55,8 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
     </div>
   </section>
 
+  <BlockRenderer sections={p.sectionsAfterHero} objectId="src/content/pages/home.yaml" fieldPrefix="sectionsAfterHero" />
+
   <!-- Featured Drink -->
   {p.featuredDrink?.visible !== false && (
     <section class="featured-drink" data-sb-object-id="src/content/pages/home.yaml">

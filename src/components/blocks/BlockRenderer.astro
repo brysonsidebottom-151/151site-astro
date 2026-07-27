@@ -5,6 +5,7 @@
 // Editor side (stackbit.config.ts) needs a matching model added too so
 // editors can pick it from the "Add Section" list.
 import PromoBanner from './PromoBanner.astro';
+import ImageBanner from './ImageBanner.astro';
 import SplitFeature from './SplitFeature.astro';
 import CtaSection from './CtaSection.astro';
 import TestimonialGrid from './TestimonialGrid.astro';
@@ -21,6 +22,7 @@ import CardGrid from './CardGrid.astro';
 // `type` field on these models in stackbit.config.ts -- Stackbit owns it.
 const BLOCK_COMPONENTS: Record<string, any> = {
   PromoBannerBlock: PromoBanner,
+  ImageBannerBlock: ImageBanner,
   SplitFeatureBlock: SplitFeature,
   CtaSectionBlock: CtaSection,
   TestimonialGridBlock: TestimonialGrid,
@@ -35,8 +37,12 @@ interface Props {
   // "src/content/pages/home.yaml") -- needed to point the Visual Editor's
   // click-to-select at the right document + field path per block.
   objectId: string;
+  // The YAML key this array lives under (e.g. "sections" or
+  // "sectionsAfterHero") -- a page can have more than one insertion point,
+  // each backed by its own field, so the field-path prefix must match.
+  fieldPrefix?: string;
 }
-const { sections = [], objectId } = Astro.props as Props;
+const { sections = [], objectId, fieldPrefix = 'sections' } = Astro.props as Props;
 
 // Tolerate sections created before this fix, whose `type` was accidentally
 // written without the "Block" suffix (e.g. "PromoBanner" instead of
@@ -53,7 +59,7 @@ function resolveComponent(type: string | undefined) {
     <Component
       {...section}
       data-sb-object-id={objectId}
-      data-sb-field-path={`sections.${i}`}
+      data-sb-field-path={`${fieldPrefix}.${i}`}
     />
   );
 })}

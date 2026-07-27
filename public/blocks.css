@@ -9,6 +9,49 @@
 
 .blk { position: relative; }
 
+/* ─── Image Banner: full-width photo with overlay + centered text ─── */
+.blk-imgbanner {
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: var(--black);
+    padding: 3rem 0;
+}
+.blk-imgbanner-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+.blk-imgbanner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.6) 100%);
+    z-index: 1;
+}
+.blk-imgbanner-content { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; }
+.blk-imgbanner-content h2 { color: #fff; font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 0.75rem; }
+.blk-imgbanner-content p { color: rgba(255,255,255,0.92); font-family: 'Inter', sans-serif; font-size: 1.05rem; line-height: 1.6; margin-bottom: 1.75rem; }
+.blk-imgbanner-cta {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--red) 0%, var(--red-soft) 100%);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.92rem;
+    padding: 0.9rem 2.2rem;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    box-shadow: 0 4px 16px rgba(230,57,70,0.3);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.blk-imgbanner-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(230,57,70,0.4); }
+
 /* ─── Promo Banner: full-width red announcement strip ─── */
 .blk-promo {
     padding: 3rem 0;
