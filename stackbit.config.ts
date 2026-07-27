@@ -11,6 +11,21 @@ const seoField: any = {
   ],
 };
 
+// The full set of add-on section block models -- kept in one place since
+// every page's `sections` field offers the same picker. Add a new block
+// type by creating its component + model (see the block models further
+// down) and adding its name here.
+const BLOCK_MODELS = [
+  'PromoBannerBlock', 'ImageBannerBlock', 'SplitFeatureBlock', 'CtaSectionBlock',
+  'TestimonialGridBlock', 'StatStripBlock', 'FaqAccordionBlock', 'CardGridBlock',
+];
+
+function sectionsField(label: string, description: string): any {
+  return { name: 'sections', type: 'list', label, description,
+    items: { type: 'model', models: BLOCK_MODELS },
+  };
+}
+
 export default defineStackbitConfig({
   stackbitVersion: '~0.6.0',
   ssgName: 'astro',
@@ -116,18 +131,9 @@ export default defineStackbitConfig({
             ]},
             { name: 'sectionsAfterHero', type: 'list', label: 'Sections (Between Hero & Featured Drink)',
               description: 'Inserted right after the hero, before the featured/LTO drink banner. Pick a block type and fill it in -- no code needed.',
-              items: { type: 'model', models: [
-                'PromoBannerBlock', 'ImageBannerBlock', 'SplitFeatureBlock', 'CtaSectionBlock',
-                'TestimonialGridBlock', 'StatStripBlock', 'FaqAccordionBlock', 'CardGridBlock',
-              ]},
+              items: { type: 'model', models: BLOCK_MODELS },
             },
-            { name: 'sections', type: 'list', label: 'Sections (Above Footer)',
-              description: 'Appended at the very end of the page, right above the footer, in order. Pick a block type and fill it in -- no code needed.',
-              items: { type: 'model', models: [
-                'PromoBannerBlock', 'ImageBannerBlock', 'SplitFeatureBlock', 'CtaSectionBlock',
-                'TestimonialGridBlock', 'StatStripBlock', 'FaqAccordionBlock', 'CardGridBlock',
-              ]},
-            },
+            sectionsField('Sections (Above Footer)', 'Appended at the very end of the page, right above the footer, in order. Pick a block type and fill it in -- no code needed.'),
           ],
         },
         {
@@ -168,6 +174,7 @@ export default defineStackbitConfig({
               { name: 'flavorsHeading', type: 'string' },
               { name: 'sugarFreeHeading', type: 'string' },
             ]},
+            sectionsField('Sections (Below Timeline, Above Customize)', 'Inserted after the menu timeline, before the "Sort by Flavor" customize section. Pick a block type and fill it in -- no code needed.'),
           ],
         },
         {
@@ -221,6 +228,7 @@ export default defineStackbitConfig({
               { name: 'secondaryLabel', type: 'string' },
               { name: 'secondaryHref', type: 'string' },
             ]},
+            sectionsField('Sections (Below Hero)', 'Inserted right after the hero, before the intro section. Pick a block type and fill it in -- no code needed.'),
           ],
         },
         {
@@ -249,6 +257,7 @@ export default defineStackbitConfig({
             ]},
             { name: 'workstreamLabel', type: 'string' },
             { name: 'workstreamHref', type: 'string' },
+            sectionsField('Sections (Above Hero)', 'Inserted above the careers hero (after the age gate). Pick a block type and fill it in -- no code needed.'),
           ],
         },
         {
@@ -330,6 +339,7 @@ export default defineStackbitConfig({
               { name: 'propertyLabel', type: 'string' },
               { name: 'detailsLabel', type: 'string' },
             ]},
+            sectionsField('Sections (Below Hero)', 'Inserted right after the hero, before the overview section. Pick a block type and fill it in -- no code needed.'),
           ],
         },
         {
@@ -360,6 +370,7 @@ export default defineStackbitConfig({
               { name: 'code', type: 'string' },
               { name: 'name', type: 'string' },
             ]}},
+            sectionsField('Sections (Top, Below Navbar)', 'Inserted at the very top of the page, right below the navbar. Pick a block type and fill it in -- no code needed.'),
           ],
         },
         {

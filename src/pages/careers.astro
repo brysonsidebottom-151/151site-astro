@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import HeroVideo from '../components/HeroVideo.astro';
+import BlockRenderer from '../components/blocks/BlockRenderer.astro';
 import { getEntry } from 'astro:content';
 
 const entry = await getEntry('pages', 'careers');
@@ -184,6 +185,8 @@ const p = entry!.data as any;
 
   <!-- Careers content (revealed after age gate) -->
   <div id="careersContent" style="display:none;">
+    <BlockRenderer sections={p.sections} objectId="src/content/pages/careers.yaml" />
+
     <section class="careers-hero">
       <HeroVideo src={p.heroVideo} videoClass="hero-bg" />
       <div class="careers-hero-content">

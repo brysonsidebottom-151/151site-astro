@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import HeroVideo from '../components/HeroVideo.astro';
+import BlockRenderer from '../components/blocks/BlockRenderer.astro';
 import { getEntry, getCollection } from 'astro:content';
 
 const [menuEntry, drinksEntries, categoryEntries, locationEntries] = await Promise.all([
@@ -239,6 +240,8 @@ const CATEGORY_PLACEHOLDER_IMAGE: Record<string, string> = {
       <div class="timeline-end-spacer"></div>
     </div>
   </section>
+
+  <BlockRenderer sections={p.sections} objectId="src/content/pages/menu.yaml" />
 
   <section class="customize-section">
     <div class="cz-inner">

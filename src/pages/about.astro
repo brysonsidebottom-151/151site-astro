@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import BlockRenderer from '../components/blocks/BlockRenderer.astro';
 import { getEntry } from 'astro:content';
 
 const aboutEntry = await getEntry('pages', 'about');
@@ -104,6 +105,8 @@ const p = aboutEntry!.data as any;
       <p data-sb-field-path="hero.subheading">{p.hero?.subheading ?? "It's a Good Day to Have a Good Day."}</p>
     </div>
   </section>
+
+  <BlockRenderer sections={p.sections} objectId="src/content/pages/about.yaml" />
 
   <section class="about-intro">
     <div class="container">
