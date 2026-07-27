@@ -493,7 +493,6 @@ export default defineStackbitConfig({
           description: 'Full-width red announcement strip with an optional button.',
           labelField: 'heading',
           fields: [
-            { name: 'type', type: 'string', hidden: true, default: 'PromoBanner' },
             { name: 'eyebrow', type: 'string', label: 'Eyebrow tag (e.g. "Limited Time")' },
             { name: 'heading', type: 'string' },
             { name: 'body', type: 'string' },
@@ -508,7 +507,6 @@ export default defineStackbitConfig({
           description: 'Photo on one side, heading/body/button on the other.',
           labelField: 'heading',
           fields: [
-            { name: 'type', type: 'string', hidden: true, default: 'SplitFeature' },
             { name: 'heading', type: 'string' },
             { name: 'headingSpan', type: 'string', label: 'Heading (red accent line, optional)' },
             { name: 'body', type: 'string' },
@@ -527,7 +525,6 @@ export default defineStackbitConfig({
           description: 'Centered heading/body with up to two buttons on a red background.',
           labelField: 'heading',
           fields: [
-            { name: 'type', type: 'string', hidden: true, default: 'CtaSection' },
             { name: 'heading', type: 'string' },
             { name: 'body', type: 'string' },
             { name: 'primaryLabel', type: 'string', label: 'Primary button text' },
@@ -543,7 +540,6 @@ export default defineStackbitConfig({
           description: 'A grid of quote cards, same style as the homepage reviews.',
           labelField: 'heading',
           fields: [
-            { name: 'type', type: 'string', hidden: true, default: 'TestimonialGrid' },
             { name: 'heading', type: 'string' },
             { name: 'items', type: 'list', label: 'Testimonials', items: { type: 'object', labelField: 'name', fields: [
               { name: 'quote', type: 'string' },
@@ -559,7 +555,6 @@ export default defineStackbitConfig({
           description: 'A row of big numbers with labels on a red background.',
           labelField: 'heading',
           fields: [
-            { name: 'type', type: 'string', hidden: true, default: 'StatStrip' },
             { name: 'heading', type: 'string' },
             { name: 'stats', type: 'list', items: { type: 'object', fields: [
               { name: 'number', type: 'string' },
@@ -574,7 +569,6 @@ export default defineStackbitConfig({
           description: 'A red-background FAQ list, same style as the homepage FAQ.',
           labelField: 'heading',
           fields: [
-            { name: 'type', type: 'string', hidden: true, default: 'FaqAccordion' },
             { name: 'heading', type: 'string' },
             { name: 'items', type: 'list', label: 'Questions', items: { type: 'object', labelField: 'question', fields: [
               { name: 'question', type: 'string' },
@@ -589,7 +583,6 @@ export default defineStackbitConfig({
           description: 'A grid of image/title/link cards, same style as the homepage menu cards.',
           labelField: 'heading',
           fields: [
-            { name: 'type', type: 'string', hidden: true, default: 'CardGrid' },
             { name: 'heading', type: 'string' },
             { name: 'background', type: 'enum', label: 'Background', options: ['light', 'dark'], default: 'dark' },
             { name: 'cards', type: 'list', items: { type: 'object', labelField: 'title', fields: [
