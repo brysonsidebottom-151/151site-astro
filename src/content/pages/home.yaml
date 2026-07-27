@@ -143,11 +143,5 @@ contact:
   phoneLabel: Phone Number
   messageLabel: Message
   submitLabel: Submit
-sections:
-  - type: PromoBannerBlock
-    eyebrow: gdfjdfghg
-    heading: shaetryweytwet
-    body: nbmvbmnvbmnvbnm
-    ctaLabel: XBzbvcxvbxcv
-    ctaHref: zxcvxcvtgertgsedg
+sections: []
 markdown_content: ''
