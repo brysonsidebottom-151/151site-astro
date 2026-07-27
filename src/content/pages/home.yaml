@@ -143,10 +143,5 @@ contact:
   phoneLabel: Phone Number
   messageLabel: Message
   submitLabel: Submit
-sections:
-  - type: CardGridBlock
-    background: dark
-    heading: kgjhfiuyouhvg
-    cards:
-      - {}
+sections: []
 markdown_content: ''
