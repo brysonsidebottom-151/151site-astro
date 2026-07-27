@@ -53,6 +53,7 @@
 .menu-hero-content h1 {
     color: var(--white);
     font-size: clamp(3.5rem, 9vw, 7rem);
+    line-height: 0.95;
     margin-bottom: 0.5rem;
 }
 
@@ -232,6 +233,14 @@
     color: #1a1512;
     line-height: 0.95;
     margin: 0;
+}
+
+/* "Refreshers" and "Smoothies" are single long words with no natural
+   line break, so at the default size they run past the card -- scale
+   them down a notch to fit cleanly. */
+.cat-title-card[data-cat="refreshers"] .cat-title-text,
+.cat-title-card[data-cat="smoothies"] .cat-title-text {
+    font-size: clamp(1.9rem, 3.9vw, 3.3rem);
 }
 
 .cat-title-desc {
@@ -472,10 +481,11 @@
     letter-spacing: 0.03em;
     color: #f5efe8;
     font-weight: 400;
+    line-height: 1.1;
     margin: 0;
 }
 
-.cz-heading h2 span { color: #e63946; }
+.cz-heading h2 span { color: var(--red); }
 
 .cz-flavor-block {
     flex: 1;
@@ -487,7 +497,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: #e63946;
+    color: var(--red);
     margin: 0 0 0.75rem;
 }
 
@@ -523,7 +533,7 @@
 .cz-pills--flavors { gap: 0.4rem; }
 
 .cpill-dot {
-    color: #e63946;
+    color: var(--red);
     font-size: 0.65rem;
     margin: 0 0.28rem;
     vertical-align: middle;
@@ -538,7 +548,7 @@
 /* ─── Merch Page ─── */
 .merch-section {
     padding: 3rem 0 5rem;
-    background-color: #e63946;
+    background-color: var(--red);
     background-image: radial-gradient(rgba(255,255,255,0.18) 2px, transparent 2.5px);
     background-size: 26px 26px;
     position: relative;

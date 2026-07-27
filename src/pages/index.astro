@@ -61,7 +61,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
         <div class="featured-visual">
           <div class="featured-card">
             <div class="drink-img-wrap">
-              <img src={p.featuredDrink?.image ?? '/images/v5/coffee.jpg'} alt={p.featuredDrink?.imageAlt} data-sb-field-path="featuredDrink.image#@src featuredDrink.imageAlt#@alt" />
+              <img src={p.featuredDrink?.image ?? '/images/v5/coffee.jpg'} alt={p.featuredDrink?.imageAlt ?? p.featuredDrink?.name ?? 'Featured drink'} width="480" height="480" decoding="async" data-sb-field-path="featuredDrink.image#@src featuredDrink.imageAlt#@alt" />
             </div>
           </div>
         </div>
@@ -78,7 +78,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
   <!-- Locations -->
   <section class="spaces" id="spaces">
     <div class="container">
-      <div class="section-header"><h1 data-sb-field-path="locationsSection.heading">{p.locationsSection?.heading ?? 'Find Your Location'}</h1></div>
+      <div class="section-header"><h2 data-sb-field-path="locationsSection.heading">{p.locationsSection?.heading ?? 'Find Your Location'}</h2></div>
       <div class="locator">
         <div class="locator__panel">
           <div class="locator__search">
@@ -94,13 +94,16 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
   <!-- Menu Section -->
   <section class="features" id="features">
     <div class="container">
-      <div class="section-header"><h1 data-sb-field-path="menuSection.heading">{p.menuSection?.heading}</h1></div>
+      <div class="section-header"><h2 data-sb-field-path="menuSection.heading">{p.menuSection?.heading}</h2></div>
       <div class="features-grid">
         {(p.menuSection?.cards ?? []).map((card: any, i: number) => (
           <a href={card.href} class="feature-card" data-sb-field-path={`menuSection.cards.${i}`}>
             <div class="feature-card-img" style={`background-image:url('${card.image}')`}></div>
             <div class="card-content">
-              <h3 data-sb-field-path="title">{card.title}<p style={i===1?{color:'var(--red)'}:{}} data-sb-field-path="subtitle">{card.subtitle}</p></h3>
+              <h3 data-sb-field-path="title">
+                {card.title}
+                <span class="feature-card-subtitle" style={i===1?{color:'var(--red)'}:{}} data-sb-field-path="subtitle">{card.subtitle}</span>
+              </h3>
               <span class="menu-btn" data-sb-field-path="label">{card.label}</span>
             </div>
           </a>
@@ -136,7 +139,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
   <!-- Reviews -->
   <section class="pricing" id="pricing">
     <div class="container">
-      <div class="section-header"><h1 data-sb-field-path="reviews.heading">{p.reviews?.heading}</h1></div>
+      <div class="section-header"><h2 data-sb-field-path="reviews.heading">{p.reviews?.heading}</h2></div>
       <div class="pricing-grid">
         {(p.reviews?.items ?? []).map((r: any, i: number) => (
           <div class="pricing-card" data-sb-field-path={`reviews.items.${i}`}>
@@ -172,7 +175,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
   <!-- Contact -->
   <section class="contact" id="contact">
     <div class="container">
-      <div class="section-header"><h1 data-sb-field-path="contact.heading">{p.contact?.heading}</h1></div>
+      <div class="section-header"><h2 data-sb-field-path="contact.heading">{p.contact?.heading}</h2></div>
       <div class="contact-form-wrapper">
         <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="contact" />

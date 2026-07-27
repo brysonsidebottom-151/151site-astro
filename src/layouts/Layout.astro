@@ -56,8 +56,8 @@ const canonicalUrl = canonical ?? new URL(Astro.url.pathname, 'https://www.151co
 </head>
 <body class={bodyClass}>
   <slot />
-  <script src="/js/script.js" is:inline></script>
-  <script src="/js/animations.js" is:inline></script>
-  <script src="/js/cookie-consent.js" is:inline></script>
+  <script src="/js/script.js" is:inline defer></script>
+  <script src="/js/animations.js" is:inline defer></script>
+  <script src="/js/cookie-consent.js" is:inline defer></script>
 </body>
 </html>

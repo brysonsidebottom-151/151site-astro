@@ -12,6 +12,7 @@
     --steel: #2c2c2c;
     --red: #E63946;
     --red-soft: #e36b75;
+    --red-dark: #ad2b35; /* AA-safe red for small/bold text on light backgrounds -- var(--red) alone fails contrast there */
     --light-gray: #888888;
     --mid-gray: #444444;
     --white: #F5F5F5;
@@ -922,13 +923,13 @@ nav.nav-scrolled .nav-container {
 }
 
 .feature-card h3 { color: var(--white); font-size: 1.3rem; margin: 0; }
-.feature-card h3 p { color: var(--red-soft); font-family: 'Inter', sans-serif; font-size: 0.86rem; font-weight: 400; text-transform: none; letter-spacing: normal; margin-top: 0.2rem; }
+.feature-card-subtitle { display: block; color: var(--red-soft); font-family: 'Inter', sans-serif; font-size: 0.86rem; font-weight: 400; text-transform: none; letter-spacing: normal; margin-top: 0.2rem; }
 .feature-card .menu-btn { flex-shrink: 0; padding: 0.6rem 1.1rem; font-size: 0.72rem; }
 
 /* ─── Locations ─── */
 .spaces {
     padding: var(--section-pad);
-    background-color: #e63946;
+    background-color: var(--red);
     background-image: radial-gradient(rgba(255,255,255,0.18) 2px, transparent 2.5px);
     background-size: 26px 26px;
     position: relative;
@@ -948,7 +949,7 @@ nav.nav-scrolled .nav-container {
 
 .spaces .container { position: relative; z-index: 1; }
 
-.spaces .section-header h1 { color: var(--white); }
+.spaces .section-header h2 { color: var(--white); }
 
 .locator {
     display: flex;
@@ -1772,7 +1773,7 @@ footer {
    Locations page
    ────────────────────────────────────────────────────────────── */
 .loc-bg {
-    background-color: #e63946;
+    background-color: var(--red);
     background-image: radial-gradient(rgba(255,255,255,0.18) 2px, transparent 2.5px);
     background-size: 26px 26px;
     position: relative;
@@ -1780,7 +1781,7 @@ footer {
 }
 .loc-hero-content { position: relative; z-index: 1; text-align: center; margin-bottom: 2.5rem; }
 .loc-hero-content h1 { font-size: clamp(2.8rem, 6vw, 4.8rem); color: #fff; line-height: 1; margin-bottom: 0.6rem; }
-.loc-hero-content p { color: rgba(255,255,255,0.80); font-family: 'Inter', sans-serif; font-size: 1.05rem; font-weight: 400; }
+.loc-hero-content p { color: rgba(255,255,255,0.94); font-family: 'Inter', sans-serif; font-size: 1.05rem; font-weight: 400; }
 .loc-count {
     display: inline-block;
     margin-top: 1.5rem;
@@ -1892,6 +1893,9 @@ footer {
     text-decoration: none;
     transition: gap 0.2s ease, color 0.2s ease;
     width: fit-content;
+    /* Expand the tap target to ~44px without shifting surrounding layout */
+    padding: 0.85rem 0;
+    margin: -0.85rem 0;
 }
 .loc-card-cta:hover { gap: 0.6rem; color: #fff; }
 .loc-card-cta--info { color: var(--red-soft); }
@@ -1911,7 +1915,7 @@ footer {
    ────────────────────────────────────────────────────────────── */
 .faq {
     padding: var(--section-pad);
-    background-color: #e63946;
+    background-color: var(--red);
     background-image: radial-gradient(rgba(255,255,255,0.18) 2px, transparent 2.5px);
     background-size: 26px 26px;
     position: relative;

@@ -13,12 +13,12 @@ const p = entry!.data as any;
   ogImage={p.seo?.ogImage ?? 'https://www.151coffee.com/images/store1.jpg'}
 >
   <style is:global slot="head">
-    .re-hero { margin-top: 58px; background-color: #e63946; background-image: radial-gradient(rgba(255,255,255,0.18) 2px, transparent 2.5px); background-size: 26px 26px; position: relative; padding: 6rem 0 5rem; text-align: center; }
+    .re-hero { margin-top: 58px; background-color: var(--red); background-image: radial-gradient(rgba(255,255,255,0.18) 2px, transparent 2.5px); background-size: 26px 26px; position: relative; padding: 6rem 0 5rem; text-align: center; }
     .re-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 60% at 50% 0%, rgba(255,255,255,0.22) 0%, transparent 55%), radial-gradient(120% 60% at 50% 100%, rgba(255,255,255,0.14) 0%, transparent 55%), radial-gradient(60% 100% at 0% 50%, rgba(255,255,255,0.10) 0%, transparent 55%), radial-gradient(60% 100% at 100% 50%, rgba(255,255,255,0.10) 0%, transparent 55%); pointer-events: none; }
     .re-hero-content { position: relative; z-index: 1; }
-    .re-hero .eyebrow { display: inline-block; font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.30); padding: 0.3rem 0.9rem; border-radius: 999px; }
+    .re-hero .eyebrow { display: inline-block; font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.92); margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.30); padding: 0.3rem 0.9rem; border-radius: 999px; }
     .re-hero h1 { font-size: clamp(2.8rem, 6vw, 5rem); color: #fff; line-height: 1; margin-bottom: 0.75rem; }
-    .re-hero p { font-family: 'Inter', sans-serif; font-size: 1.05rem; color: rgba(255,255,255,0.82); max-width: 540px; margin: 0 auto 2rem; line-height: 1.6; }
+    .re-hero p { font-family: 'Inter', sans-serif; font-size: 1.05rem; color: rgba(255,255,255,0.94); max-width: 540px; margin: 0 auto 2rem; line-height: 1.6; }
     .re-hero a.btn-white { display: inline-block; background: #fff; color: var(--red); padding: 0.85rem 2.2rem; border-radius: var(--radius-pill); font-family: 'Inter', sans-serif; font-size: 0.88rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; text-decoration: none; box-shadow: 0 4px 18px rgba(0,0,0,0.18); transition: transform 0.2s, box-shadow 0.2s; }
     .re-hero a.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.25); }
     .re-overview { background: #f4efe9; padding: var(--section-pad); }
@@ -32,7 +32,7 @@ const p = entry!.data as any;
           radial-gradient(120% 100% at 100% 0%, rgba(230,57,70,0.16) 0%, transparent 55%),
           linear-gradient(160deg, #202020 0%, #141414 100%);
       border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 14px;
+      border-radius: var(--radius);
       padding: 1.25rem 1.4rem;
       box-shadow: 0 10px 26px rgba(0,0,0,0.16);
       transition: border-color 0.2s, transform 0.2s;
@@ -50,18 +50,27 @@ const p = entry!.data as any;
       .re-map-grid { grid-template-columns: 1fr 1fr; min-height: 260px; }
     }
     .re-criteria { background: #161616; padding: var(--section-pad); }
-    .re-criteria .section-header h1 { color: #fff; }
+    .re-criteria .section-header h2 { color: #fff; }
     .re-criteria .section-header p { font-family: 'Inter', sans-serif; font-size: 1rem; color: rgba(255,255,255,0.55); margin-top: 0.75rem; max-width: 600px; margin-left: auto; margin-right: auto; }
     .criteria-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
-    .criteria-card { background: linear-gradient(165deg, rgba(28,22,23,0.85) 0%, rgba(18,14,15,0.70) 100%); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 2rem 1.75rem; transition: border-color 0.22s, box-shadow 0.22s; }
-    .criteria-card:hover { border-color: rgba(230,57,70,0.40); box-shadow: 0 8px 32px rgba(230,57,70,0.10); }
+    .criteria-card {
+      background:
+          radial-gradient(120% 100% at 100% 0%, rgba(230,57,70,0.16) 0%, transparent 55%),
+          linear-gradient(160deg, #202020 0%, #141414 100%);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--radius);
+      padding: 2rem 1.75rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+      transition: border-color 0.22s, box-shadow 0.22s, transform 0.22s;
+    }
+    .criteria-card:hover { border-color: rgba(230,57,70,0.40); box-shadow: 0 16px 40px rgba(0,0,0,0.24); transform: translateY(-4px); }
     .criteria-icon { font-size: 2rem; margin-bottom: 1.1rem; display: block; }
     .criteria-card h3 { font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; color: #fff; text-transform: none; letter-spacing: normal; margin-bottom: 0.6rem; }
     .criteria-card p { font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.65; color: rgba(255,255,255,0.52); margin: 0; }
-    .re-ideal { background-color: #e63946; background-image: radial-gradient(rgba(255,255,255,0.18) 2px, transparent 2.5px); background-size: 26px 26px; position: relative; padding: var(--section-pad); }
+    .re-ideal { background-color: var(--red); background-image: radial-gradient(rgba(255,255,255,0.18) 2px, transparent 2.5px); background-size: 26px 26px; position: relative; padding: var(--section-pad); }
     .re-ideal::before { content: ''; position: absolute; inset: 0; background: radial-gradient(120% 60% at 50% 0%, rgba(255,255,255,0.22) 0%, transparent 55%), radial-gradient(120% 60% at 50% 100%, rgba(255,255,255,0.14) 0%, transparent 55%), radial-gradient(60% 100% at 0% 50%, rgba(255,255,255,0.10) 0%, transparent 55%), radial-gradient(60% 100% at 100% 50%, rgba(255,255,255,0.10) 0%, transparent 55%); pointer-events: none; }
     .re-ideal .container { position: relative; z-index: 1; }
-    .re-ideal .section-header h1 { color: #fff; }
+    .re-ideal .section-header h2 { color: #fff; }
     .ideal-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 2.5rem; max-width: 860px; margin-left: auto; margin-right: auto; }
     .ideal-item { display: flex; align-items: flex-start; gap: 1rem; background: rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.18); border-radius: 14px; padding: 1.25rem 1.4rem; backdrop-filter: blur(8px); }
     .ideal-check { flex-shrink: 0; width: 22px; height: 22px; background: rgba(255,255,255,0.22); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-top: 0.1rem; }
@@ -69,17 +78,17 @@ const p = entry!.data as any;
     .ideal-item p { font-family: 'Inter', sans-serif; font-size: 0.9rem; line-height: 1.55; color: rgba(255,255,255,0.88); margin: 0; }
     .re-locations { position: relative; padding: var(--section-pad); background: linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.82)), url('/images/store1.jpg') center / cover no-repeat; }
     .re-locations .container { position: relative; z-index: 1; }
-    .re-locations .section-header h1 { color: #fff; }
+    .re-locations .section-header h2 { color: #fff; }
     .re-locations .section-header p { font-family: 'Inter', sans-serif; font-size: 1rem; color: rgba(255,255,255,0.52); margin-top: 0.75rem; }
     .re-location-tags { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-top: 2.5rem; justify-content: center; }
     .re-location-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10); border-radius: 999px; padding: 0.45rem 1.1rem; font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.70); transition: border-color 0.2s, color 0.2s; }
     .re-location-tag:hover { border-color: var(--red); color: #fff; }
     .re-location-tag.expanding { background: rgba(230,57,70,0.12); border-color: rgba(230,57,70,0.35); color: var(--red); }
     .re-contact { background: #f4efe9; padding: var(--section-pad); }
-    .re-contact .section-header h1 { color: var(--red); }
+    .re-contact .section-header h2 { color: var(--red); }
     .re-contact-inner { max-width: 760px; margin: 3rem auto 0; }
-    .re-contact-or { text-align: center; font-family: 'Inter', sans-serif; font-size: 0.82rem; color: rgba(17,17,17,0.35); margin: 1.5rem 0 0.5rem; }
-    .re-contact-email { display: block; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--red); text-decoration: none; transition: opacity 0.2s; }
+    .re-contact-or { text-align: center; font-family: 'Inter', sans-serif; font-size: 0.82rem; color: rgba(17,17,17,0.55); margin: 1.5rem 0 0.5rem; }
+    .re-contact-email { display: block; text-align: center; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--red-dark); text-decoration: none; transition: opacity 0.2s; }
     .re-contact-email:hover { opacity: 0.8; }
     @media (max-width: 900px) {
       .re-overview-inner { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -151,7 +160,7 @@ const p = entry!.data as any;
   <section class="re-criteria" id="criteria">
     <div class="container">
       <div class="section-header">
-        <h1 data-sb-field-path="criteria.heading">{p.criteria?.heading ?? 'Property Site Criteria'}</h1>
+        <h2 data-sb-field-path="criteria.heading">{p.criteria?.heading ?? 'Property Site Criteria'}</h2>
         <p data-sb-field-path="criteria.subheading">{p.criteria?.subheading ?? 'We need a minimum of 25-30k sq ft of usable land for our prototype 950 sq ft building plus 800 sq ft of covered exterior seating.'}</p>
       </div>
       <div class="criteria-grid">
@@ -176,7 +185,7 @@ const p = entry!.data as any;
   <section class="re-ideal">
     <div class="container">
       <div class="section-header">
-        <h1 data-sb-field-path="idealSite.heading">{p.idealSite?.heading ?? 'Our Ideal Drive-Thru Site'}</h1>
+        <h2 data-sb-field-path="idealSite.heading">{p.idealSite?.heading ?? 'Our Ideal Drive-Thru Site'}</h2>
       </div>
       <div class="ideal-list">
         {(p.idealSite?.items ?? [
@@ -199,7 +208,7 @@ const p = entry!.data as any;
   <section class="re-locations">
     <div class="container">
       <div class="section-header">
-        <h1 data-sb-field-path="markets.heading">{p.markets?.heading ?? 'Current & Target Markets'}</h1>
+        <h2 data-sb-field-path="markets.heading">{p.markets?.heading ?? 'Current & Target Markets'}</h2>
         <p data-sb-field-path="markets.subheading">{p.markets?.subheading ?? 'Open in DFW and Kansas City. Actively expanding to new metros.'}</p>
       </div>
       <div class="re-location-tags">
@@ -218,7 +227,7 @@ const p = entry!.data as any;
   <section class="re-contact" id="contact">
     <div class="container">
       <div class="section-header">
-        <h1 data-sb-field-path="contact.heading">{p.contact?.heading ?? 'For More Information'}</h1>
+        <h2 data-sb-field-path="contact.heading">{p.contact?.heading ?? 'For More Information'}</h2>
       </div>
       <div class="re-contact-inner">
         <div class="contact-form-wrapper">

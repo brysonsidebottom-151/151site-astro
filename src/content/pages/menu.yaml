@@ -22,6 +22,7 @@ drinkPage:
   backLabel: "Back to Menu"
   flavorNotesLabel: "Flavor Notes"
   viewMenuLabel: "View Full Menu"
+  customizeHeading: "Customize Your Drink"
   flavorsHeading: "Flavors"
   sugarFreeHeading: "Sugar Free"
 
