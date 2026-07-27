@@ -145,6 +145,6 @@ contact:
   submitLabel: Submit
 sections:
   - type: CardGridBlock
-    background: light
+    background: dark
     heading: kgjhfiuyouhvg
 markdown_content: ''
