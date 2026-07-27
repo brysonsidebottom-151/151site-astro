@@ -144,5 +144,6 @@ contact:
   messageLabel: Message
   submitLabel: Submit
 sections:
+  - type: TestimonialGrid
   - type: PromoBanner
 markdown_content: ''
