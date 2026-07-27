@@ -14,6 +14,12 @@ hero:
     fits our criteria, we want to hear from you.
   ctaLabel: Get in Touch
   ctaHref: '#contact'
+visibility:
+  overview: true
+  criteria: true
+  idealSite: true
+  markets: true
+  contact: true
 overview:
   heading: A Brand Built for
   headingSpan: Fast Growth.

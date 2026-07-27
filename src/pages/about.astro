@@ -108,6 +108,7 @@ const p = aboutEntry!.data as any;
 
   <BlockRenderer sections={p.sections} objectId="src/content/pages/about.yaml" />
 
+  {(p.visibility?.intro ?? true) && (
   <section class="about-intro">
     <div class="container">
       <div class="about-intro-inner">
@@ -131,7 +132,9 @@ const p = aboutEntry!.data as any;
       </div>
     </div>
   </section>
+  )}
 
+  {(p.visibility?.stats ?? true) && (
   <section class="about-stats">
     <div class="container">
       <div class="stats-grid">
@@ -149,7 +152,9 @@ const p = aboutEntry!.data as any;
       </div>
     </div>
   </section>
+  )}
 
+  {(p.visibility?.history ?? true) && (
   <section class="about-history">
     <div class="container">
       <div class="section-header">
@@ -179,7 +184,9 @@ const p = aboutEntry!.data as any;
       </div>
     </div>
   </section>
+  )}
 
+  {(p.visibility?.founder ?? true) && (
   <section class="about-founder">
     <div class="founder-hero-img">
       <img loading="lazy" decoding="async"
@@ -217,7 +224,9 @@ const p = aboutEntry!.data as any;
     </div>
     </div>
   </section>
+  )}
 
+  {(p.visibility?.cta ?? true) && (
   <section class="about-cta">
     <div class="container">
       <h2 data-sb-field-path="cta.heading">{p.cta?.heading ?? 'Interested in Joining the 151 Team?'}</h2>
@@ -228,6 +237,7 @@ const p = aboutEntry!.data as any;
       </div>
     </div>
   </section>
+  )}
 
   <Footer />
 </Layout>

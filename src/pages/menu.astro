@@ -186,6 +186,7 @@ const CATEGORY_PLACEHOLDER_IMAGE: Record<string, string> = {
     </div>
   </div>
 
+  {(p.visibility?.timeline ?? true) && (
   <section class="timeline-wrap">
     <div class="timeline-scroll" id="timelineScroll">
       {CATEGORIES.map((cat: any, catIndex: number) => {
@@ -240,9 +241,11 @@ const CATEGORY_PLACEHOLDER_IMAGE: Record<string, string> = {
       <div class="timeline-end-spacer"></div>
     </div>
   </section>
+  )}
 
   <BlockRenderer sections={p.sections} objectId="src/content/pages/menu.yaml" />
 
+  {(p.visibility?.customize ?? true) && (
   <section class="customize-section">
     <div class="cz-inner">
       <div class="cz-row">
@@ -261,6 +264,7 @@ const CATEGORY_PLACEHOLDER_IMAGE: Record<string, string> = {
       </div>
     </div>
   </section>
+  )}
 
   <Footer />
 

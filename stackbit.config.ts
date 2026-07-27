@@ -49,6 +49,14 @@ export default defineStackbitConfig({
           urlPath: '/',
           fields: [
             seoField,
+            { name: 'visibility', type: 'object', label: 'Section visibility', description: 'Turn sections on/off without deleting their content.', fields: [
+              { name: 'locations', type: 'boolean', label: 'Show Locations section', default: true },
+              { name: 'menuGrid', type: 'boolean', label: 'Show Menu section', default: true },
+              { name: 'cta', type: 'boolean', label: 'Show CTA (hiring) section', default: true },
+              { name: 'reviews', type: 'boolean', label: 'Show Reviews section', default: true },
+              { name: 'faq', type: 'boolean', label: 'Show FAQ section', default: true },
+              { name: 'contact', type: 'boolean', label: 'Show Contact section', default: true },
+            ]},
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheadingLine1', type: 'string' },
@@ -143,6 +151,10 @@ export default defineStackbitConfig({
           urlPath: '/menu',
           fields: [
             seoField,
+            { name: 'visibility', type: 'object', label: 'Section visibility', description: 'Turn sections on/off without deleting their content.', fields: [
+              { name: 'timeline', type: 'boolean', label: 'Show the drink timeline', default: true },
+              { name: 'customize', type: 'boolean', label: 'Show "Sort by Flavor" section', default: true },
+            ]},
             { name: 'heroVideo', type: 'string', label: 'Hero background video', description: 'Paste a YouTube or Vimeo link, or a direct .mp4 file URL. Leave blank for the default video.' },
             { name: 'heroMobileImage', type: 'image', label: 'Hero photo (mobile only)', description: 'On phones the hero shows a still photo instead of the video, to keep things fast and simple. Leave blank for the default photo.' },
             { name: 'hero', type: 'object', fields: [
@@ -184,6 +196,13 @@ export default defineStackbitConfig({
           urlPath: '/about',
           fields: [
             seoField,
+            { name: 'visibility', type: 'object', label: 'Section visibility', description: 'Turn sections on/off without deleting their content.', fields: [
+              { name: 'intro', type: 'boolean', label: 'Show Intro section', default: true },
+              { name: 'stats', type: 'boolean', label: 'Show Stats section', default: true },
+              { name: 'history', type: 'boolean', label: 'Show History section', default: true },
+              { name: 'founder', type: 'boolean', label: 'Show Founder section', default: true },
+              { name: 'cta', type: 'boolean', label: 'Show CTA section', default: true },
+            ]},
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
@@ -267,6 +286,9 @@ export default defineStackbitConfig({
           urlPath: '/merch',
           fields: [
             seoField,
+            { name: 'visibility', type: 'object', label: 'Section visibility', description: 'Turn sections on/off without deleting their content.', fields: [
+              { name: 'products', type: 'boolean', label: 'Show product grid', default: true },
+            ]},
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },
               { name: 'subheading', type: 'string' },
@@ -286,6 +308,13 @@ export default defineStackbitConfig({
           urlPath: '/realestate',
           fields: [
             seoField,
+            { name: 'visibility', type: 'object', label: 'Section visibility', description: 'Turn sections on/off without deleting their content.', fields: [
+              { name: 'overview', type: 'boolean', label: 'Show Overview section', default: true },
+              { name: 'criteria', type: 'boolean', label: 'Show Criteria section', default: true },
+              { name: 'idealSite', type: 'boolean', label: 'Show Ideal Site section', default: true },
+              { name: 'markets', type: 'boolean', label: 'Show Markets section', default: true },
+              { name: 'contact', type: 'boolean', label: 'Show Contact section', default: true },
+            ]},
             { name: 'hero', type: 'object', fields: [
               { name: 'eyebrow', type: 'string' },
               { name: 'heading', type: 'string' },
@@ -349,6 +378,10 @@ export default defineStackbitConfig({
           urlPath: '/locations',
           fields: [
             seoField,
+            { name: 'visibility', type: 'object', label: 'Section visibility', description: 'Turn sections on/off without deleting their content.', fields: [
+              { name: 'map', type: 'boolean', label: 'Show search/map section', default: true },
+              { name: 'grid', type: 'boolean', label: 'Show location cards grid', default: true },
+            ]},
             { name: 'heroVideo', type: 'string', label: 'Hero background video', description: 'Paste a YouTube or Vimeo link, or a direct .mp4 file URL. Leave blank for the default video.' },
             { name: 'hero', type: 'object', fields: [
               { name: 'heading', type: 'string' },

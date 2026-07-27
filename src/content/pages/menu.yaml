@@ -5,6 +5,9 @@ seo:
   ogImage: "https://www.151coffee.com/images/splash1.jpg"
 heroVideo: "/videos/menu_bg.mp4"
 heroMobileImage: "/images/menu-hero-mobile-drinks.jpg"
+visibility:
+  timeline: true
+  customize: true
 hero:
   heading: "Our Menu"
   subheading: "Thousands of flavor combinations. One perfect drink, every time."

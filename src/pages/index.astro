@@ -80,6 +80,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
   )}
 
   <!-- Locations -->
+  {(p.visibility?.locations ?? true) && (
   <section class="spaces" id="spaces">
     <div class="container">
       <div class="section-header"><h2 data-sb-field-path="locationsSection.heading">{p.locationsSection?.heading ?? 'Find Your Location'}</h2></div>
@@ -94,8 +95,10 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
       </div>
     </div>
   </section>
+  )}
 
   <!-- Menu Section -->
+  {(p.visibility?.menuGrid ?? true) && (
   <section class="features" id="features">
     <div class="container">
       <div class="section-header"><h2 data-sb-field-path="menuSection.heading">{p.menuSection?.heading}</h2></div>
@@ -115,8 +118,10 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
       </div>
     </div>
   </section>
+  )}
 
   <!-- CTA -->
+  {(p.visibility?.cta ?? true) && (
   <section class="cta">
     <div class="container">
       <div class="cta-inner">
@@ -139,8 +144,10 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
       </div>
     </div>
   </section>
+  )}
 
   <!-- Reviews -->
+  {(p.visibility?.reviews ?? true) && (
   <section class="pricing" id="pricing">
     <div class="container">
       <div class="section-header"><h2 data-sb-field-path="reviews.heading">{p.reviews?.heading}</h2></div>
@@ -160,8 +167,10 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
       </div>
     </div>
   </section>
+  )}
 
   <!-- FAQ -->
+  {(p.visibility?.faq ?? true) && (
   <section class="faq" id="faq">
     <div class="container">
       <div class="section-header"><h2 data-sb-field-path="faqs.heading">{p.faqs?.heading}</h2></div>
@@ -175,8 +184,10 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
       </div>
     </div>
   </section>
+  )}
 
   <!-- Contact -->
+  {(p.visibility?.contact ?? true) && (
   <section class="contact" id="contact">
     <div class="container">
       <div class="section-header"><h2 data-sb-field-path="contact.heading">{p.contact?.heading}</h2></div>
@@ -202,6 +213,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
       </div>
     </div>
   </section>
+  )}
 
   <BlockRenderer sections={p.sections} objectId="src/content/pages/home.yaml" />
 

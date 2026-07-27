@@ -115,6 +115,7 @@ const p = entry!.data as any;
 
   <BlockRenderer sections={p.sections} objectId="src/content/pages/realestate.yaml" />
 
+  {(p.visibility?.overview ?? true) && (
   <section class="re-overview">
     <div class="container">
       <div class="re-overview-inner">
@@ -159,7 +160,9 @@ const p = entry!.data as any;
       </div>
     </div>
   </section>
+  )}
 
+  {(p.visibility?.criteria ?? true) && (
   <section class="re-criteria" id="criteria">
     <div class="container">
       <div class="section-header">
@@ -184,7 +187,9 @@ const p = entry!.data as any;
       </div>
     </div>
   </section>
+  )}
 
+  {(p.visibility?.idealSite ?? true) && (
   <section class="re-ideal">
     <div class="container">
       <div class="section-header">
@@ -207,7 +212,9 @@ const p = entry!.data as any;
       </div>
     </div>
   </section>
+  )}
 
+  {(p.visibility?.markets ?? true) && (
   <section class="re-locations">
     <div class="container">
       <div class="section-header">
@@ -226,7 +233,9 @@ const p = entry!.data as any;
       </div>
     </div>
   </section>
+  )}
 
+  {(p.visibility?.contact ?? true) && (
   <section class="re-contact" id="contact">
     <div class="container">
       <div class="section-header">
@@ -249,6 +258,7 @@ const p = entry!.data as any;
       </div>
     </div>
   </section>
+  )}
 
   <Footer />
 </Layout>

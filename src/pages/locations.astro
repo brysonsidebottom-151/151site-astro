@@ -47,6 +47,7 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
 
   <BlockRenderer sections={p.sections} objectId="src/content/pages/locations.yaml" />
 
+  {(p.visibility?.map ?? true) && (
   <div class="loc-bg">
     <section class="loc-map-section">
       <div class="container">
@@ -67,7 +68,9 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
       </div>
     </section>
   </div>
+  )}
 
+  {(p.visibility?.grid ?? true) && (
   <section class="loc-grid-section">
       <div class="container">
         {Object.entries(byState).map(([stateCode, locs]) => (
@@ -127,6 +130,7 @@ const STATE_NAMES: Record<string, string> = Object.fromEntries(
         ))}
       </div>
     </section>
+  )}
 
   <Footer />
 

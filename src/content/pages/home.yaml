@@ -13,6 +13,13 @@ hero:
   ctaLabel: See Our Menu
   ctaHref: /menu
   videoUrl: /videos/menu_bg.mp4
+visibility:
+  locations: true
+  menuGrid: true
+  cta: true
+  reviews: true
+  faq: true
+  contact: true
 featuredDrink:
   visible: true
   badge: Summer's Featured Drink

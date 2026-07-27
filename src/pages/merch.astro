@@ -22,6 +22,7 @@ const categories = ['All', ...Array.from(new Set((p.items ?? []).map((i: any) =>
     </div>
   </section>
 
+  {(p.visibility?.products ?? true) && (
   <section class="merch-section">
     <div class="container">
       <div class="merch-filters">
@@ -47,6 +48,7 @@ const categories = ['All', ...Array.from(new Set((p.items ?? []).map((i: any) =>
       </div>
     </div>
   </section>
+  )}
 
   <Footer />
 
