@@ -138,7 +138,7 @@ const CATEGORY_PLACEHOLDER_IMAGE: Record<string, string> = {
 
   <Nav active="menu" />
 
-  <section class="menu-hero">
+  <section class="menu-hero" data-sb-object-id="src/content/pages/menu.yaml">
     <HeroVideo src={p.heroVideo} videoClass="hero-bg" mobileImage={p.heroMobileImage ?? '/images/splash1.jpg'} />
     <div class="menu-hero-content">
       <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Our Menu'}</h1>
@@ -161,7 +161,7 @@ const CATEGORY_PLACEHOLDER_IMAGE: Record<string, string> = {
     </div>
   </section>
 
-  <div id="locationModal" class="modal">
+  <div id="locationModal" class="modal" data-sb-object-id="src/content/pages/menu.yaml">
     <div class="modal-content loc-modal-content">
       <button type="button" class="modal-close" id="closeLocationModal" aria-label="Close">&times;</button>
       <div class="loc-modal-inner">
@@ -187,7 +187,7 @@ const CATEGORY_PLACEHOLDER_IMAGE: Record<string, string> = {
   </div>
 
   {(p.visibility?.timeline ?? true) && (
-  <section class="timeline-wrap">
+  <section class="timeline-wrap" data-sb-object-id="src/content/pages/menu.yaml">
     <div class="timeline-scroll" id="timelineScroll">
       {CATEGORIES.map((cat: any, catIndex: number) => {
         const drinks = allDrinks.filter((d: any) => catSlug(d) === cat.tab);
@@ -246,7 +246,7 @@ const CATEGORY_PLACEHOLDER_IMAGE: Record<string, string> = {
   <BlockRenderer sections={p.sections} objectId="src/content/pages/menu.yaml" />
 
   {(p.visibility?.customize ?? true) && (
-  <section class="customize-section">
+  <section class="customize-section" data-sb-object-id="src/content/pages/menu.yaml">
     <div class="cz-inner">
       <div class="cz-row">
         <div class="cz-heading">

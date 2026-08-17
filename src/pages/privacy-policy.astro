@@ -11,7 +11,7 @@ const sections: any[] = p.sections ?? [];
 <Layout title={p.seo?.title ?? 'Privacy Policy | 151 Coffee'} description={p.seo?.description ?? '151 Coffee privacy policy - how we collect, use, and protect your information.'} ogImage={p.seo?.ogImage}>
   <Nav />
 
-  <section class="page-hero" style="min-height:30vh;">
+  <section class="page-hero" style="min-height:30vh;" data-sb-object-id="src/content/pages/privacy.yaml">
     <div class="page-hero-overlay"></div>
     <div class="container">
       <div class="page-hero-content">
@@ -21,7 +21,7 @@ const sections: any[] = p.sections ?? [];
     </div>
   </section>
 
-  <section class="legal-content">
+  <section class="legal-content" data-sb-object-id="src/content/pages/privacy.yaml">
     <div class="container" style="max-width:800px;padding:4rem 1rem;">
       {sections.map((sec: any, i: number) => (
         <div data-sb-field-path={`sections.${i}`}>

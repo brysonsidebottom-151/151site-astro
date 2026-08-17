@@ -41,7 +41,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
   <Nav />
 
   <!-- Hero -->
-  <section class="hero">
+  <section class="hero" data-sb-object-id="src/content/pages/home.yaml">
     <div>
       <HeroVideo src={p.hero?.videoUrl} videoClass="hero-video" />
     </div>
@@ -81,7 +81,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
 
   <!-- Locations -->
   {(p.visibility?.locations ?? true) && (
-  <section class="spaces" id="spaces">
+  <section class="spaces" id="spaces" data-sb-object-id="src/content/pages/home.yaml">
     <div class="container">
       <div class="section-header"><h2 data-sb-field-path="locationsSection.heading">{p.locationsSection?.heading ?? 'Find Your Location'}</h2></div>
       <div class="locator">
@@ -99,7 +99,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
 
   <!-- Menu Section -->
   {(p.visibility?.menuGrid ?? true) && (
-  <section class="features" id="features">
+  <section class="features" id="features" data-sb-object-id="src/content/pages/home.yaml">
     <div class="container">
       <div class="section-header"><h2 data-sb-field-path="menuSection.heading">{p.menuSection?.heading}</h2></div>
       <div class="features-grid">
@@ -122,7 +122,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
 
   <!-- CTA -->
   {(p.visibility?.cta ?? true) && (
-  <section class="cta">
+  <section class="cta" data-sb-object-id="src/content/pages/home.yaml">
     <div class="container">
       <div class="cta-inner">
         <div class="cta-content">
@@ -148,7 +148,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
 
   <!-- Reviews -->
   {(p.visibility?.reviews ?? true) && (
-  <section class="pricing" id="pricing">
+  <section class="pricing" id="pricing" data-sb-object-id="src/content/pages/home.yaml">
     <div class="container">
       <div class="section-header"><h2 data-sb-field-path="reviews.heading">{p.reviews?.heading}</h2></div>
       <div class="pricing-grid">
@@ -171,7 +171,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
 
   <!-- FAQ -->
   {(p.visibility?.faq ?? true) && (
-  <section class="faq" id="faq">
+  <section class="faq" id="faq" data-sb-object-id="src/content/pages/home.yaml">
     <div class="container">
       <div class="section-header"><h2 data-sb-field-path="faqs.heading">{p.faqs?.heading}</h2></div>
       <div class="faq-list">
@@ -188,7 +188,7 @@ const storesJson = JSON.stringify(locations.map((l: any) => ({
 
   <!-- Contact -->
   {(p.visibility?.contact ?? true) && (
-  <section class="contact" id="contact">
+  <section class="contact" id="contact" data-sb-object-id="src/content/pages/home.yaml">
     <div class="container">
       <div class="section-header"><h2 data-sb-field-path="contact.heading">{p.contact?.heading}</h2></div>
       <div class="contact-form-wrapper">

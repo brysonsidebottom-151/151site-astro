@@ -160,7 +160,7 @@ const p = entry!.data as any;
   <Nav active="careers" />
 
   <!-- Age gate -->
-  <div class="age-gate-page" id="ageGatePage">
+  <div class="age-gate-page" id="ageGatePage" data-sb-object-id="src/content/pages/careers.yaml">
     <HeroVideo src={p.heroVideo} videoClass="age-bg-video" />
     <div class="age-overlay"></div>
     <div class="age-gate">
@@ -187,7 +187,7 @@ const p = entry!.data as any;
   <div id="careersContent" style="display:none;">
     <BlockRenderer sections={p.sections} objectId="src/content/pages/careers.yaml" />
 
-    <section class="careers-hero">
+    <section class="careers-hero" data-sb-object-id="src/content/pages/careers.yaml">
       <HeroVideo src={p.heroVideo} videoClass="hero-bg" />
       <div class="careers-hero-content">
         <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'Join the 151 Team'}</h1>

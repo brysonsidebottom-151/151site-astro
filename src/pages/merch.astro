@@ -12,7 +12,7 @@ const categories = ['All', ...Array.from(new Set((p.items ?? []).map((i: any) =>
 <Layout title={p.seo?.title ?? '151 Coffee Merch | Rep Your Favorite Coffee'} description={p.seo?.description} ogImage={p.seo?.ogImage}>
   <Nav />
 
-  <section class="page-hero">
+  <section class="page-hero" data-sb-object-id="src/content/pages/merch.yaml">
     <div class="page-hero-overlay"></div>
     <div class="container">
       <div class="page-hero-content">
@@ -23,7 +23,7 @@ const categories = ['All', ...Array.from(new Set((p.items ?? []).map((i: any) =>
   </section>
 
   {(p.visibility?.products ?? true) && (
-  <section class="merch-section">
+  <section class="merch-section" data-sb-object-id="src/content/pages/merch.yaml">
     <div class="container">
       <div class="merch-filters">
         {categories.map(cat => (

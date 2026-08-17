@@ -65,7 +65,7 @@ const ogImage = drink.image
   </section>
 
   <!-- Drink info: photo + one unified detail card -->
-  <section class="dk-info">
+  <section class="dk-info" data-sb-object-id={`src/content/drinks/${slug}.yaml`}>
     <div class="dk-body-inner">
       <div class="dk-img-col">
         <div class="dk-photo-frame">
@@ -101,7 +101,7 @@ const ogImage = drink.image
 
           <h3 class="dk-customize-heading" data-sb-object-id="src/content/pages/menu.yaml" data-sb-field-path="drinkPage.customizeHeading">{m.drinkPage?.customizeHeading ?? 'Customize Your Drink'}</h3>
           <div class="dk-customize-rows">
-            <div class="dk-customize-row">
+            <div class="dk-customize-row" data-sb-object-id="src/content/pages/menu.yaml">
               <h4 data-sb-field-path="drinkPage.flavorsHeading">{m.drinkPage?.flavorsHeading ?? 'Flavors'}</h4>
               <div class="dk-customize-tags" data-sb-field-path="customize.flavors">
                 {(m.customize?.flavors ?? []).map((f: string, i: number) => (
@@ -109,7 +109,7 @@ const ogImage = drink.image
                 ))}
               </div>
             </div>
-            <div class="dk-customize-row">
+            <div class="dk-customize-row" data-sb-object-id="src/content/pages/menu.yaml">
               <h4 data-sb-field-path="drinkPage.sugarFreeHeading">{m.drinkPage?.sugarFreeHeading ?? 'Sugar Free'}</h4>
               <div class="dk-customize-tags" data-sb-field-path="customize.sfFlavors">
                 {(m.customize?.sfFlavors ?? []).map((f: string, i: number) => (

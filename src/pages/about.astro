@@ -99,7 +99,7 @@ const p = aboutEntry!.data as any;
 
   <Nav active="about" />
 
-  <section class="about-hero">
+  <section class="about-hero" data-sb-object-id="src/content/pages/about.yaml">
     <div class="about-hero-content container">
       <h1 data-sb-field-path="hero.heading">{p.hero?.heading ?? 'About 151 Coffee'}</h1>
       <p data-sb-field-path="hero.subheading">{p.hero?.subheading ?? "It's a Good Day to Have a Good Day."}</p>
@@ -109,7 +109,7 @@ const p = aboutEntry!.data as any;
   <BlockRenderer sections={p.sections} objectId="src/content/pages/about.yaml" />
 
   {(p.visibility?.intro ?? true) && (
-  <section class="about-intro">
+  <section class="about-intro" data-sb-object-id="src/content/pages/about.yaml">
     <div class="container">
       <div class="about-intro-inner">
         <div class="about-intro-text">
@@ -135,7 +135,7 @@ const p = aboutEntry!.data as any;
   )}
 
   {(p.visibility?.stats ?? true) && (
-  <section class="about-stats">
+  <section class="about-stats" data-sb-object-id="src/content/pages/about.yaml">
     <div class="container">
       <div class="stats-grid">
         {(p.stats ?? [
@@ -155,7 +155,7 @@ const p = aboutEntry!.data as any;
   )}
 
   {(p.visibility?.history ?? true) && (
-  <section class="about-history">
+  <section class="about-history" data-sb-object-id="src/content/pages/about.yaml">
     <div class="container">
       <div class="section-header">
         <h2 data-sb-field-path="history.heading">{p.history?.heading ?? 'History of 151 Coffee'}</h2>
@@ -187,7 +187,7 @@ const p = aboutEntry!.data as any;
   )}
 
   {(p.visibility?.founder ?? true) && (
-  <section class="about-founder">
+  <section class="about-founder" data-sb-object-id="src/content/pages/about.yaml">
     <div class="founder-hero-img">
       <img loading="lazy" decoding="async"
         src={p.founder?.image ?? 'https://static.wixstatic.com/media/f82c08_7c5d93e4326449d3a489c3d11538de1b~mv2.jpg/v1/fill/w_800,h_1000,al_c,q_85,usm_0.66_1.00_0.01/RightCallout.jpg'}
@@ -227,7 +227,7 @@ const p = aboutEntry!.data as any;
   )}
 
   {(p.visibility?.cta ?? true) && (
-  <section class="about-cta">
+  <section class="about-cta" data-sb-object-id="src/content/pages/about.yaml">
     <div class="container">
       <h2 data-sb-field-path="cta.heading">{p.cta?.heading ?? 'Interested in Joining the 151 Team?'}</h2>
       <p data-sb-field-path="cta.body">{p.cta?.body ?? '151 Coffee is not your typical coffee shop - fun and happiness drive our culture. Come be part of something good.'}</p>
