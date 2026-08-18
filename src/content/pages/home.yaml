@@ -22,6 +22,7 @@ visibility:
   contact: true
 featuredDrink:
   visible: true
+  image: /images/August 2026 Social.png
 menuSection:
   heading: Check Out Our Menu
   cards:
