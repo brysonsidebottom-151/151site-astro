@@ -33,6 +33,7 @@ featuredDrink:
     Tiger's Blood, Starry Night, Ocean Water & Jolly Rancher flavored energy
     drinks.
   ctaLabel: Browse our menu
+  ctaHref: /menu
 menuSection:
   heading: Check Out Our Menu
   cards:
