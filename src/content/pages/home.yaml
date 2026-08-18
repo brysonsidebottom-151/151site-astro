@@ -29,6 +29,9 @@ featuredDrink:
   description: >-
     Our all-new Clarity energy base is light, cool and refreshing. Made with
     Cognisine, you've never felt this focused.
+  imageAlt: >-
+    Tiger's Blood, Starry Night, Ocean Water & Jolly Rancher flavored energy
+    drinks.
 menuSection:
   heading: Check Out Our Menu
   cards:
