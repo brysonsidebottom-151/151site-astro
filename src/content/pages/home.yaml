@@ -22,17 +22,6 @@ visibility:
   contact: true
 featuredDrink:
   visible: true
-  badge: Summer's Featured Drink
-  name: Dot Cake
-  nameBold: Latte
-  description: >-
-    A celebration in every sip. Our Dot Cake Latte layers rich espresso with
-    sweet, festive flavors that taste just like the real thing. Limited time -
-    treat yourself.
-  image: /images/dot-cake-latte.webp
-  imageAlt: Dot Cake Latte
-  ctaLabel: Explore the Menu
-  ctaHref: /menu
 menuSection:
   heading: Check Out Our Menu
   cards:
