@@ -26,6 +26,9 @@ featuredDrink:
   badge: Cognisine & Caffeine
   name: Try Our New
   nameBold: Clarity Energy
+  description: >-
+    Our all-new Clarity energy base is light, cool and refreshing. Made with
+    Cognisine, you've never felt this focused.
 menuSection:
   heading: Check Out Our Menu
   cards:
