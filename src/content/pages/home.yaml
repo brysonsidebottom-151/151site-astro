@@ -23,7 +23,7 @@ visibility:
 featuredDrink:
   visible: true
   image: /images/August 2026 Social.png
-  badge: Cognisine % Caffeine
+  badge: Cognisine && Caffeine
   name: Our New Clarity Energy
   nameBold: Clarity Energy
 menuSection:
