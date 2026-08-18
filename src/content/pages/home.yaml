@@ -23,6 +23,7 @@ visibility:
 featuredDrink:
   visible: true
   image: /images/August 2026 Social.png
+  badge: Cognisine % Caffeine
 menuSection:
   heading: Check Out Our Menu
   cards:
